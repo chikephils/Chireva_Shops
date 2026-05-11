@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Withdrawal Request Received - Chireva</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #f4f4f9;
+        color: #333;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 640px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+      .header {
+        background: #069e03;
+        color: white;
+        padding: 20px 16px 16px;
+        text-align: center;
+      }
+      .header img {
+        max-width: 144px;
+        max-height: 60px;
+        height: auto;
+        margin-bottom: 12px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .content {
+        padding: 32px 24px;
+      }
+      h1 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: white;
+      }
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #4b5563;
+      }
+      .highlight {
+        background: #ecfdf5;
+        border-left: 4px solid #10b981;
+        padding: 16px;
+        margin: 24px 0;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+      .info {
+        margin: 24px 0;
+        font-size: 15px;
+      }
+      .info strong {
+        color: #111827;
+      }
+      .button {
+        display: inline-block;
+        background: #10b981;
+        color: white !important;
+        font-weight: 600;
+        padding: 14px 32px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin: 24px 0;
+      }
+      .button:hover {
+        background: #059669;
+      }
+      .footer {
+        background: #f9fafb;
+        padding: 18px;
+        text-align: center;
+        font-size: 12px;
+        color: #6b7280;
+        border-top: 1px solid #e5e7eb;
+      }
+      @media (max-width: 600px) {
+        .container {
+          margin: 10px;
+          border-radius: 8px;
+        }
+        .content {
+          padding: 24px 16px;
+        }
+        h1 {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div style="padding: 16px">
+          <img
+            src="https://dl.dropboxusercontent.com/scl/fi/zwtfeavcnh1nd95l57dxk/logoRounded.png?rlkey=e44brr2nnd58jog4pyxcspva8"
+            alt="Chireva Logo"
+            width="144"
+            style="display: block; margin: 0 auto 12px"
+          />
+          <h1>Withdrawal Request Received</h1>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="content">
+        <p>Hello <strong>%SHOPNAME%</strong>,</p>
+
+        <p>
+          Thank you for requesting a withdrawal. Your request has been received
+          and is now <strong>pending review</strong>.
+        </p>
+
+        <div class="highlight">
+          <strong>Amount:</strong> ₦%AMOUNT%<br />
+          <strong>Bank:</strong> %BANKNAME%<br />
+          <strong>Account Number:</strong> %ACCOUNTNUMBER%
+        </div>
+
+        <p>
+          Our team will review and process it shortly. Withdrawals are usually
+          completed within <strong>1-2 business days</strong>, depending on your
+          bank’s processing time.
+        </p>
+
+        <p style="color: #dc2626; font-weight: 500">
+          <strong>Important:</strong> If there is an active refund request or
+          dispute on your shop, the withdrawal may be put on hold until
+          resolved.
+        </p>
+
+        <a href="https://chireva-shops.vercel.app/" class="button">
+          View Your Dashboard
+        </a>
+
+        <p>
+          Thank you for trusting Chireva!<br />We’re here to support your
+          business growth.
+        </p>
+
+        <p>Best regards,<br /><strong>The Chireva Team</strong></p>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Chireva Shops &copy; 2026</p>
+        <p>
+          If you didn’t request this withdrawal, please contact support
+          immediately.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+export { default as CreateShopPage } from "../../pages/Shop/CreateShopPage.jsx";
+export { default as SellerActivationPage } from "../../pages/Shop/SellerActivationPage";
+export { default as ShopLoginPage } from "../../pages/Shop/ShopLoginPage";
+export { default as ShopForgotPasswordPage } from "../../pages/Shop/ShopForgotPasswordPage";
+export { default as ShopPasswordResetPage } from "../../pages/Shop/ShopPasswordResetPage";
+export { default as ShopDashboardPage } from "../../pages/Shop/ShopDashboardPage";
+export { default as ShopHomePage } from "../../pages/Shop/ShopHomePage.jsx";
+export { default as ShopCreateProduct } from "../../pages/Shop/ShopCreateProduct";
+export { default as ShopAllProducts } from "../../pages/Shop/ShopAllProducts";
+export { default as ShopCreateEvent } from "../../pages/Shop/ShopCreateEvent";
+export { default as ShopPromoSales } from "../../pages/Shop/ShopPromoSales.jsx";
+export { default as ShopInboxPage } from "../../pages/Shop/ShopInboxPage";
+export { default as ShopInboxDetails } from "../../pages/Shop/ShopInboxDetails.jsx";
+export { default as ShopAllOrders } from "../../pages/Shop/ShopAllOrders";
+export { default as ShopWithdrawalPage } from "../../pages/Shop/ShopWithdrawalPage";
+export { default as ShopSettingsPage } from "../../pages/Shop/ShopPreviewPage";
+export { default as ShopPreviewPage } from "../../pages/Shop/ShopOrderDetails";
+export { default as ShopOrderDetails } from "../../pages/Shop/ShopOrderDetails";
+export { default as ShopTransactionsPage } from "../../pages/Shop/ShopTransactionsPage";
+export { default as ShopEditProduct } from "../../pages/Shop/ShopEditProduct.jsx";
+

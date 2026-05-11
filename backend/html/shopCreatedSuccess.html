@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Chireva Shop is Ready</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacOSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 640px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+      .header {
+        background: #069e03;
+        color: white;
+        padding: 20px 16px 16px;
+        text-align: center;
+      }
+      .header img {
+        max-width: 144px;
+        max-height: 60px;
+        height: auto;
+        margin-bottom: 12px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .content {
+        padding: 32px 24px;
+      }
+      h1 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: white;
+      }
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #4b5563;
+      }
+      .highlight {
+        background: #ecfdf5;
+        border-left: 4px solid #10b981;
+        padding: 16px;
+        margin: 24px 0;
+        border-radius: 6px;
+      }
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 12px 20px;
+        margin: 24px 0;
+      }
+      .info-label {
+        font-weight: 600;
+        color: #374151;
+      }
+      .info-value {
+        color: #111827;
+      }
+      .button {
+        display: inline-block;
+        background: #10b981;
+        color: white;
+        font-weight: 600;
+        padding: 14px 32px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin: 24px 0;
+        transition: background 0.2s;
+      }
+      .button:hover {
+        background: #059669;
+      }
+      .footer {
+        background: #f9fafb;
+        padding: 24px;
+        text-align: center;
+        font-size: 14px;
+        color: #6b7280;
+        border-top: 1px solid #e5e7eb;
+      }
+      @media (max-width: 600px) {
+        .info-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <img
+          src="https://dl.dropboxusercontent.com/scl/fi/zwtfeavcnh1nd95l57dxk/logoRounded.png?rlkey=e44brr2nnd58jog4pyxcspva8"
+          alt="Chireva Logo"
+          width="144"
+          style="display: block; margin: 0 auto 12px"
+        />
+        <h1>Your Shop is Ready!</h1>
+      </div>
+
+      <!-- Main Content -->
+      <div class="content">
+        <p>Hello <strong>%SHOPNAME%</strong>,</p>
+
+        <p>
+          Congratulations! Your shop has been
+          <strong>successfully created</strong> on Chireva.
+        </p>
+
+        <p>
+          You’re now ready to start listing products, managing orders, and
+          growing your business.
+        </p>
+
+        <div class="highlight">
+          <strong>Next step:</strong> Click the button below to log in to your
+          shop dashboard and get started right away.
+        </div>
+
+        <a href="%LOGIN%" class="button"> Login to Your Shop </a>
+
+        <p>Once logged in, you can:</p>
+        <ul style="margin: 16px 0 16px 24px; color: #4b5563">
+          <li>Upload products</li>
+          <li>Set up pricing and inventory</li>
+          <li>Customize your shop profile</li>
+          <li>Start receiving orders</li>
+        </ul>
+
+        <p>We’re excited to see your shop thrive on Chireva!</p>
+
+        <p>Thank you for joining us,<br /><strong>The Chireva Team</strong></p>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Chireva Shops &copy; 2026</p>
+        <p>
+          If you did not create this shop, please contact support immediately.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
