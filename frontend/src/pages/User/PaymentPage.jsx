@@ -33,7 +33,7 @@ const PaymentPage = ({ orderData, setShowPayment }) => {
     amount: totalAmount,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
-    redirect_url: `${window.location.origin}/pay`,
+    redirect_url: `${import.meta.env.VITE_FRONTEND_URL}/pay`,
     customer: {
       email: user?.email,
       phone_number: user?.phoneNumber,
