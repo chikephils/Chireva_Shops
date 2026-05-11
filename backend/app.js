@@ -5,13 +5,26 @@ const helmet = require("helmet");
 const http = require("http");
 const socketIO = require("socket.io");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config({
+    path: "./config/.env",
+  });
+}
+
 const app = express();
+app.set("trust proxy", 1);
 const server = http.createServer(app);
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5173",
+  process.env.CLIENT_URL,
+];
 
 // Attach Socket.IO to  HTTP server
 const io = socketIO(server, {
   cors: {
-    origin: ["https://chireva.vercel.app"],
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   },
@@ -60,7 +73,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // CORS
 app.use(
   cors({
-    origin: ["https://chireva.vercel.app"],
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   }),
@@ -81,11 +94,6 @@ app.get("/", (req, res) => {
   res.send("Hello world... Chireva Shops Server is Running!");
 });
 
-if (process.env.NODE_ENV !== "PRODUCTION") {
-  require("dotenv").config({
-    path: "./config/.env",
-  });
-}
 // Import routes
 const user = require("./controller/user");
 const shop = require("./controller/shop");

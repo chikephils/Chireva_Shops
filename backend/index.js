@@ -1,5 +1,4 @@
-
-const server = require("./app"); 
+const server = require("./app");
 const connectDatabase = require("./db/Database");
 const cloudinary = require("cloudinary");
 
@@ -7,10 +6,12 @@ const cloudinary = require("cloudinary");
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err.message}`);
   console.log("Shutting down server for uncaught exception");
+
+  process.exit(1);
 });
 
 // Config
-if (process.env.NODE_ENV !== "PRODUCTION") {
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({
     path: "./config/.env",
   });
@@ -30,11 +31,16 @@ cloudinary.config({
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(
-    `Server (API + Socket.IO) is running on http://localhost:${PORT}`
+    `Server (API + Socket.IO) is running on http://localhost:${PORT}`,
   );
 });
 
 // Unhandled promise rejection
 process.on("unhandledRejection", (err) => {
+  console.log(`Error: ${err.message}`);
   console.log(`Shutting down server for: ${err.message}`);
+
+  server.close(() => {
+    process.exit(1);
+  });
 });

@@ -40,7 +40,7 @@ router.post("/create-user", async (req, res, next) => {
     };
 
     const activationToken = createActivationToken(user);
-    const activationURL = `https://chireva.vercel.app/activation?token=${activationToken}`;
+    const activationURL = `${process.env.CLIENT_URL}/activation?token=${activationToken}`;
 
     //Read HTML template file
     const htmlTemplatePath = path.join(
@@ -151,7 +151,7 @@ router.post(
     const htmlMail = htmlTemplate
       .replace("%FIRST_NAME%", user.firstName)
       .replace("%LAST_NAME%", user.lastName)
-      .replace("%LOGIN%", "https://chireva.vercel.app/login");
+      .replace("%LOGIN%", `${process.env.CLIENT_URL}/login`);
 
     sendMail({
       email: user.email,
@@ -189,7 +189,7 @@ router.post(
           expiresIn: "2m",
         },
       );
-      const passwordResetURL = `https://chireva.vercel.app/password-reset/reset?token=${resetToken}`;
+      const passwordResetURL = `${process.env.CLIENT_URL}/password-reset/reset?token=${resetToken}`;
 
       const htmlTemplatePath = path.join(
         __dirname,
@@ -332,8 +332,8 @@ router.post(
       );
       const cookieOptions = {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 24 * 60 * 60 * 1000,
         path: "/",
       };
