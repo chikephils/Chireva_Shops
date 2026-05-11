@@ -30,7 +30,7 @@ const ShopPasswordReset = () => {
     const validateToken = async () => {
       try {
         const res = await api.post(`${server}/shop/verify-token-shop`, {
-          resetToken: reset_token,
+          reset_token,
         });
 
         if (res.data.success) {
@@ -45,7 +45,7 @@ const ShopPasswordReset = () => {
     };
 
     validateToken();
-  }, [reset_token, id]);
+  }, [reset_token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
