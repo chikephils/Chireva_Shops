@@ -44,7 +44,7 @@ router.post("/create-shop", async (req, res, next) => {
 
     const activationToken = createActivationToken(seller);
 
-    const activationURL = `http://localhost:5173/seller/activation?token=${activationToken}`;
+    const activationURL = `https://chireva.vercel.app/seller/activation?token=${activationToken}`;
 
     //Read HTML template
     const htmlTemplatePath = path.join(
@@ -162,7 +162,7 @@ router.post(
       //Replace place holders with dynamic values
       const htmlMail = htmlTemplate
         .replace("%SHOPNAME%", seller.shopName)
-        .replace("%LOGIN%", "http://localhost:5173/shop-login");
+        .replace("%LOGIN%", "https://chireva.vercel.app/shop-login");
 
       try {
         await sendMail({
@@ -211,9 +211,7 @@ router.post(
         { expiresIn: "5m" },
       );
 
-      const passwordResetURL = `http://localhost:5173/shop-password-reset?id=${shop._id}&reset_token=${passwordResetToken}`;
-
-      console.log(passwordResetURL);
+      const passwordResetURL = `https://chireva.vercel.app/shop-password-reset/reset?token=${resetToken}`;
 
       const htmlTemplatePath = path.join(
         __dirname,
@@ -250,13 +248,13 @@ router.post(
   "/verify-token-shop",
   catchAsyncError(async (req, res, next) => {
     try {
-      const { resetToken } = req.body;
+      const { reset_Token } = req.body;
 
-      if (!resetToken) {
+      if (!reset_Token) {
         return next(new ErrorHandler("No Token found", 400));
       }
       try {
-        const decoded = jwt.verify(resetToken, process.env.RESET_SECRET);
+        const decoded = jwt.verify(reset_Token, process.env.RESET_SECRET);
 
         const shop = await Shop.findById(decoded._id);
 

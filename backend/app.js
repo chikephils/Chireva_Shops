@@ -11,11 +11,7 @@ const server = http.createServer(app);
 // Attach Socket.IO to  HTTP server
 const io = socketIO(server, {
   cors: {
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://chireva-shops.vercel.app",
-    ],
+    origin: ["https://chireva.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   },
@@ -64,11 +60,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // CORS
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://chireva-shops.vercel.app",
-    ],
+    origin: ["https://chireva.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   }),
