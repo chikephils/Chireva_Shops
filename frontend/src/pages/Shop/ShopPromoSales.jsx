@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteShopProduct, getShopPromoProducts, selectAllShopPromoProducts, selectSeller } from "../../features/shop/shopSlice";
-import SellerEventDetails from "../../components/Events/SellerEventDetails";
 import AllPromoProducts from "../../components/Shop/AllPromoProducts";
 import DeleteConfirmationModal from "../../components/UI/DeleteConfirmationModal";
 import SellerProductCardDetails from "../../components/Route/ProductCardDetails/SellerProductCardDetails";
