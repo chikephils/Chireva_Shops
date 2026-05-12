@@ -266,7 +266,7 @@ router.get(
   }),
 );
 
-//update order status for Seller
+//update order status
 router.put(
   "/update-order-status/:id",
   isAuthenticated,
@@ -284,14 +284,19 @@ router.put(
     }
 
     const previousStatus = order.status;
-
     const user = req.user;
     const seller = req.seller;
-    const isAdmin = req.user?.role === "Admin";
+    const role = req.role;
 
-    const isSeller = seller && order.shop.toString() === seller._id.toString();
+    const isAdmin = role === "Admin";
 
-    const isBuyer = user && order.user.toString() === user._id.toString();
+    const isSeller =
+      role === "seller" &&
+      seller &&
+      order.shop.toString() === seller._id.toString();
+
+    const isBuyer =
+      role === "user" && user && order.user.toString() === user._id.toString();
 
     // Not authorized
     if (!isSeller && !isBuyer && !isAdmin) {

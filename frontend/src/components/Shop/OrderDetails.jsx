@@ -29,6 +29,9 @@ const OrderDetails = () => {
     try {
       const response = await api.get(`${server}/order/get-seller-order/${id}`, {
         withCredentials: true,
+        headers: {
+          role: "shop",
+        },
       });
       setOrder(response?.data.order);
     } catch (error) {
@@ -50,6 +53,9 @@ const OrderDetails = () => {
         { status: "Shipped" },
         {
           withCredentials: true,
+          headers: {
+            role: "shop",
+          },
         },
       );
 
@@ -70,6 +76,9 @@ const OrderDetails = () => {
         { status: "Cancelled" },
         {
           withCredentials: true,
+          headers: {
+            role: "shop",
+          },
         },
       );
 
