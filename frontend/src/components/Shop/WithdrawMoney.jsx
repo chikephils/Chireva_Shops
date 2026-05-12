@@ -9,6 +9,7 @@ import { numbersWithCommas } from "../../utils/priceDisplay";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { RxCross1 } from "react-icons/rx";
 import { MdDeleteForever } from "react-icons/md";
+import axios from "axios";
 
 const WithdrawMoney = () => {
   const navigate = useNavigate();

@@ -9,6 +9,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import api from "../../utils/axios";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const UserWithdrawMoney = () => {
   const navigate = useNavigate();
