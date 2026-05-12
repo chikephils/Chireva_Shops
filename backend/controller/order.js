@@ -268,8 +268,8 @@ router.get(
 
 //update order status
 router.put(
-  "/update-order-status/:id",
-  isAuthenticated,
+  "/shop-update-order-status/:id",
+  isSellerAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     const { status } = req.body;
 
@@ -284,19 +284,12 @@ router.put(
     }
 
     const previousStatus = order.status;
-    const user = req.user;
     const seller = req.seller;
-    const role = req.role;
-
-    const isAdmin = role === "Admin";
 
     const isSeller =
       role === "seller" &&
       seller &&
       order.shop.toString() === seller._id.toString();
-
-    const isBuyer =
-      role === "user" && user && order.user.toString() === user._id.toString();
 
     console.log({
       orderShop: order.shop,
@@ -305,7 +298,7 @@ router.put(
     });
 
     // Not authorized
-    if (!isSeller && !isBuyer && !isAdmin) {
+    if (!isSeller) {
       return next(new ErrorHandler("Unauthorized", 403));
     }
 
@@ -388,6 +381,111 @@ router.put(
 
         order.shippedAt = new Date();
       }
+    }
+
+    // FINAL STATUS UPDATE
+    order.status = status;
+
+    await order.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      order,
+    });
+  }),
+);
+
+//update order status for user/Admin
+router.put(
+  "/update-order-status/:id",
+  isUserAuthenticated,
+  catchAsyncErrors(async (req, res, next) => {
+    const { status } = req.body;
+
+    if (!status) {
+      return next(new ErrorHandler("Status is required", 400));
+    }
+
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return next(new ErrorHandler("Order not Found", 404));
+    }
+
+    const previousStatus = order.status;
+    const user = req.user;
+    const role = req.role;
+
+    const isAdmin = role === "Admin";
+
+    const isBuyer =
+      role === "user" && user && order.user.toString() === user._id.toString();
+
+    // Not authorized
+    if (!isBuyer && !isAdmin) {
+      return next(new ErrorHandler("Unauthorized", 403));
+    }
+
+    // CANCEL ORDER LOGIC
+    if (status === "Cancelled") {
+      if (previousStatus !== "Processing") {
+        return next(
+          new ErrorHandler("Order can only be cancelled while processing", 400),
+        );
+      }
+
+      // Restore stock
+      if (order.stockDeducted) {
+        for (const item of order.cart) {
+          await Product.findByIdAndUpdate(item._id, {
+            $inc: {
+              stock: item.quantity,
+              sold_out: -item.quantity,
+            },
+          });
+        }
+
+        order.stockDeducted = false;
+      }
+
+      // Refund logic
+      if (order.paymentInfo?.status === true) {
+        const refundAmount = order.totalPrice;
+
+        const adminBalance = await AdminBalance.findOne();
+
+        if (adminBalance) {
+          adminBalance.escrowBalance -= refundAmount;
+          await adminBalance.save();
+        }
+
+        await User.findByIdAndUpdate(order.user, {
+          $inc: { availableBalance: refundAmount },
+          $push: {
+            transactions: {
+              amount: refundAmount,
+              type: "Refund",
+              status: "Successful",
+              reference: order._id,
+            },
+          },
+        });
+
+        order.refund = {
+          status: "Refunded",
+          amount: refundAmount,
+          processedAt: new Date(),
+        };
+      }
+
+      order.status = "Cancelled";
+
+      await order.save({ validateBeforeSave: false });
+
+      return res.status(200).json({
+        success: true,
+        order,
+      });
     }
 
     // BUYER LOGIC
