@@ -290,12 +290,6 @@ router.put(
       seller &&
       order.shop.toString() === seller._id.toString();
 
-    console.log({
-      orderShop: order.shop,
-      sellerId: seller._id,
-      orderShopType: typeof order.shop,
-    });
-
     // Not authorized
     if (!isSeller) {
       return next(new ErrorHandler("Unauthorized", 403));

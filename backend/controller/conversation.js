@@ -13,7 +13,7 @@ const router = express.Router();
 //Create new conversation
 router.post(
   "/create-new-conversation",
-  isAuthenticated,
+  isUserAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { groupTitle, userId, sellerId } = req.body;
@@ -100,7 +100,6 @@ router.get(
 //get a particular conversation
 router.get(
   "/get-conversation/:id",
-  isAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const conversation = await Conversation.findById(req.params.id);
