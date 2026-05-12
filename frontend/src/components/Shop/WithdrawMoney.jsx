@@ -87,6 +87,7 @@ const WithdrawMoney = () => {
       await api.post(`${server}/withdraw/create-withdraw-request`, payload, {
         headers: {
           "Content-Type": "application/json",
+          role: "shop",
         },
         withCredentials: true,
       });
@@ -99,6 +100,7 @@ const WithdrawMoney = () => {
           {
             headers: {
               "Content-Type": "application/json",
+              role: "shop",
             },
             withCredentials: true,
           },
@@ -134,6 +136,9 @@ const WithdrawMoney = () => {
     try {
       await api.delete(`${server}/shop/delete-withdraw-method`, {
         withCredentials: true,
+        headers: {
+          role: "shop",
+        },
         data: { bankName: method.bankName },
       });
 

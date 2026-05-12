@@ -1,5 +1,6 @@
 import axios from "axios";
 import { server } from "../server";
+import { getNavigate } from "./navigation";
 
 const api = axios.create({
   baseURL: server,
@@ -11,18 +12,20 @@ export const setupInterceptors = (store) => {
     (response) => response,
     (error) => {
       const status = error.response?.status;
+      const role = error.config?.headers?.role;
+      const nav = getNavigate();
 
       if (status === 403) {
         const state = store.getState();
 
-        if (state?.user?.user) {
-          store.dispatch({ type: "user/setLogout" });
-          localStorage.removeItem("persist:user");
-          window.location.href = "/";
-        } else if (state?.shop?.seller) {
+        if (role === "shop") {
           store.dispatch({ type: "shop/logoutSeller" });
           localStorage.removeItem("persist:shop");
-          window.location.href = "/shop-login";
+          if (nav) nav("/shop-login");
+        } else {
+          store.dispatch({ type: "user/setLogout" });
+          localStorage.removeItem("persist:user");
+          if (nav) nav("/login");
         }
       }
 

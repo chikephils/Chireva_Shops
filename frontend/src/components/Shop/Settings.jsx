@@ -45,6 +45,7 @@ const Settings = () => {
             {
               headers: {
                 "Content-Type": "application/json",
+                role: "shop",
               },
               withCredentials: true,
             },

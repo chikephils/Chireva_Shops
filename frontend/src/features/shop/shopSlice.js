@@ -20,6 +20,9 @@ export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { reject
   try {
     const response = await api.get(`${server}/shop/getSeller`, {
       withCredentials: true,
+      headers: {
+        role: "shop",
+      },
     });
     return response.data.seller;
   } catch (error) {
@@ -33,6 +36,9 @@ export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (i
   try {
     const response = await api.get(`${server}/product/get-all-products-shop/${id}`, {
       withCredentials: true,
+      headers: {
+        role: "shop",
+      },
     });
     return response.data.products;
   } catch (error) {
@@ -45,6 +51,9 @@ export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts"
   try {
     const response = await api.get(`${server}/product/get-shop-promo-products/${id}`, {
       withCredentials: true,
+      headers: {
+        role: "shop",
+      },
     });
     return response.data.promoProducts;
   } catch (error) {
@@ -58,6 +67,9 @@ export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", asyn
   try {
     const response = await api.delete(`${server}/product/delete-shop-product/${id}`, {
       withCredentials: true,
+      headers: {
+        role: "shop",
+      },
     });
     toast.success(response?.data?.message);
     return response.data.product;
@@ -72,6 +84,9 @@ export const getAllShopOrders = createAsyncThunk("shop/getAllShopOrders", async 
   try {
     const response = await api.get(`${server}/order/get-seller-all-orders/${id}`, {
       withCredentials: true,
+      headers: {
+        role: "shop",
+      },
     });
     return response.data.orders;
   } catch (error) {

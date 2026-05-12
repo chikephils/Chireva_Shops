@@ -93,6 +93,9 @@ const ShopInbox = () => {
       try {
         const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`, {
           withCredentials: true,
+          headers: {
+            role: "shop",
+          },
         });
         setMessages(res.data.messages || []);
       } catch (err) {

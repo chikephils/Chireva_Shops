@@ -150,6 +150,9 @@ const EditProduct = ({ product, averageRating, totalReviewsLength }) => {
           "Content-Type": "application/json",
         },
         withCredentials: true,
+        headers: {
+          role: "shop",
+        },
       });
       toast.success("Product updated successfully!");
       await Promise.all([dispatch(getShopProducts(seller._id)).unwrap(), dispatch(getAllProducts({ page: 1, limit: 8 })).unwrap()]);
