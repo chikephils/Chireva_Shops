@@ -266,7 +266,7 @@ router.get(
   }),
 );
 
-//update order status
+//update order status for seller
 router.put(
   "/shop-update-order-status/:id",
   isSellerAuthenticated,
@@ -287,7 +287,6 @@ router.put(
     const seller = req.seller;
 
     const isSeller =
-      role === "seller" &&
       seller &&
       order.shop.toString() === seller._id.toString();
 
