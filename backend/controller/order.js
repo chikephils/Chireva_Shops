@@ -298,6 +298,12 @@ router.put(
     const isBuyer =
       role === "user" && user && order.user.toString() === user._id.toString();
 
+    console.log({
+      orderShop: order.shop,
+      sellerId: seller._id,
+      orderShopType: typeof order.shop,
+    });
+
     // Not authorized
     if (!isSeller && !isBuyer && !isAdmin) {
       return next(new ErrorHandler("Unauthorized", 403));

@@ -133,7 +133,6 @@ function App() {
     socket.on("reconnect", connectSocket);
     socket.on("getUsers", (users) => {
       dispatch(setOnlineUsers(users));
-      console.log(users);
     });
 
     return () => {
