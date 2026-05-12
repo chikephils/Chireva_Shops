@@ -49,7 +49,7 @@ const OrderDetails = () => {
     setLoading(true);
     try {
       await api.put(
-        `${server}/order/update-order-status/${id}`,
+        `${server}/order/shop-update-order-status/${id}`,
         { status: "Shipped" },
         {
           withCredentials: true,
@@ -72,7 +72,7 @@ const OrderDetails = () => {
     setCancelLoading(true);
     try {
       await api.put(
-        `${server}/order/update-order-status/${id}`,
+        `${server}/order/shop-update-order-status/${id}`,
         { status: "Cancelled" },
         {
           withCredentials: true,
