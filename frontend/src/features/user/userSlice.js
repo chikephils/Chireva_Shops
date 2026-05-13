@@ -12,7 +12,7 @@ const initialState = {
 
 export const LoadUser = createAsyncThunk("user/LoadUser", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/user/me`, {
+    const response = await api.get("/user/me", {
       withCredentials: true,
     });
 
@@ -27,7 +27,7 @@ export const updateUserInformation = createAsyncThunk(
   async ({ firstName, lastName, email, phoneNumber, password }, { rejectWithValue }) => {
     try {
       const response = await api.put(
-        `${server}/user/update-user-info`,
+        "/user/update-user-info",
         {
           firstName,
           lastName,
@@ -52,7 +52,7 @@ export const updateUserAddress = createAsyncThunk(
   async ({ country, state, city, address1, zipCode, addressType }, { rejectWithValue }) => {
     try {
       const response = await api.put(
-        `${server}/user/update-user-addresses`,
+       "/user/update-user-addresses",
         {
           country,
           state,
@@ -74,7 +74,7 @@ export const updateUserAddress = createAsyncThunk(
 
 export const deleteUserAddress = createAsyncThunk("user/deleteUserAddress", async (id, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`${server}/user/delete-user-address/${id}`, { withCredentials: true });
+    const response = await api.delete(`/user/delete-user-address/${id}`, { withCredentials: true });
     toast.success("Address Deleted Successfully");
     return response.data.user;
   } catch (error) {
@@ -85,7 +85,7 @@ export const deleteUserAddress = createAsyncThunk("user/deleteUserAddress", asyn
 
 export const getAllOrders = createAsyncThunk("orders/getAllOrders", async (id, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/order/get-all-orders/${id}`, { withCredentials: true });
+    const response = await api.get(`/order/get-all-orders/${id}`, { withCredentials: true });
     return response.data.orders;
   } catch (error) {
     console.log(error);

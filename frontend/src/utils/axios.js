@@ -2,6 +2,8 @@ import axios from "axios";
 import { server } from "../server";
 import { getNavigate } from "./navigation";
 
+axios.defaults.withCredentials = true;
+
 const api = axios.create({
   baseURL: server,
   withCredentials: true,

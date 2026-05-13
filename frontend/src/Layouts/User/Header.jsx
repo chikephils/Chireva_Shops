@@ -96,7 +96,7 @@ const Header = ({ activeHeading }) => {
         <div className="max-w-screen-4xl mx-auto px-2 md:px-6 h-16 md:h-18 flex items-center justify-between">
           {/* Left: Hamburger (mobile) + Categories */}
           <div className="flex items-center gap-4 mx-2 md:mx-8 ">
-            <BiMenuAltLeft size={30} className="md:hidden cursor-pointer" onClick={() => setOpenMenu(true)} />
+            <BiMenuAltLeft size={36} className="md:hidden cursor-pointer" onClick={() => setOpenMenu(true)} />
 
             {/* Logo */}
             <Link to="/" className="absolute left-1/2 -translate-x-1/2  md:static md:translate-x">
@@ -135,10 +135,10 @@ const Header = ({ activeHeading }) => {
             )}
           </div>
 
-          {/* Right: Icons + Seller Button */}
-          <div className="flex items-center gap-3 md:gap-6 mr-1">
+          {/* Right: Icons & Seller Button */}
+          <div className="flex items-center gap-4 md:gap-6 mr-1">
             <div className="relative cursor-pointer" onClick={() => setOpenWishList(true)}>
-              <AiOutlineHeart size={26} />
+              <AiOutlineHeart size={28} />
               {wishList?.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {wishList.length}
@@ -146,7 +146,7 @@ const Header = ({ activeHeading }) => {
               )}
             </div>
             <div className="relative cursor-pointer" onClick={() => setOpenCart(true)}>
-              <AiOutlineShoppingCart size={26} />
+              <AiOutlineShoppingCart size={28} />
               {cartItems?.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItems.length}
@@ -158,7 +158,7 @@ const Header = ({ activeHeading }) => {
                 <img src={user?.avatar?.url} alt="" className="w-8 h-8 md:w-9 md:h-9 rounded-full" />
               </Link>
             ) : (
-              <CgProfile size={24} className="cursor-pointer" onClick={() => navigate("/login")} />
+              <CgProfile size={28} className="cursor-pointer" onClick={() => navigate("/login")} />
             )}
             <button
               onClick={() => (seller ? navigate(`/shop/${seller._id}`) : navigate("/create-shop"))}
@@ -248,7 +248,11 @@ const Header = ({ activeHeading }) => {
             <div>
               <div className="flex justify-between items-center p-4 border-b">
                 <h3 className="font-semibold">Menu</h3>
-                <RxCross1 size={24} className="cursor-pointer" onClick={() => setOpenMenu(false)} />
+                <RxCross1
+                  size={24}
+                  className="cursor-pointer  text-white bg-black/50 rounded-full p-1 hover:bg-black/70 transition"
+                  onClick={() => setOpenMenu(false)}
+                />
               </div>
 
               <div className="p-4">
@@ -294,7 +298,7 @@ const Header = ({ activeHeading }) => {
               </div>
             </div>
 
-            <img src={Logo3} className="my-auto mx-auto w-36" />
+            <img src={Logo3} className="my-auto mx-auto w-28" />
           </div>
         </div>
       )}

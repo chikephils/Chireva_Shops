@@ -30,9 +30,6 @@ const ProductsPage = () => {
     );
   }, [dispatch, category]);
 
-  // // Filter products by category (client-side)
-  // const filteredProducts = categoryData ? products.filter((p) => p.category === categoryData) : products;
-
   // Load more handler
   const loadMore = () => {
     if (!hasMore || loading) return;
@@ -49,22 +46,22 @@ const ProductsPage = () => {
             <Loader />
           </div>
         ) : (
-          <div className={`${styles.section} pb-10`}>
+          <div className={`${styles.section} pb-12`}>
             {products?.length > 0 ? (
               <>
-                <div className="grid grid-cols-2 gap-[20px] md:grid-cols-3 md:gap-[30px] xl:grid-cols-4 lg:gap-[40px] xl:gap-[50px] 3xl:grid-cols-5 py-10 justify-items-center">
+                <div className="grid grid-cols-2 gap-[20px] md:grid-cols-3 md:gap-[30px] xl:grid-cols-4 lg:gap-[40px] xl:gap-[50px] 3xl:grid-cols-5 pt-10 pb-5 justify-items-center">
                   {products.map((product) => (
                     <ProductCard product={product} key={product._id} />
                   ))}
                 </div>
                 {hasMore && (
-                  <div className="text-center pb-5">
+                  <div className="text-center">
                     <button
                       onClick={loadMore}
                       disabled={loading}
                       className={`
-                          px-10 py-3 bg-blue-600 text-white font-medium rounded-lg transition
-                          ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"}
+                          px-5 py-2 bg-blue-600 text-white font-medium rounded-2xl transition 
+                          ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}
                         `}
                     >
                       {loading ? "Loading..." : "Load More"}

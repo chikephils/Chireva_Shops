@@ -50,7 +50,7 @@ const Login = () => {
         <div className="px-3 py-4 bg-gradient-to-r from-lime-50 to-cyan-50 border-b">
           <div className="flex justify-center mb-4">
             <Link to="/">
-              <img src={LogoRounded} alt="Logo" className="w-36" />
+              <img src={LogoRounded} alt="Logo" className="w-28" />
             </Link>
           </div>
           <h1 className="text-base md:text-xl font-bold text-gray-900 text-center">Welcome Back</h1>
