@@ -12,7 +12,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-app.set("trust proxy", 1);
 const server = http.createServer(app);
 
 const allowedOrigins = [
