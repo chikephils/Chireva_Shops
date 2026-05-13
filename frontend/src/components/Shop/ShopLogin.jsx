@@ -49,7 +49,7 @@ const ShopLogin = () => {
         {/* Logo + Header */}
         <div className="px-2 py-4 md:py-6 bg-gradient-to-r from-indigo-50 to-blue-50 border-b">
           <Link to="/" className="flex justify-center mb-6">
-            <img src={LogoRounded} alt="Logo" className="w-36" />
+            <img src={LogoRounded} alt="Logo" className="w-28" />
           </Link>
           <h1 className="text-base md:text-xl font-bold text-gray-900 text-center">Seller Login</h1>
           <p className="mt-2 text-gray-600 text-center text-sm">Welcome back — log in to manage your shop</p>

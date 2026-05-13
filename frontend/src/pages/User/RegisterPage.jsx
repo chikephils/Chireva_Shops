@@ -11,7 +11,7 @@ const RegisterPage = () => {
         <div className="bg-white border-b shadow-sm sticky top-0 z-10">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-center">
             <Link to="/">
-              <img src={LogoRounded} alt="Logo" className="w-36 h-12" />
+              <img src={LogoRounded} alt="Logo" className="w-32" />
             </Link>
           </div>
         </div>

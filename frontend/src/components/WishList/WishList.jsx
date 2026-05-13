@@ -44,7 +44,7 @@ const WishList = ({ setOpenWishList }) => {
         <div className="flex items-center justify-between p-3 border-b border-gray-200">
           <div className="flex items-center gap-3">
             <button onClick={() => setOpenWishList(false)} className="p-2 rounded-full hover:bg-gray-100 transition">
-              <RxCross1 size={22} />
+              <RxCross1 className="cursor-pointer  text-white bg-black/50 rounded-full p-1 hover:bg-black/70 transition" size={26} />
             </button>
             <h2 className="text-base font-semibold flex items-center gap-2">
               <AiOutlineHeart size={24} className="text-red-500" />
