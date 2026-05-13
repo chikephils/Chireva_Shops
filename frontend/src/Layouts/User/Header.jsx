@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../Assests/img/logo.png";
-import Logo3 from "../../Assests/img/Logo3.png";
+import Logo3 from "../../Assests/img/logoRounded.png";
 import { categoriesData } from "../../static/data";
 import { AiOutlineHeart, AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -206,7 +206,7 @@ const Header = ({ activeHeading }) => {
         </div>
 
         {/* Mobile Search */}
-        <div className="md:hidden px-4 py-2 border-t">
+        <div ref={searchRef} className="md:hidden px-4 py-2 border-t">
           <div className="relative pb-1">
             <input
               type="search"
@@ -294,7 +294,7 @@ const Header = ({ activeHeading }) => {
               </div>
             </div>
 
-            <img src={Logo3} className="mt-auto mx-auto w-40" />
+            <img src={Logo3} className="my-auto mx-auto w-36" />
           </div>
         </div>
       )}

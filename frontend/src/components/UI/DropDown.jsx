@@ -6,7 +6,6 @@ const DropDown = ({ categoriesData, setDropDown, onNavigate }) => {
   const navigate = useNavigate();
 
   const handleSubmit = (category) => {
-    // Navigate with category in query string
     navigate(`/products?category=${encodeURIComponent(category.title)}`);
     setDropDown(false);
     onNavigate();
@@ -14,7 +13,7 @@ const DropDown = ({ categoriesData, setDropDown, onNavigate }) => {
 
   return (
     <div className="mt-2.5 py-3  w-[300px] bg-gradient-to-r from-gray-100 to-lime-100 ...  absolute z-50 rounded-md shadow-2xl border">
-      <div className="max-h-[45vh] md:max-h-[70vh] w-full overflow-y-auto scrollbar-hide ">
+      <div className="max-h-[40vh] md:max-h-[70vh] w-full overflow-y-auto scrollbar-hide mb-10 md:mb-0 pb-4 md:pb-0 ">
         {categoriesData &&
           categoriesData.map((category, index) => (
             <div

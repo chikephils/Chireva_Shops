@@ -9,7 +9,7 @@ exports.isUserAuthenticated = catchAsyncErrors(async (req, res, next) => {
     const token = req.cookies?.user_token;
 
     if (!token) {
-      return next(new ErrorHandler("Please login to continue", 403));
+      return next(new ErrorHandler("Please login to continue", 401));
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
@@ -39,7 +39,7 @@ exports.isSellerAuthenticated = catchAsyncErrors(async (req, res, next) => {
     const token = req.cookies?.seller_token;
 
     if (!token) {
-      return next(new ErrorHandler("Please login to continue", 403));
+      return next(new ErrorHandler("Please login to continue", 401));
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);

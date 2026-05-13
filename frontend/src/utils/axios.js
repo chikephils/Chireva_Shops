@@ -15,7 +15,7 @@ export const setupInterceptors = (store) => {
       const role = error.config?.headers?.role;
       const nav = getNavigate();
 
-      if (status === 403) {
+      if (status === 401) {
         const state = store.getState();
 
         if (role === "shop") {

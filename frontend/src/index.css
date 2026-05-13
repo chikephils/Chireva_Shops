@@ -9,7 +9,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global Resets & Smooth Scrolling */
 *,
 *::before,
 *::after {
@@ -46,7 +45,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove outline on focus for better custom styling, but keep accessibility */
 input,
 select,
 textarea,
@@ -58,7 +56,7 @@ input:focus,
 select:focus,
 textarea:focus,
 button:focus-visible {
-  outline: 2px solid #ef4444;
+  outline: 2px solid #44ef69;
   outline-offset: 2px;
 }
 
@@ -76,5 +74,3 @@ input[type="number"] {
 .badge-count {
   @apply absolute -top-2 -right-2 min-w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow-md;
 }
-
-/* Custom Scrollbar for Cart & Wishlist sidebars */
