@@ -40,7 +40,7 @@ const SellerProductCardDetails = ({ setDetailsOpen, product }) => {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[1000] flex items-center justify-center p-6 lg:p-4">
-      <div className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] lg:max-h-[80vh] flex flex-col md:flex-row md:py-5 pb-4 ">
+      <div className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[80vh] lg:max-h-[80vh] flex flex-col md:flex-row md:py-5 pb-4 ">
         {/* Close button */}
         <button
           onClick={() => setDetailsOpen(false)}

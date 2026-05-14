@@ -242,10 +242,10 @@ const Header = ({ activeHeading }) => {
 
       {/* Mobile Menu  */}
       {openMenu && (
-        <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setOpenMenu(false)}>
+        <div className="fixed inset-0 bg-black/50 z-50 mobile-menu-sidebar" onClick={() => setOpenMenu(false)}>
           <div className="w-80 bg-white h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
             {/* Top section */}
-            <div>
+            <div className="flex-1 overflow-y-auto">
               <div className="flex justify-between items-center p-4 border-b">
                 <h3 className="font-semibold">Menu</h3>
                 <RxCross1
@@ -277,7 +277,7 @@ const Header = ({ activeHeading }) => {
                       setOpenMenu(false);
                       seller ? navigate(`/shop/${seller._id}`) : navigate("/create-shop");
                     }}
-                    className="w-full bg-lime-600 text-white py-3 rounded-md"
+                    className="w-full bg-lime-600 text-white py-3 rounded-3xl"
                   >
                     {seller ? "Go to Shop" : "Become a Seller"}
                   </button>
@@ -297,8 +297,9 @@ const Header = ({ activeHeading }) => {
                 )}
               </div>
             </div>
-
-            <img src={Logo3} className="my-auto mx-auto w-28" />
+            <div className="mt-auto pb-6 pt-4 flex justify-center border-t bg-white">
+              <img src={Logo3} className=" w-28" alt="logo" />
+            </div>
           </div>
         </div>
       )}
