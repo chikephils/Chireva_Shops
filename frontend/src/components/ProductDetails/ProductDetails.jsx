@@ -191,9 +191,9 @@ const ProductDetails = ({ product }) => {
 
         {/* Shop Info */}
         <div className="mt-10 pt-8 border-t">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-4 text-center ">
-              <img src={product.shop.avatar?.url} alt="" className="w-14 h-14 rounded-full border-2 border-lime-600" />
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center text-center ">
+              <img src={product.shop.avatar?.url} alt="" className="w-20 rounded-full  " />
               <div>
                 <h3 className="flex text-base lg:text-xl font-semibold">{product.shop.shopName}</h3>
                 <p className="text-sm  md:text-base text-gray-600">{averageRating} ★ rating</p>
@@ -300,7 +300,9 @@ const ProductDetails = ({ product }) => {
           </div>
           <div className="mt-10 flex items-center justify-between px-3">
             <div className="flex items-center gap-4">
-              <img src={product.shop.avatar?.url} alt="" className="w-16 h-16 rounded-full border-2 border-lime-600" />
+              <div className="relative border-2 border-lime-600" style={{ flexShrink: 0 }}>
+                <img src={product.shop.avatar?.url} alt="" className="w-[50px] h-[50px] rounded-full " />
+              </div>
               <div>
                 <h3 className="text-xl font-semibold">{product.shop.shopName}</h3>
                 <p className="text-gray-600">{averageRating} ★ Rating</p>
@@ -363,7 +365,7 @@ const ProductDetailsInfo = ({ product, shopProducts, totalReviewsLength, average
                     <span className="font-medium">{review.user.firstName}</span>
                     <Ratings rating={review.rating} />
                   </div>
-                  <p className="mt-2 text-gray-700">{review.comment}</p>
+                  <p className="mt-2 text-gray-700 text-sm md:text-base">{review.comment}</p>
                 </div>
               </div>
             ))
@@ -377,8 +379,8 @@ const ProductDetailsInfo = ({ product, shopProducts, totalReviewsLength, average
         <div className="flex flex-col md:flex-row md:justify-between px-4 min-h-[20vh]">
           {/* Left column - Shop info */}
           <div className="w-full md:w-[50%]">
-            <div className="flex items-center gap-4">
-              <img src={product.shop.avatar?.url} alt="" className="w-12 h-12 rounded-full" />
+            <div className="flex items-center">
+              <img src={product.shop.avatar?.url} alt="" className="w-20 rounded-full  " />
               <div>
                 <h3 className="text-base lg:text-xl font-semibold">{product.shop.shopName}</h3>
                 <p className="text-gray-600 text-sm">{averageRating} ★ Ratings</p>
@@ -390,17 +392,17 @@ const ProductDetailsInfo = ({ product, shopProducts, totalReviewsLength, average
           {/* Right column - Stats & Button */}
           <div className="space-y-4 mt-8 md:mt-0 ">
             <p>
-              <span className="font-medium text-base">Joined:</span> {new Date(product.shop.createdAt).toLocaleDateString()}
+              <span className="font-medium text-sm">Joined:</span> {new Date(product.shop.createdAt).toLocaleDateString()}
             </p>
             <p>
-              <span className="font-medium text-base">Total Products:</span> {shopProducts.length}
+              <span className="font-medium text-sm">Total Products:</span> {shopProducts.length}
             </p>
             <p>
-              <span className="font-medium text-base">Total Reviews:</span> {totalReviewsLength}
+              <span className="font-medium text-sm">Total Reviews:</span> {totalReviewsLength}
             </p>
             <div className="md:justify-end pb-2 ">
               <Link to={`/shop/preview/${product.shop._id}`}>
-                <button className="mt-4 px-6 py-3 bg-lime-600 text-white rounded-full font-medium hover:bg-lime-700">Visit Shop</button>
+                <button className="mt-2 px-6 py-2.5 bg-lime-600 text-white rounded-full font-medium hover:bg-lime-700">Visit Shop</button>
               </Link>
             </div>
           </div>
