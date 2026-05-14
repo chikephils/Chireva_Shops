@@ -154,8 +154,8 @@ const PromoTab = ({ shopId }) => {
 
   if (!promo?.length) {
     return (
-      <div className="flex items-center justify-center text-center py-16 text-gray-500 text-lg font-medium h-[70vh]">
-        You are not Running any Promo-Sales.
+      <div className="flex items-center justify-center text-center py-16 text-gray-500 text-base md:text-lg font-medium h-[70vh]">
+        No Promo-Sales.
       </div>
     );
   }
@@ -185,7 +185,7 @@ const ReviewsTab = ({ products, isLoading }) => {
 
   if (!allReviews.length) {
     return (
-      <div className="flex items-center justify-center text-center py-16 text-gray-500 text-lg font-medium h-[70vh]">No reviews yet.</div>
+      <div className="flex items-center justify-center text-center py-16 text-gray-500 text-base md:text-lg font-medium h-[70vh]">No reviews yet.</div>
     );
   }
 

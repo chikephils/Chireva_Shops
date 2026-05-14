@@ -297,7 +297,7 @@ const Header = ({ activeHeading }) => {
                 )}
               </div>
             </div>
-            <div className="mt-auto pb-6 pt-4 flex justify-center border-t bg-white">
+            <div className="mt-auto pb-2 pt-2 flex justify-center border-t bg-white">
               <img src={Logo3} className=" w-28" alt="logo" />
             </div>
           </div>
