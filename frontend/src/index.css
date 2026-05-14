@@ -70,6 +70,16 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* For the whole sidebar */
+.mobile-menu-sidebar {
+  padding-bottom: env(safe-area-inset-bottom);
+}
 /* Badge for cart/wishlist count (heart icon badge) */
 .badge-count {
   @apply absolute -top-2 -right-2 min-w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow-md;

@@ -95,7 +95,7 @@ const ProductCardDetails = ({ setDetailsOpen, product, addToCart, remove, inCart
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[1000] flex items-center justify-center p-3 md:p-4">
-      <div className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] lg:max-h-[80vh] flex flex-col md:flex-row md:py-5 pb-4 ">
+      <div className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[80vh] lg:max-h-[80vh] flex flex-col md:flex-row md:py-5 pb-4 ">
         {/* Close Button */}
         <RxCross1
           size={28}
@@ -171,8 +171,8 @@ const ProductCardDetails = ({ setDetailsOpen, product, addToCart, remove, inCart
             )}
           </div>
 
-          <div className="mt-4 lg:mt-6 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="mt-4 lg:mt-6 flex items-center justify-between px-2">
+            <div className="flex items-center">
               <button
                 onClick={decrementCount}
                 disabled={currentQuantity === 0}
