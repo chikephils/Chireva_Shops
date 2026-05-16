@@ -331,12 +331,11 @@ router.post(
         },
       );
       const cookieOptions = {
-        httpOnly: false,
+        httpOnly: true,
         secure: true,
-        sameSite: "lax",
-        maxAge: 2 * 24 * 60 * 60 * 1000,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000,
         path: "/",
-        // partitioned: true,
       };
 
       res.cookie("user_token", token, cookieOptions);
