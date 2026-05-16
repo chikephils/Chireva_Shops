@@ -117,12 +117,16 @@ app.use("/api/v2/messages", messages);
 app.use("/api/v2/conversation", conversation);
 app.use("/api/v2/payment", payment);
 app.use("/api/v2/withdraw", withdraw);
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
 
 // Error handler
 const ErrorHandler = require("./middleware/Error");
 app.use(ErrorHandler);
+
+app.use(express.static(path.join(__dirname, "dist")));
+
+// 3. SPA FALLBACK (LAST THING EVER)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 module.exports = server;
