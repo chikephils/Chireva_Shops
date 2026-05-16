@@ -44,7 +44,7 @@ router.post("/create-shop", async (req, res, next) => {
 
     const activationToken = createActivationToken(seller);
 
-    const activationURL = `${process.env.CLIENT_URL}/seller/activation?token=${activationToken}`;
+    const activationURL = `https://chireva.onrender.com/seller/activation?token=${activationToken}`;
 
     //Read HTML template
     const htmlTemplatePath = path.join(
@@ -211,7 +211,7 @@ router.post(
         { expiresIn: "5m" },
       );
 
-      const passwordResetURL = `${process.env.CLIENT_URL}/shop-password-reset/reset?token=${resetToken}`;
+      const passwordResetURL = `https://chireva.onrender.com/shop-password-reset/reset?token=${resetToken}`;
 
       const htmlTemplatePath = path.join(
         __dirname,
