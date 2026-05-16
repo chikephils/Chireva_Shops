@@ -327,14 +327,14 @@ router.post(
         { id: user._id, role: user.role || "user" },
         process.env.JWT_SECRET_KEY,
         {
-          expiresIn: "1d",
+          expiresIn: "7d",
         },
       );
       const cookieOptions = {
         httpOnly: true,
         secure: true,
         sameSite: "none",
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         path: "/",
       };
 
