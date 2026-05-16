@@ -18,7 +18,6 @@ const server = http.createServer(app);
 const allowedOrigins = [
   "https://chireva.vercel.app",
   "http://localhost:5173",
-  process.env.CLIENT_URL,
 ];
 
 // Attach Socket.IO to  HTTP server
@@ -75,9 +74,15 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // CORS
 app.use(
   cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
     exposedHeaders: ["Set-Cookie"],
   }),
