@@ -4,6 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const http = require("http");
 const socketIO = require("socket.io");
+const path = require("path");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({
@@ -16,7 +17,6 @@ app.set("trust proxy", 1);
 const server = http.createServer(app);
 
 const allowedOrigins = [
-  process.env.CLIENT_URL,
   "https://chireva.onrender.com",
   "http://localhost:5173",
 ];
@@ -92,6 +92,7 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 // Static files
 app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "dist")));
 
 // Root route
 app.get("/", (req, res) => {
@@ -116,6 +117,9 @@ app.use("/api/v2/messages", messages);
 app.use("/api/v2/conversation", conversation);
 app.use("/api/v2/payment", payment);
 app.use("/api/v2/withdraw", withdraw);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 // Error handler
 const ErrorHandler = require("./middleware/Error");

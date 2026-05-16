@@ -8,7 +8,6 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
-
 const {
   isAuthenticated,
   authorizeRoles,
@@ -40,7 +39,7 @@ router.post("/create-user", async (req, res, next) => {
     };
 
     const activationToken = createActivationToken(user);
-    const activationURL = `${process.env.CLIENT_URL}/activation?token=${activationToken}`;
+    const activationURL = `https://chireva.onrender.com/activation?token=${activationToken}`;
 
     //Read HTML template file
     const htmlTemplatePath = path.join(
@@ -151,7 +150,7 @@ router.post(
     const htmlMail = htmlTemplate
       .replace("%FIRST_NAME%", user.firstName)
       .replace("%LAST_NAME%", user.lastName)
-      .replace("%LOGIN%", `${process.env.CLIENT_URL}/login`);
+      .replace("%LOGIN%", `https://chireva.onrender.com/login`);
 
     sendMail({
       email: user.email,
@@ -189,7 +188,7 @@ router.post(
           expiresIn: "2m",
         },
       );
-      const passwordResetURL = `${process.env.CLIENT_URL}/password-reset/reset?token=${resetToken}`;
+      const passwordResetURL = `https://chireva.onrender.com/password-reset/reset?token=${resetToken}`;
 
       const htmlTemplatePath = path.join(
         __dirname,
@@ -327,14 +326,14 @@ router.post(
         { id: user._id, role: user.role || "user" },
         process.env.JWT_SECRET_KEY,
         {
-          expiresIn: "7d",
+          expiresIn: "1d",
         },
       );
       const cookieOptions = {
         httpOnly: true,
         secure: true,
         sameSite: "none",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 1000,
         path: "/",
       };
 
