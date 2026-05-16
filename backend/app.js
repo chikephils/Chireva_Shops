@@ -17,7 +17,7 @@ const server = http.createServer(app);
 
 const allowedOrigins = [
   process.env.CLIENT_URL,
-  "https://chireva.vercel.app",
+  "https://chireva.onrender.com",
   "http://localhost:5173",
 ];
 
