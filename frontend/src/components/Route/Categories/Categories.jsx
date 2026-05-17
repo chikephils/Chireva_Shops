@@ -23,7 +23,7 @@ const Categories = () => {
         </div>
       </div>
 
-      <div className="relative w-full mb-5 mt-4">
+      <div className="relative w-full mb-5 mt-4 flex justify-center">
         {/* LEFT SHADOW */}
         <div className="pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-white to-transparent z-10" />
 
