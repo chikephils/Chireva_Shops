@@ -56,9 +56,7 @@ const Inbox = () => {
 
     const fetchConversation = async () => {
       try {
-        const res = await api.get(`${server}/conversation/get-conversation/${id}`, {
-          withCredentials: true,
-        });
+        const res = await api.get(`${server}/conversation/get-conversation/${id}`);
         setCurrentChat(res.data.conversation);
       } catch (err) {
         console.error("Failed to load conversation:", err);
@@ -94,9 +92,7 @@ const Inbox = () => {
 
     const fetchMessages = async () => {
       try {
-        const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`, {
-          withCredentials: true,
-        });
+        const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`);
         setMessages(res.data.messages || []);
       } catch (err) {
         console.error("Failed to load messages:", err);
@@ -135,9 +131,7 @@ const Inbox = () => {
     setNewMessage("");
 
     try {
-      const res = await api.post(`${server}/messages/create-new-message`, messageData, {
-        withCredentials: true,
-      });
+      const res = await api.post(`${server}/messages/create-new-message`, messageData, );
       setMessages((prev) => prev.map((msg) => (msg._id.startsWith("temp-") ? res.data.message : msg)));
     } catch (error) {
       console.error("Failed to send message:", error);

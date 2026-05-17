@@ -24,17 +24,14 @@ const ShopLogin = () => {
       const response = await api.post(
         `${server}/shop/shop-login`,
         { email, password },
-        { headers: { "Content-Type": "application/json" }, withCredentials: true },
+        { headers: { "Content-Type": "application/json" } },
       );
 
-      if (response.status >= 200 && response.status < 300) {
-        const { seller, message } = response.data;
-        dispatch(setShopLogin({ seller }));
-        toast.success(message || "Login successful");
-        navigate("/dashboard");
-      } else {
-        toast.error(response.data.message || "Login failed");
-      }
+      const { seller, token, message } = response.data;
+      dispatch(setShopLogin({ seller, token }));
+
+      toast.success(message || "Login successful");
+      navigate("/dashboard");
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     } finally {

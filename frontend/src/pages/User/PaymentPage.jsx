@@ -81,7 +81,6 @@ const PaymentPage = ({ orderData, setShowPayment }) => {
       // Verify payment on the backend
       const res = await api.get(`${server}/payment/verify-balance-payment`, {
         params: { tx_ref: orderData?.paymentId },
-        withCredentials: true,
       });
 
       if (res.data.success && res.data.status === "success") {

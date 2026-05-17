@@ -329,21 +329,15 @@ router.post(
           expiresIn: "1d",
         },
       );
-      const cookieOptions = {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 24 * 60 * 60 * 1000,
-        path: "/",
-      };
-
-      res.cookie("user_token", token, cookieOptions);
 
       user.password = undefined;
 
-      res
-        .status(200)
-        .json({ success: true, user, message: "Logged in sucessfully" });
+      res.status(200).json({
+        success: true,
+        user,
+        token,
+        message: "Logged in successfully",
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
@@ -351,26 +345,6 @@ router.post(
 );
 
 //load user
-router.get(
-  "/getuser",
-  isUserAuthenticated,
-  catchAsyncErrors(async (req, res, next) => {
-    try {
-      const user = await User.findById(req.user.id);
-
-      if (!user) {
-        return next(new ErrorHandler("User doesn't exist", 400));
-      }
-      res.status(200).json({
-        success: true,
-        user,
-      });
-    } catch (err) {
-      return next(new ErrorHandler(err.message, 500));
-    }
-  }),
-);
-
 router.get(
   "/me",
   isUserAuthenticated,
@@ -398,20 +372,10 @@ router.get(
   "/logout",
   isUserAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
-    try {
-      res.clearCookie("user_token", {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-        path: "/",
-      });
-      res.status(201).json({
-        success: true,
-        message: "Logged out successfully",
-      });
-    } catch (err) {
-      return next(new ErrorHandler(err.message, 500));
-    }
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
   }),
 );
 

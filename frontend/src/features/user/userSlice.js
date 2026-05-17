@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   user: null,
+  token: null,
   orders: [],
   loading: false,
   error: null,
@@ -12,9 +13,7 @@ const initialState = {
 
 export const LoadUser = createAsyncThunk("user/LoadUser", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get("/user/me", {
-      withCredentials: true,
-    });
+    const response = await api.get("/user/me", {});
 
     return response.data.user;
   } catch (error) {
@@ -26,17 +25,13 @@ export const updateUserInformation = createAsyncThunk(
   "user/updateUserInformation",
   async ({ firstName, lastName, email, phoneNumber, password }, { rejectWithValue }) => {
     try {
-      const response = await api.put(
-        "/user/update-user-info",
-        {
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          password,
-        },
-        { withCredentials: true },
-      );
+      const response = await api.put("/user/update-user-info", {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+      });
 
       toast.success("User information updated successfully");
       return response.data.user;
@@ -51,18 +46,14 @@ export const updateUserAddress = createAsyncThunk(
   "user/updateUserAddress",
   async ({ country, state, city, address1, zipCode, addressType }, { rejectWithValue }) => {
     try {
-      const response = await api.put(
-       "/user/update-user-addresses",
-        {
-          country,
-          state,
-          city,
-          address1,
-          zipCode,
-          addressType,
-        },
-        { withCredentials: true },
-      );
+      const response = await api.put("/user/update-user-addresses", {
+        country,
+        state,
+        city,
+        address1,
+        zipCode,
+        addressType,
+      });
       toast.success("Address Updated Successfully");
       return response.data.user;
     } catch (error) {
@@ -74,7 +65,7 @@ export const updateUserAddress = createAsyncThunk(
 
 export const deleteUserAddress = createAsyncThunk("user/deleteUserAddress", async (id, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`/user/delete-user-address/${id}`, { withCredentials: true });
+    const response = await api.delete(`/user/delete-user-address/${id}`);
     toast.success("Address Deleted Successfully");
     return response.data.user;
   } catch (error) {
@@ -85,7 +76,7 @@ export const deleteUserAddress = createAsyncThunk("user/deleteUserAddress", asyn
 
 export const getAllOrders = createAsyncThunk("orders/getAllOrders", async (id, { rejectWithValue }) => {
   try {
-    const response = await api.get(`/order/get-all-orders/${id}`, { withCredentials: true });
+    const response = await api.get(`/order/get-all-orders/${id}`);
     return response.data.orders;
   } catch (error) {
     console.log(error);
@@ -99,9 +90,11 @@ const userSlice = createSlice({
   reducers: {
     setLogin: (state, action) => {
       state.user = action.payload.user;
+      state.token = action.payload.token;
     },
     setLogout: (state) => {
       state.user = null;
+      state.token = null;
       state.orders = [];
       state.loading = false;
       state.error = null;

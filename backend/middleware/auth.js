@@ -6,7 +6,11 @@ const Shop = require("../model/shop");
 
 exports.isUserAuthenticated = catchAsyncErrors(async (req, res, next) => {
   try {
-    const token = req.cookies?.user_token;
+    const authHeader = req.headers.authorization;
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
+    }
 
     if (!token) {
       return next(new ErrorHandler("Please login to continue", 401));
@@ -36,10 +40,14 @@ exports.isUserAuthenticated = catchAsyncErrors(async (req, res, next) => {
 
 exports.isSellerAuthenticated = catchAsyncErrors(async (req, res, next) => {
   try {
-    const token = req.cookies?.seller_token;
+    const authHeader = req.headers.authorization;
 
     if (!token) {
       return next(new ErrorHandler("Please login to continue", 401));
+    }
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
@@ -66,32 +74,40 @@ exports.isSellerAuthenticated = catchAsyncErrors(async (req, res, next) => {
 
 exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   try {
-    const userToken = req.cookies?.user_token;
-    const sellerToken = req.cookies?.seller_token;
+    let token;
 
-    if (!userToken && !sellerToken) {
+    const authHeader = req.headers.authorization;
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
+    }
+
+    if (!token) {
       return next(new ErrorHandler("Please login to continue", 403));
     }
 
-    let decoded;
-    if (userToken) {
-      decoded = jwt.verify(userToken, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-      req.role = decoded.role;
+    req.role = decoded.role;
+
+    // USER
+    if (decoded.role === "user" || decoded.role === "Admin") {
       req.user = await User.findById(decoded.id);
 
       if (!req.user) {
         return next(new ErrorHandler("User not found", 404));
       }
-    } else if (sellerToken) {
-      decoded = jwt.verify(sellerToken, process.env.JWT_SECRET_KEY);
+    }
 
-      req.role = decoded.role;
+    //SELLER
+    else if (decoded.role === "seller") {
       req.seller = await Shop.findById(decoded.id);
 
       if (!req.seller) {
         return next(new ErrorHandler("Seller not found", 404));
       }
+    } else {
+      return next(new ErrorHandler("Unauthorized access", 403));
     }
 
     next();

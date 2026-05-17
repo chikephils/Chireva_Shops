@@ -90,7 +90,6 @@ const WithdrawMoney = () => {
           "Content-Type": "application/json",
           role: "shop",
         },
-        withCredentials: true,
       });
 
       //  Save only if truly new
@@ -103,7 +102,6 @@ const WithdrawMoney = () => {
               "Content-Type": "application/json",
               role: "shop",
             },
-            withCredentials: true,
           },
         );
       }
@@ -136,7 +134,6 @@ const WithdrawMoney = () => {
 
     try {
       await api.delete(`${server}/shop/delete-withdraw-method`, {
-        withCredentials: true,
         headers: {
           role: "shop",
         },

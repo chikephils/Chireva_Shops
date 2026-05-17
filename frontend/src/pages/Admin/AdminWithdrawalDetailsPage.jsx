@@ -15,9 +15,7 @@ const AdminWithdrawalDetailsPage = () => {
       if (!id) return;
       setIsLoading(true);
       try {
-        const response = await api.get(`${server}/withdraw/get-withdraw-request/${id}`, {
-          withCredentials: true,
-        });
+        const response = await api.get(`${server}/withdraw/get-withdraw-request/${id}`);
         setWithdrawal(response?.data.withdrawal);
       } catch (error) {
         console.log(error?.response?.data.message);

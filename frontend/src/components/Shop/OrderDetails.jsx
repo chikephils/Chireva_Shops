@@ -28,7 +28,6 @@ const OrderDetails = () => {
     setOrderLoading(true);
     try {
       const response = await api.get(`${server}/order/get-seller-order/${id}`, {
-        withCredentials: true,
         headers: {
           role: "shop",
         },
@@ -52,7 +51,6 @@ const OrderDetails = () => {
         `${server}/order/shop-update-order-status/${id}`,
         { status: "Shipped" },
         {
-          withCredentials: true,
           headers: {
             role: "shop",
           },
@@ -75,7 +73,6 @@ const OrderDetails = () => {
         `${server}/order/shop-update-order-status/${id}`,
         { status: "Cancelled" },
         {
-          withCredentials: true,
           headers: {
             role: "shop",
           },

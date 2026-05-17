@@ -25,9 +25,7 @@ const AdminOrderDetails = () => {
     if (!id) return;
     setLoading(true);
     try {
-      const response = await api.get(`${server}/order/admin-order-details/${id}`, {
-        withCredentials: true,
-      });
+      const response = await api.get(`${server}/order/admin-order-details/${id}`, {});
       setOrder(response.data.order);
     } catch (error) {
       console.error(error.response?.data.message);
@@ -43,13 +41,7 @@ const AdminOrderDetails = () => {
   const handleUpdateStatus = async (id, status) => {
     setIsUpdating(true);
     try {
-      await api.put(
-        `${server}/order/update-order-status/${id}`,
-        { status },
-        {
-          withCredentials: true,
-        },
-      );
+      await api.put(`${server}/order/update-order-status/${id}`, { status });
 
       toast.success("Order updated");
       fetchOrder();
@@ -63,13 +55,7 @@ const AdminOrderDetails = () => {
   const acceptRefund = async (id) => {
     setAccepting(true);
     try {
-      await api.put(
-        `${server}/order/order-refund-action/${id}`,
-        { status: "Approve" },
-        {
-          withCredentials: true,
-        },
-      );
+      await api.put(`${server}/order/order-refund-action/${id}`, { status: "Approve" });
 
       toast.success("Refund processed");
       fetchOrder();
@@ -83,13 +69,7 @@ const AdminOrderDetails = () => {
   const rejectRefund = async (id) => {
     setCancelLoading(true);
     try {
-      await api.put(
-        `${server}/order/order-refund-action/${id}`,
-        { status: "Reject" },
-        {
-          withCredentials: true,
-        },
-      );
+      await api.put(`${server}/order/order-refund-action/${id}`, { status: "Reject" });
 
       toast.success("Refund rejected");
       fetchOrder();

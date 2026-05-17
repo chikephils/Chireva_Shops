@@ -68,7 +68,7 @@ const ProfileSideBar = ({ mobile = false }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await api.get(`${server}/user/logout`, { withCredentials: true });
+      const response = await api.get(`${server}/user/logout`);
 
       dispatch(setLogout());
       localStorage.removeItem("persist:user");

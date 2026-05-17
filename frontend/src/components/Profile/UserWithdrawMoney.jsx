@@ -87,7 +87,6 @@ const UserWithdrawMoney = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
       });
 
       //  Save only if truly new
@@ -99,7 +98,6 @@ const UserWithdrawMoney = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            withCredentials: true,
           },
         );
       }
@@ -132,7 +130,6 @@ const UserWithdrawMoney = () => {
 
     try {
       await api.delete(`${server}/user/delete-user-withdraw-method`, {
-        withCredentials: true,
         data: { bankName: method.bankName },
       });
 

@@ -36,7 +36,6 @@ const ShopInfo = ({ isOwner = false, shop }) => {
   const handleShopLogout = async () => {
     try {
       const res = await api.get(`${server}/shop/logout`, {
-        withCredentials: true,
         headers: {
           role: "shop",
         },
