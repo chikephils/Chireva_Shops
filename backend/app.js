@@ -17,7 +17,7 @@ app.set("trust proxy", 1);
 const server = http.createServer(app);
 
 const allowedOrigins = [
-  "https://chireva.onrender.com",
+  "https://chireva.vercel.app",
   "http://localhost:5173",
 ];
 

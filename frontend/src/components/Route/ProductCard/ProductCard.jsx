@@ -68,7 +68,7 @@ const ProductCard = ({ product, isEvent }) => {
   };
 
   return (
-    <div className=" xs:w-full md:min-w-[185px] min-h-[200px] md:w-full md:min-h-[280px] bg-slate-100 rounded-lg  p-2 md:p-2 overflow-hidden flex flex-col  border border-gray-300 hover:border-lime-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] ">
+    <div className=" xs:w-full md:min-w-[185px] min-h-[200px] md:w-full md:max-w-[300px] md:min-h-[280px] bg-slate-100 rounded-lg  p-2 md:p-2 overflow-hidden flex flex-col  border border-gray-300 hover:border-lime-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] ">
       <div className="flex items-start justify-between">
         <Link to={`${isEvent === true ? `/product/${product?._id}?isEvent=true` : `/product/${product?._id}`}`}>
           <img
