@@ -92,7 +92,6 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 // Static files
 app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, "dist")));
 
 // Root route
 app.get("/", (req, res) => {
@@ -121,12 +120,5 @@ app.use("/api/v2/withdraw", withdraw);
 // Error handler
 const ErrorHandler = require("./middleware/Error");
 app.use(ErrorHandler);
-
-app.use(express.static(path.join(__dirname, "dist")));
-
-// 3. SPA FALLBACK (LAST THING EVER)
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
 
 module.exports = server;
