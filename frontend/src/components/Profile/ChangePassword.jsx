@@ -22,7 +22,7 @@ const ChangePassword = () => {
       const response = await api.put(
         `${server}/user/update-user-password`,
         { oldPassword, newPassword, confirmPassword },
-        { headers: { "Content-Type": "application/json" }, withCredentials: true },
+        { headers: { "Content-Type": "application/json" } },
       );
       return toast.success(response.data.message);
     } catch (error) {

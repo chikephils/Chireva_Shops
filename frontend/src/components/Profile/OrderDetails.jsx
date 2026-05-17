@@ -35,9 +35,7 @@ const OrderDetails = () => {
     if (!id) return;
     setLoading(true);
     try {
-      const response = await api.get(`${server}/order/get-order/${id}`, {
-        withCredentials: true,
-      });
+      const response = await api.get(`${server}/order/get-order/${id}`);
       setOrderData(response?.data);
     } catch (error) {
       console.error(error.response?.data.message);
@@ -66,13 +64,7 @@ const OrderDetails = () => {
   const handleUpdateStatus = async (orderId, status) => {
     setUpdatingMap((prev) => ({ ...prev, [orderId]: true }));
     try {
-      await api.put(
-        `${server}/order/update-order-status/${orderId}`,
-        { status },
-        {
-          withCredentials: true,
-        },
-      );
+      await api.put(`${server}/order/update-order-status/${orderId}`, { status });
 
       toast.success("Order updated");
       fetchOrder();
@@ -100,7 +92,7 @@ const OrderDetails = () => {
           productId: selectedProduct?._id,
           orderId: selectedProduct?.orderId,
         },
-        { headers: { "Content-Type": "application/json" }, withCredentials: true },
+        { headers: { "Content-Type": "application/json" }, },
       );
       toast.success("Review submitted successfully");
       setIsReviewOpen(false);
@@ -118,9 +110,7 @@ const OrderDetails = () => {
   const handleRequestRefund = async (childOrderId) => {
     setRequestingMap((prev) => ({ ...prev, [childOrderId]: true }));
     try {
-      const res = await api.put(`${server}/order/order-refund/${childOrderId}`, null, {
-        withCredentials: true,
-      });
+      const res = await api.put(`${server}/order/order-refund/${childOrderId}`, null);
       toast.success(res.data.message || "Refund request submitted");
       fetchOrder();
     } catch (err) {

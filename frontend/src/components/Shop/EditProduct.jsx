@@ -149,7 +149,6 @@ const EditProduct = ({ product, averageRating, totalReviewsLength }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
         headers: {
           role: "shop",
         },

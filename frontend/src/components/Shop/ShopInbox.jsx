@@ -53,9 +53,7 @@ const ShopInbox = () => {
     if (!id) return;
     const fetchConversation = async () => {
       try {
-        const res = await api.get(`${server}/conversation/get-conversation/${id}`, {
-          withCredentials: true,
-        });
+        const res = await api.get(`${server}/conversation/get-conversation/${id}`);
         setCurrentChat(res.data.conversation);
       } catch (err) {
         console.error("Failed to load conversation:", err);
@@ -92,7 +90,6 @@ const ShopInbox = () => {
     const fetchMessages = async () => {
       try {
         const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`, {
-          withCredentials: true,
           headers: {
             role: "shop",
           },
@@ -135,9 +132,7 @@ const ShopInbox = () => {
     setNewMessage("");
 
     try {
-      const res = await api.post(`${server}/messages/create-new-message`, messageData, {
-        withCredentials: true,
-      });
+      const res = await api.post(`${server}/messages/create-new-message`, messageData);
 
       setMessages((prev) => prev.map((msg) => (msg._id.startsWith("temp-") ? res.data.message : msg)));
     } catch (error) {
@@ -177,15 +172,11 @@ const ShopInbox = () => {
     setMessages((prev) => [...prev, optimisticImg]);
 
     try {
-      const res = await api.post(
-        `${server}/messages/create-new-message`,
-        {
-          sender: me,
-          images: base64Image,
-          conversationId: currentChat._id,
-        },
-        { withCredentials: true },
-      );
+      const res = await api.post(`${server}/messages/create-new-message`, {
+        sender: me,
+        images: base64Image,
+        conversationId: currentChat._id,
+      });
 
       setMessages((prev) => prev.map((msg) => (msg._id === optimisticImg._id ? res.data.message : msg)));
     } catch (error) {

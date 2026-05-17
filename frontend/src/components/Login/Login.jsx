@@ -24,17 +24,16 @@ const Login = () => {
       const response = await api.post(
         `${server}/user/login-user`,
         { email, password },
-        { headers: { "Content-Type": "application/json" }, withCredentials: true },
+        {
+          headers: { "Content-Type": "application/json" },
+        },
       );
 
-      if (response.status >= 200 && response.status < 300) {
-        const { user, message } = response.data;
-        dispatch(setLogin({ user }));
-        toast.success(message || "Login successful");
-        navigate("/");
-      } else {
-        toast.error(response.data.message || "Login failed");
-      }
+      const { user, token, message } = response.data;
+      dispatch(setLogin({ user, token }));
+
+      toast.success(message || "Login successful");
+      navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     } finally {

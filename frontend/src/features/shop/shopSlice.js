@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   seller: null,
+  token: null,
   shopProducts: [],
   shopOrders: [],
   loading: true,
@@ -19,7 +20,6 @@ const initialState = {
 export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/shop/getSeller`, {
-      withCredentials: true,
       headers: {
         role: "shop",
       },
@@ -35,7 +35,6 @@ export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { reject
 export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (id, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/product/get-all-products-shop/${id}`, {
-      withCredentials: true,
       headers: {
         role: "shop",
       },
@@ -50,7 +49,6 @@ export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (i
 export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts", async (id, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/product/get-shop-promo-products/${id}`, {
-      withCredentials: true,
       headers: {
         role: "shop",
       },
@@ -66,7 +64,6 @@ export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts"
 export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", async (id, { rejectWithValue }) => {
   try {
     const response = await api.delete(`${server}/product/delete-shop-product/${id}`, {
-      withCredentials: true,
       headers: {
         role: "shop",
       },
@@ -83,7 +80,6 @@ export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", asyn
 export const getAllShopOrders = createAsyncThunk("shop/getAllShopOrders", async (id, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/order/get-seller-all-orders/${id}`, {
-      withCredentials: true,
       headers: {
         role: "shop",
       },
@@ -101,9 +97,11 @@ const shopSlice = createSlice({
   reducers: {
     setShopLogin: (state, action) => {
       state.seller = action.payload.seller;
+      state.token = action.payload.token;
     },
     logoutSeller: (state) => {
       state.seller = null;
+      state.token = null;
       state.shopProducts = [];
       state.shopOrders = [];
       state.loading = false;

@@ -43,9 +43,7 @@ const DashboardMessages = () => {
     const fetchConversations = async () => {
       setLoading(true);
       try {
-        const { data } = await api.get(`${server}/conversation/get-all-conversation-seller/${seller._id}`, {
-          withCredentials: true,
-        });
+        const { data } = await api.get(`${server}/conversation/get-all-conversation-seller/${seller._id}`);
 
         const sorted = (data.conversations || []).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         setConversations(sorted);

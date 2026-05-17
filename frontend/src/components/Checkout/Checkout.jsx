@@ -67,7 +67,7 @@ const Checkout = () => {
         user,
       };
 
-      const response = await api.post(`${server}/order/create-order`, tempOrderData, { withCredentials: true });
+      const response = await api.post(`${server}/order/create-order`, tempOrderData);
 
       if (!response?.data.success) {
         throw new Error("Failed to Create Order");

@@ -343,20 +343,15 @@ router.post(
         process.env.JWT_SECRET_KEY,
         { expiresIn: "1d" },
       );
-      const cookieOptions = {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 24 * 60 * 60 * 1000,
-        path: "/",
-      };
-
-      res.cookie("seller_token", token, cookieOptions);
 
       seller.password = undefined;
-      res
-        .status(200)
-        .json({ success: true, seller, message: "Logged in sucessfully" });
+
+      res.status(200).json({
+        success: true,
+        seller,
+        token,
+        message: "Logged in successfully",
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
@@ -377,6 +372,7 @@ router.get(
       res.status(200).json({
         success: true,
         seller,
+        role: "seller"
       });
     } catch (error) {
       return next(new ErrorHandler(err.message, 500));
@@ -384,47 +380,16 @@ router.get(
   }),
 );
 
-router.get(
-  "/me",
-  isSellerAuthenticated,
-  catchAsyncError(async (req, res, next) => {
-    try {
-      const seller = await Shop.findById(req.seller._id);
-
-      if (!seller) {
-        return next(new ErrorHandler("Seller doesn't exist", 400));
-      }
-
-      res.status(200).json({
-        success: true,
-        seller,
-        role: "seller",
-      });
-    } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
-    }
-  }),
-);
 
 //logout Seller
 router.get(
   "/logout",
   isSellerAuthenticated,
   catchAsyncError(async (req, res, next) => {
-    try {
-      res.clearCookie("seller_token", {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-        path: "/",
-      });
-      res.status(201).json({
-        success: true,
-        message: "Logged out successfully",
-      });
-    } catch (err) {
-      return next(new ErrorHandler(err.message, 500));
-    }
+    res.status(201).json({
+      success: true,
+      message: "Logged out successfully",
+    });
   }),
 );
 

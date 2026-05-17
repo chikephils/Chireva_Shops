@@ -26,9 +26,7 @@ const initialState = {
 
 export const getAdminBalance = createAsyncThunk("admin/getAdminBalance", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/user/admin-balance`, {
-      withCredentials: true,
-    });
+    const response = await api.get(`${server}/user/admin-balance`, {});
 
     console.log(response.data);
     return response.data;
@@ -39,9 +37,7 @@ export const getAdminBalance = createAsyncThunk("admin/getAdminBalance", async (
 
 export const getAllUsers = createAsyncThunk("admin/getAllUsers", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/user/admin-all-users`, {
-      withCredentials: true,
-    });
+    const response = await api.get(`${server}/user/admin-all-users`, {});
     console.log(response.data.users);
     return response.data.users;
   } catch (error) {
@@ -52,9 +48,7 @@ export const getAllUsers = createAsyncThunk("admin/getAllUsers", async (_, { rej
 
 export const deleteUser = createAsyncThunk("admin/deletUser", async (id, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`${server}/user/delete-user/${id}`, {
-      withCredentials: true,
-    });
+    const response = await api.delete(`${server}/user/delete-user/${id}`);
     toast.success(response.data.message);
   } catch (error) {
     toast.error(error.response.message);
@@ -64,10 +58,7 @@ export const deleteUser = createAsyncThunk("admin/deletUser", async (id, { rejec
 
 export const getAllSellers = createAsyncThunk("admin/getAllSellers", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/shop/admin-all-sellers`, {
-      withCredentials: true,
-    });
-    console.log(response.data.sellers);
+    const response = await api.get(`${server}/shop/admin-all-sellers`);
     return response.data.sellers;
   } catch (error) {
     toast.error(error.response.data.message);
@@ -77,9 +68,7 @@ export const getAllSellers = createAsyncThunk("admin/getAllSellers", async (_, {
 
 export const deleteSeller = createAsyncThunk("admin/deleteSeller", async (id, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`${server}/shop/delete-seller/${id}`, {
-      withCredentials: true,
-    });
+    const response = await api.delete(`${server}/shop/delete-seller/${id}`);
     toast.success(response.data.message);
   } catch (error) {
     toast.error(error.response.data.message);
@@ -89,9 +78,7 @@ export const deleteSeller = createAsyncThunk("admin/deleteSeller", async (id, { 
 
 export const getAllAdminPromoProducts = createAsyncThunk("admin/getAllAdminPromoProducts", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/product/admin-promo-products`, {
-      withCredentials: true,
-    });
+    const response = await api.get(`${server}/product/admin-promo-products`);
     return response.data.promoProducts;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -100,9 +87,7 @@ export const getAllAdminPromoProducts = createAsyncThunk("admin/getAllAdminPromo
 
 export const getAllAdminOrders = createAsyncThunk("admin/getAllAdminOrders", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/order/admin-all-orders/`, {
-      withCredentials: true,
-    });
+    const response = await api.get(`${server}/order/admin-all-orders/`);
     return response.data.orders;
   } catch (error) {
     console.log(error);
@@ -113,9 +98,7 @@ export const getAllAdminOrders = createAsyncThunk("admin/getAllAdminOrders", asy
 //get all products Admin
 export const getAllAdminProducts = createAsyncThunk("admin/getAllAdminProducts", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/product/admin-all-products`, {
-      withCredentials: true,
-    });
+    const response = await api.get(`${server}/product/admin-all-products`);
     return response.data.products;
   } catch (error) {
     console.log(error);
@@ -126,9 +109,7 @@ export const getAllAdminProducts = createAsyncThunk("admin/getAllAdminProducts",
 //get all Transactions
 export const getAllAdminTransactions = createAsyncThunk("admin/getAllAdminTransactions", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${server}/withdraw/admin-withdrawal-requests`, {
-      withCredentials: true,
-    });
+    const response = await api.get(`${server}/withdraw/admin-withdrawal-requests`);
     console.log(response?.data);
     return response.data.withdrawals;
   } catch (error) {

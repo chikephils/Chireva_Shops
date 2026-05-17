@@ -76,26 +76,20 @@ export const createProduct = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const response = await api.post(
-        `${server}/product/create-product`,
-        {
-          name,
-          description,
-          category,
-          originalPrice,
-          discountPrice,
-          stock,
-          shopId,
-          images,
-          isEvent,
-          eventStartDate,
-          eventEndDate,
-          eventTag,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await api.post(`${server}/product/create-product`, {
+        name,
+        description,
+        category,
+        originalPrice,
+        discountPrice,
+        stock,
+        shopId,
+        images,
+        isEvent,
+        eventStartDate,
+        eventEndDate,
+        eventTag,
+      });
       return response.data.product;
     } catch (error) {
       console.log(error);

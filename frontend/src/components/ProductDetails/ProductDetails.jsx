@@ -63,11 +63,7 @@ const ProductDetails = ({ product }) => {
     const groupTitle = userId + sellerId;
 
     try {
-      const response = await api.post(
-        `${server}/conversation/create-new-conversation`,
-        { groupTitle, userId, sellerId },
-        { withCredentials: true },
-      );
+      const response = await api.post(`${server}/conversation/create-new-conversation`, { groupTitle, userId, sellerId });
 
       navigate(`/profile/inbox/${response.data.conversation._id}`, {
         state: {

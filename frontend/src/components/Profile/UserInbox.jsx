@@ -41,9 +41,7 @@ const UserInbox = () => {
     const fetchConversations = async () => {
       setLoading(true);
       try {
-        const { data } = await api.get(`${server}/conversation/get-all-conversation-user/${user._id}`, {
-          withCredentials: true,
-        });
+        const { data } = await api.get(`${server}/conversation/get-all-conversation-user/${user._id}`);
 
         const sorted = (data.conversations || []).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         setConversations(sorted);
