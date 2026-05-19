@@ -85,12 +85,18 @@ const WithdrawMoney = () => {
 
     try {
       // Submit withdrawal request
-      await api.post(`${server}/withdraw/create-withdraw-request`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-          role: "shop",
+      await api.post(
+        `${server}/withdraw/create-withdraw-request`,
+        payload,
+        {
+          authType: "shop",
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
 
       //  Save only if truly new
       if (isNewMethod) {
@@ -98,9 +104,11 @@ const WithdrawMoney = () => {
           `${server}/shop/update-payment-methods`,
           { withdrawMethod: { bankName, accountNumber } },
           {
+            authType: "shop",
+          },
+          {
             headers: {
               "Content-Type": "application/json",
-              role: "shop",
             },
           },
         );
@@ -133,12 +141,15 @@ const WithdrawMoney = () => {
     }
 
     try {
-      await api.delete(`${server}/shop/delete-withdraw-method`, {
-        headers: {
-          role: "shop",
+      await api.delete(
+        `${server}/shop/delete-withdraw-method`,
+        {
+          authType: "shop",
         },
-        data: { bankName: method.bankName },
-      });
+        {
+          data: { bankName: method.bankName },
+        },
+      );
 
       toast.success("Bank account removed");
       dispatch(LoadSeller());
@@ -148,9 +159,9 @@ const WithdrawMoney = () => {
   };
 
   return (
-    <div className="h-full bg-gray-50 pb-10">
+    <div className="h-full bg-gray-50 pb-16">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-20 bg-white border-b shadow-sm">
+      <div className="fixed w-full left-0 right-0  z-20 bg-white border-b shadow-sm">
         <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <FcMoneyTransfer className="text-indigo-600" size={28} />
@@ -163,7 +174,7 @@ const WithdrawMoney = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-3 lg:px-8 pt-6 space-y-6 h- h-[calc(100%-52px)] overflow-y-scroll scrollbar-hide pb-10">
+      <div className="max-w-screen-4xl px-2 lg:px-6 pt-20 space-y-6">
         {/* Balance Display */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-8">
           <h3 className="text-lg font-medium text-gray-600 mb-2">Available Balance</h3>

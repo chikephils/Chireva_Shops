@@ -54,7 +54,7 @@ const UserTransactions = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-screen-4xl h-[calc(100%-30px)] mx-auto overflow-y-auto scrollbar-hide px-2 lg:px-8 pt-8 pb-12">
+      <div className="max-w-screen-4xl h-full mx-auto overflow-y-auto scrollbar-hide px-2 lg:px-8 pt-8 pb-20 lg-pb-12">
         {/* Transactions List */}
         {isLoading ? (
           <div className="flex justify-center items-center  h-[63vh] md:h-[71vh]">

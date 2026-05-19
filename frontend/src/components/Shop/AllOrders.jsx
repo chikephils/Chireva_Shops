@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { getAllShopOrders } from "../../features/shop/shopSlice";
 import { selectSeller } from "../../features/shop/shopSlice";
 import { Link } from "react-router-dom";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineArrowRight, AiOutlineEye } from "react-icons/ai";
 import { FiPackage } from "react-icons/fi";
 import Loader from "../UI/Loader";
 import { numbersWithCommas } from "../../utils/priceDisplay";
@@ -105,7 +105,7 @@ const AllOrders = () => {
               "&:hover": { bgcolor: "primary.100" },
             }}
           >
-            <AiOutlineArrowRight size={18} />
+            <AiOutlineEye size={18} />
           </Button>
         </Link>
       ),
@@ -126,39 +126,51 @@ const AllOrders = () => {
   });
 
   return (
-    <div className="h-full pb-20 lg:pb-16">
-      <div className="w-full flex items-center justify-between sticky h-[35px] mb-3">
-        <h1 className=" flex font-medium 800px:text-[22px] 800px:font-[600] text-black py-3">
-          <FiPackage size={32} /> Your Orders
-        </h1>
+    <div className="flex flex-col h-full">
+      <div className="fixed top-[70px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-sm">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                {/* TITLE */}
+                <h1 className="flex items-center gap-2 font-medium text-[20px] lg:text-[22px] text-black">
+                  <FiPackage size={28} />
+                  Your Orders
+                </h1>
 
-        {/*Filter dropdown */}
-        <div className="w-full pb-2 max-w-[160px]">
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full px-2 py-1 text-base font-semibold border border-gray-600 rounded-xl bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-          >
-            <option value="All">All Orders</option>
-            <option value="Processing">Processing</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Refund Requested">Refund Request</option>
-            <option value="Refunded">Refunded</option>
-            <option value="Rejected">Refund Rejected</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
+                {/* FILTER */}
+                <div className="sm:w-[160px]">
+                  <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    className="w-full px-2 py-2 text-sm font-semibold border border-gray-300 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="All">All Orders</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Refund Requested">Refund Request</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Rejected">Refund Rejected</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {isLoading ? (
-        <div className="flex items-center justify-center bg-gray-50 h-[74vh] md:h-[75vh] ">
-          <Loader />
-        </div>
-      ) : (
-        <div className=" h-[calc(100%-38px)] overflow-x-auto scrollbar-hide ">
-          <DataGrid rows={rows} columns={columns} disableRowSelectionOnClick autoPageSize disableColumnMenu />
-        </div>
-      )}
+
+    
+      <div className="flex-1 min-h-0 pt-[70px]">
+        {isLoading ? (
+          <div className="flex h-full items-center justify-center pb-16">
+            <Loader />
+          </div>
+        ) : (
+          <DataGrid rows={rows} columns={columns} autoPageSize disableRowSelectionOnClick disableColumnMenu />
+        )}
+      </div>
     </div>
   );
 };

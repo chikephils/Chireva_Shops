@@ -42,7 +42,7 @@ const ChangePassword = () => {
         <h1 className=" flex font-semibold text-lg text-black py-6">Change Password</h1>
       </div>
       <PageTransition>
-        <div className=" h-[calc(100%-38px)] overflow-y-scroll scrollbar-hide pt-3 pb-10">
+        <div className=" h-full overflow-y-scroll scrollbar-hide pt-3 pb-10">
           <form className="space-y-6 max-w-xl mx-auto px-2" onSubmit={passwordChangeHandler}>
             <div className="grid grid-cols-1 gap-6">
               <div>

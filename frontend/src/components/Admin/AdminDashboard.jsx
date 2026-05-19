@@ -98,13 +98,13 @@ const AdminDashboard = () => {
     })) || [];
 
   return (
-    <div className="h-full bg-gray-900 text-white pb-10 lg:pb-5">
+    <div className="h-full bg-gray-900 text-white pb-20">
       {/* Sticky Overview Header */}
       <div className="sticky top-0 z-10 bg-gray-900 border-b border-gray-700 py-3 px-4 lg:px-6 h-16">
         <h1 className="text-xl lg:text-2xl font-semibold">Overview</h1>
       </div>
 
-      <div className="h-[calc(100%-63px)]  overflow-y-scroll scrollbar-hide pt-6 px-4 lg:px-6 space-y-8">
+      <div className="h-full overflow-y-scroll scrollbar-hide pt-6 px-4 lg:px-6 space-y-8 pb-16 lg:pb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Total Earnings */}
           <div className="bg-gray-800 rounded-xl shadow-sm border border-gray-700 p-6 hover:shadow-md transition-shadow">

@@ -47,7 +47,7 @@ const ShopPreviewPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-[120px] bg-gray-50">
+    <div className="pt-[120px] bg-gray-50">
       <div className="h-1 bg-gradient-to-r from-rose-500 via-purple-500 to-indigo-600" />
 
       <div className="mx-auto max-w-screen-4xl px-2 lg:px-6">
@@ -57,13 +57,13 @@ const ShopPreviewPage = () => {
               lg:w-80 lg:shrink-0 lg:h-full
               lg:sticky lg:top-6 lg:self-start
               bg-white rounded-xl shadow-sm border border-gray-200
-              p-2 lg:p-3 mb-6 lg:mb-7
+              p-2 lg:p-3 mb-6 lg:mb-0
             `}
           >
             <ShopInfo isOwner={false} shop={shop} />
           </aside>
 
-          <main className="flex-1 min-w-0 mb-6 lg:mb-7">
+          <main className="flex-1 min-w-0 ">
             <ShopProfileDataUser isOwner={false} />
           </main>
         </div>

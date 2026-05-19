@@ -124,9 +124,9 @@ const OrderDetails = () => {
   const grandTotal = orderData?.orders?.reduce((acc, o) => acc + o.totalPrice, 0);
 
   return (
-    <div className="h-full bg-gray-50 pb-10">
+    <div className=" bg-gray-50 pb-10">
       {/* Header Bar */}
-      <div className="sticky z-10 bg-white shadow-sm border-b border-gray-200">
+      <div className="fixed w-full left-0 right-0 z-10 bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-screen-4xl mx-auto px-4 lg:px-8">
           <div className="flex justify-between h-14 lg:h-12 items-center">
             <div className="flex items-center gap-3">
@@ -141,11 +141,11 @@ const OrderDetails = () => {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-[63vh] md:h-[71vh]">
+        <div className="flex items-center justify-center h-[calc(100vh-120px)]">
           <Loader />
         </div>
       ) : (
-        <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 pt-6 space-y-6 h-[calc(100%-52px)] overflow-y-scroll scrollbar-hide pb-10">
+        <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 pt-16 space-y-6 h-full overflow-y-scroll scrollbar-hide pb-10">
           {/* Parent Order Info */}
           <div className="bg-white rounded-lg shadow-sm p-4 md:p-5 border border-gray-200">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-sm text-gray-600">

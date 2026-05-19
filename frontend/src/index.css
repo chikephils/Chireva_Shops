@@ -70,6 +70,42 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+/* iOS Safari Bottom Nav + Toolbar Fix */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+
+  padding-bottom: env(safe-area-inset-bottom);
+  min-height: calc(70px + env(safe-area-inset-bottom));
+  transition: min-height 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .bottom-nav {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    padding-bottom: 0;
+    border-top: none;
+  }
+}
+
+/* Main content padding so it doesn't get hidden behind the nav */
+main {
+  padding-bottom: calc(90px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 1024px) {
+  .safe-bottom-nav {
+    display: none;
+  }
+  main {
+    padding-bottom: 0;
+  }
+}
 /* Badge for cart/wishlist count (heart icon badge) */
 .badge-count {
   @apply absolute -top-2 -right-2 min-w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow-md;

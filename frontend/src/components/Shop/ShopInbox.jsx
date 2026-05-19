@@ -90,9 +90,7 @@ const ShopInbox = () => {
     const fetchMessages = async () => {
       try {
         const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`, {
-          headers: {
-            role: "shop",
-          },
+          authType: "shop",
         });
         setMessages(res.data.messages || []);
       } catch (err) {
@@ -132,7 +130,9 @@ const ShopInbox = () => {
     setNewMessage("");
 
     try {
-      const res = await api.post(`${server}/messages/create-new-message`, messageData);
+      const res = await api.post(`${server}/messages/create-new-message`, messageData, {
+        authType: "shop",
+      });
 
       setMessages((prev) => prev.map((msg) => (msg._id.startsWith("temp-") ? res.data.message : msg)));
     } catch (error) {
@@ -172,11 +172,17 @@ const ShopInbox = () => {
     setMessages((prev) => [...prev, optimisticImg]);
 
     try {
-      const res = await api.post(`${server}/messages/create-new-message`, {
-        sender: me,
-        images: base64Image,
-        conversationId: currentChat._id,
-      });
+      const res = await api.post(
+        `${server}/messages/create-new-message`,
+        {
+          authType: "shop",
+        },
+        {
+          sender: me,
+          images: base64Image,
+          conversationId: currentChat._id,
+        },
+      );
 
       setMessages((prev) => prev.map((msg) => (msg._id === optimisticImg._id ? res.data.message : msg)));
     } catch (error) {
@@ -195,9 +201,9 @@ const ShopInbox = () => {
   const isChatOnline = onlineUsers.includes(currentChat?.members?.find((id) => id !== me)?.toString());
 
   return (
-    <div className="w-full h-full pb-10 flex flex-col justify-between">
+    <div className="h-screen flex flex-col justify-between">
       {/* Header*/}
-      <div className="w-full h-14 flex items-center justify-between py-2 bg-slate-500 px-3 z-10">
+      <div className="fixed top-0 left-0 right-0 h-14 bg-slate-500 z-50 flex items-center justify-between px-3 py-2">
         <div className="flex items-center gap-3">
           {loadingUser ? (
             <div className="w-12 h-12 rounded-full bg-gray-200 animate-pulse" />
@@ -219,9 +225,9 @@ const ShopInbox = () => {
       </div>
 
       {/* Messages container */}
-      <div className="relative flex-1 p-3 overflow-y-auto bg-gray-50 scrollbar-hide">
+      <div className="flex-1 pt-14 pb-20 px-3 md:px-5 overflow-y-auto bg-gray-50 scrollbar-hide">
         {isLoading ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-50/80">
+          <div className="h-full flex items-center justify-center">
             <Loader />
           </div>
         ) : (
@@ -265,30 +271,32 @@ const ShopInbox = () => {
       </div>
 
       {/* Input */}
-      <form onSubmit={sendMessageHandler} className="p-3 bg-white border-t flex items-center gap-3 z-10">
-        <label htmlFor="image-upload" className="cursor-pointer">
-          <TfiGallery size={26} className="text-blue-600" />
-          <input id="image-upload" type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={imgLoading} />
-        </label>
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t z-50 safe-input">
+        <form onSubmit={sendMessageHandler} className="p-3 flex items-center gap-3">
+          <label htmlFor="image-upload" className="cursor-pointer">
+            <TfiGallery size={26} className="text-blue-600" />
+            <input id="image-upload" type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={imgLoading} />
+          </label>
 
-        <textarea
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type a message..."
-          className="flex-1 p-3 border rounded-lg resize-none focus:outline-none focus:border-blue-500"
-          rows={1}
-        />
+          <textarea
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Type a message..."
+            className="flex-1 p-3 border rounded-lg resize-none focus:outline-none focus:border-blue-500 max-h-[120px]"
+            rows={1}
+          />
 
-        <button
-          type="submit"
-          disabled={!newMessage.trim()}
-          className={`p-3 rounded-full transition-colors ${
-            newMessage.trim() ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-200 text-gray-500 cursor-not-allowed"
-          }`}
-        >
-          <AiOutlineSend size={24} />
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={!newMessage.trim()}
+            className={`p-3 rounded-full transition-colors ${
+              newMessage.trim() ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-200 text-gray-500 cursor-not-allowed"
+            }`}
+          >
+            <AiOutlineSend size={24} />
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

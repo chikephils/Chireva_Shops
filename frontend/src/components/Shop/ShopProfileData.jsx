@@ -41,7 +41,7 @@ const ShopProfileData = ({ isOwner }) => {
   );
 
   return (
-    <div className="w-full bg-white h-full">
+    <div className="w-full bg-white h-full rounded-lg">
       <div
         className="
                sticky top-[64px] left-0 z-10 bg-gray-300 border-b border-gray-200

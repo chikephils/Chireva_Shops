@@ -143,7 +143,7 @@ const UserDashboard = () => {
               "&:hover": { bgcolor: "primary.100" },
             }}
           >
-            <AiOutlineArrowRight size={18} />
+            <AiOutlineEye size={18} />
           </Button>
         </Link>
       ),
@@ -169,11 +169,11 @@ const UserDashboard = () => {
   const maskedBalance = "*****";
 
   return (
-    <div className="h-full pb-10">
+    <div className="h-full pb-20">
       <div className="sticky top-0 z-10 h-[60px] bg-white/95 backdrop-blur-sm border-b border-gray-200 py-3 px-4 lg:px-6">
         <h1 className="text-xl lg:text-2xl font-semibold text-gray-900">Overview</h1>
       </div>
-      <div className=" h-[calc(100%-63px)] pt-4 lg:px-2 overflow-y-scroll scrollbar-hide">
+      <div className=" h-full pb-16 lg:pb-8 pt-4 lg:px-2 overflow-y-scroll scrollbar-hide">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-8">
           {/* Balance Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">

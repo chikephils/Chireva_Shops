@@ -28,9 +28,7 @@ const OrderDetails = () => {
     setOrderLoading(true);
     try {
       const response = await api.get(`${server}/order/get-seller-order/${id}`, {
-        headers: {
-          role: "shop",
-        },
+        authType: "shop",
       });
       setOrder(response?.data.order);
     } catch (error) {
@@ -51,12 +49,9 @@ const OrderDetails = () => {
         `${server}/order/shop-update-order-status/${id}`,
         { status: "Shipped" },
         {
-          headers: {
-            role: "shop",
-          },
+          authType: "shop",
         },
       );
-
       toast.success("Order marked as shipped");
       fetchOrder();
     } catch (err) {
@@ -73,12 +68,9 @@ const OrderDetails = () => {
         `${server}/order/shop-update-order-status/${id}`,
         { status: "Cancelled" },
         {
-          headers: {
-            role: "shop",
-          },
+          authType: "shop",
         },
       );
-
       toast.success("Order has been Cancelled");
       fetchOrder();
     } catch (err) {
@@ -92,9 +84,9 @@ const OrderDetails = () => {
   const shipping = order?.shipping;
 
   return (
-    <div className="h-full bg-gray-50 pb-10">
+    <div className=" flex flex-col h-full">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-20 bg-white border-b shadow-sm">
+      <div className="fixed w-full left-0 right-0 z-20 bg-white border-b shadow-sm">
         <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <BsFillBagFill className="text-red-600" size={28} />
@@ -107,14 +99,14 @@ const OrderDetails = () => {
         </div>
       </div>
       {orderLoading ? (
-        <div className="mx-auto max-w-screen-4xl flex items-center justify-center bg-gray-50 h-[73vh] md:h-[75vh]">
+        <div className="mx-auto max-w-screen-4xl flex items-center justify-center bg-gray-50 h-[calc(100vh-58px)]">
           {" "}
           <Loader />
         </div>
       ) : (
         <>
-          <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 pt-6 space-y-6 h-[calc(100%-52px)] overflow-y-scroll scrollbar-hide  pb-10">
-            {/* Order Meta */}
+          <div className="max-w-screen-4xl px-2 lg:px-6 pt-20 space-y-6 pb-16">
+            {/* Order Details */}
             <div className="bg-white rounded-lg shadow-sm border p-2 md:p-5 mb-6">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <div>

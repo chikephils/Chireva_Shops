@@ -3,9 +3,9 @@ import SmallLoader from "../UI/SmallLoader";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../utils/axios";
 import { server } from "../../server";
 import Logo from "../../Assests/img/logo.png";
+import axios from "axios";
 
 const ShopForgotPassword = () => {
   const [email, setEmail] = useState("");

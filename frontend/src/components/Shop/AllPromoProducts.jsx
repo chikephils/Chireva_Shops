@@ -272,24 +272,31 @@ const AllPromoProducts = ({ handleProductClick, shopPromoProducts, isLoading, sh
     })) || [];
 
   return (
-    <div className="h-full pb-20 lg:pb-16">
-      <div className="flex items-center justify-center sticky h-[35px] mb-3">
-        <h1 className=" flex font-medium 800px:text-[22px] 800px:font-[600] text-black py-3">
-          <MdOutlineCalendarMonth size={26} className="text-indigo-600" />
-          Your Promo-Sales
-        </h1>
+    <>
+      <div className="flex flex-col h-full ">
+        <div className="fixed top-[70px] left-0 right-0 z-10">
+          <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+            <div className="lg:ml-[284px]">
+              <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
+                <h1 className=" flex items-center justify-center font-medium 800px:text-[22px] 800px:font-[600] text-black py-3">
+                  <MdOutlineCalendarMonth size={26} className="text-indigo-600" />
+                  All Promo Products
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex-1 min-h-0 pt-[70px]">
+          {isLoading ? (
+            <div className="flex h-full items-center justify-center pb-16">
+              <Loader />
+            </div>
+          ) : (
+            <DataGrid rows={rows} columns={columns} autoPageSize disableRowSelectionOnClick disableColumnMenu />
+          )}
+        </div>
       </div>
-
-      {isLoading ? (
-        <div className="flex items-center justify-center bg-gray-50 h-[74vh] md:h-[75vh] ">
-          <Loader />
-        </div>
-      ) : (
-        <div className=" h-[calc(100%-38px)] overflow-x-auto scrollbar-hide ">
-          <DataGrid rows={rows} columns={columns} disableRowSelectionOnClick autoPageSize disableColumnMenu />
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

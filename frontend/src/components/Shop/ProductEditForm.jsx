@@ -73,12 +73,18 @@ const ProductEditForm = ({ setEdit, product }) => {
     };
 
     try {
-      await api.put(`${server}/product/edit-product/${product._id}`, payload, {
-        headers: {
-          Authorization: `Bearer ${sellerToken}`,
-          "Content-Type": "application/json",
+      await api.put(
+        `${server}/product/edit-product/${product._id}`,
+        payload,
+        {
+          authType: "shop",
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
       toast.success("Product updated successfully!");
       // Refresh both product lists using .unwrap() for async thunk safety
       await Promise.all([dispatch(getShopProducts(seller._id)).unwrap(), dispatch(getAllProducts()).unwrap()]);
