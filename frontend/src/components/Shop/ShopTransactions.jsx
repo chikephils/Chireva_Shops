@@ -32,38 +32,44 @@ const ShopTransactions = () => {
     return transaction.status === selectedStatus;
   });
   return (
-    <div className="h-full bg-gray-50 pb-16">
+    <div className=" flex flex-col h-full">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-20 bg-white border-b shadow-sm">
-        <div className="max-w-screen-4xl mx-auto px-2 py-3 md:py-5 lg:px-8 flex flex-col items-center gap-2 xs:flex-row xs:justify-between">
-          <div className="flex items-center gap-1 justify-center">
-            <FcMoneyTransfer className="text-indigo-600" size={22} />
-            <h1 className="text-xl md:text-2xl font-semibold text-gray-900 text-center">Transactions</h1>
-          </div>
-
-          <div className="w-full max-w-[160px] flex justify-center">
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-2 py-1 text-base font-semibold border border-lime-600 rounded-xl bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-            >
-              <option value="All">All</option>
-              <option value="Processing" className="text-amber-600 font-medium">
-                Processing
-              </option>
-              <option value="Successful" className="text-green-600 font-medium">
-                Successful
-              </option>
-              <option value="Rejected" className="text-red-600 font-medium">
-                Rejected
-              </option>
-            </select>
+      <div className="fixed top-[70px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-sm">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                {/* TITLE */}
+                <h1 className="flex items-center gap-2 font-medium text-[20px] lg:text-[22px] text-black">
+                  <FcMoneyTransfer size={28} />
+                  Transactions{" "}
+                </h1>
+                <div className="sm:w-[160px]">
+                  <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    className="w-full px-2 py-1 text-base font-semibold border border-lime-600 rounded-xl bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                  >
+                    <option value="All">All</option>
+                    <option value="Processing" className="text-amber-600 font-medium">
+                      Processing
+                    </option>
+                    <option value="Successful" className="text-green-600 font-medium">
+                      Successful
+                    </option>
+                    <option value="Rejected" className="text-red-600 font-medium">
+                      Rejected
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-screen-4xl h-[calc(100%-50px)] mx-auto overflow-y-auto scrollbar-hide px-2 lg:px-8 pt-8 pb-12">
+      <div className="max-w-screen-4xl h-full pt-[70px]  overflow-y-auto scrollbar-hide px-2 lg:px-4">
         {/* Transactions List */}
         {isLoading ? (
           <div className="flex items-center justify-center bg-gray-50 h-[75vh] ">

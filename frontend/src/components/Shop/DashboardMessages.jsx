@@ -43,7 +43,9 @@ const DashboardMessages = () => {
     const fetchConversations = async () => {
       setLoading(true);
       try {
-        const { data } = await api.get(`${server}/conversation/get-all-conversation-seller/${seller._id}`);
+        const { data } = await api.get(`${server}/conversation/get-all-conversation-seller/${seller._id}`, {
+          authType: "shop",
+        });
 
         const sorted = (data.conversations || []).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         setConversations(sorted);
@@ -64,16 +66,23 @@ const DashboardMessages = () => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
-      <div className="sticky top-0 z-10 bg-white border-b px-4 py-3 shadow-sm">
-        <div className="flex items-center gap-3 max-w-screen-4xl mx-auto">
-          <FcSms className="text-blue-600" size={28} strokeWidth={2.2} />
-          <h1 className="text-xl md:text-2xl font-semibold text-gray-900">Messages</h1>
+    <div className="flex flex-col h-full bg-gray">
+      <div className="fixed top-[70px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
+              <h1 className=" flex items-center justify-center font-medium 800px:text-[22px] 800px:font-[600] text-black py-3">
+                {" "}
+                <FcSms className="text-blue-600" size={28} strokeWidth={2.2} />
+                Messages
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto scrollbar-hide py-4 max-w-screen-4xl mx-auto w-full">
+      <div className="flex-1 overflow-y-auto scrollbar-hide max-w-screen-4xl mx-auto w-full pt-[60px]">
         {loading ? (
-          <div className="flex items-center justify-center bg-gray-50 h-[75vh] ">
+          <div className="flex items-center justify-center bg-gray-50 h-[55vh] lg:h-[63vh] ">
             <Loader />
           </div>
         ) : conversations.length === 0 ? (
@@ -153,8 +162,8 @@ const MessageList = ({ conversation, currentSellerId, online }) => {
     <div
       onClick={handleOpenMessage}
       className={`
-        flex items-center gap-3 p-3 md:p-4 rounded-xl cursor-pointer transition-all
-        hover:bg-gray-100 active:bg-gray-200 border border-gray-200
+        flex items-center gap-3 p-2 md:p-4 rounded-xl cursor-pointer transition-all
+        hover:bg-gray-200 active:bg-gray-200 border border-gray-300
       `}
     >
       <div className="relative flex-shrink-0">

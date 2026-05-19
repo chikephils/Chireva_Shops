@@ -16,19 +16,14 @@ const app = express();
 app.set("trust proxy", 1);
 const server = http.createServer(app);
 
-const allowedOrigins = [
-  "https://chireva.vercel.app",
-  "http://localhost:5173",
-];
+const allowedOrigins = ["https://chireva.vercel.app", "http://localhost:5173"];
 
 // Attach Socket.IO to  HTTP server
 const io = socketIO(server, {
   cors: {
     origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    exposedHeaders: ["Set-Cookie"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   },
   pingTimeout: 60000,
   pingInterval: 25000,
@@ -77,9 +72,7 @@ app.use(
   cors({
     origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    exposedHeaders: ["Set-Cookie"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 

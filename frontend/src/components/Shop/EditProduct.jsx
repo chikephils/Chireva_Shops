@@ -145,14 +145,18 @@ const EditProduct = ({ product, averageRating, totalReviewsLength }) => {
     };
 
     try {
-      await api.put(`${server}/product/edit-product/${product._id}`, payload, {
-        headers: {
-          "Content-Type": "application/json",
+      await api.put(
+        `${server}/product/edit-product/${product._id}`,
+        payload,
+        {
+          authType: "shop",
         },
-        headers: {
-          role: "shop",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
       toast.success("Product updated successfully!");
       await Promise.all([dispatch(getShopProducts(seller._id)).unwrap(), dispatch(getAllProducts({ page: 1, limit: 8 })).unwrap()]);
       navigate(-1);
@@ -166,7 +170,7 @@ const EditProduct = ({ product, averageRating, totalReviewsLength }) => {
 
   return (
     <div className="h-full bg-gray-50 pb-10">
-      <div className="sticky top-0 z-20 bg-white border-b shadow-sm">
+      <div className="fixed w-full left-0 right-0 z-20 bg-white border-b shadow-sm">
         <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <BiSolidPackage className="text-red-600" size={28} />
@@ -178,7 +182,7 @@ const EditProduct = ({ product, averageRating, totalReviewsLength }) => {
           </button>
         </div>
       </div>
-      <div className="max-w-screen-4xl mx-auto px-4 lg:px-8  pt-3 h-[calc(100%-52px)] overflow-y-scroll scrollbar-hide pb-10">
+      <div className="max-w-screen-4xl px-2 lg:px-6 pt-20 space-y-6 pb-4">
         {/* mobile view */}
         <div className="800px:hidden">
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 text-center">{product?.name}</h1>

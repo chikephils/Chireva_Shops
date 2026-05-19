@@ -45,7 +45,9 @@ const CreateShop = () => {
     };
 
     try {
-      const res = await api.post(`${server}/shop/create-shop`, payload);
+      const res = await api.post(`${server}/shop/create-shop`, payload, {
+        authType: "shop",
+      });
       toast.success(res.data.message || "Shop created successfully!");
 
       setShopName("");

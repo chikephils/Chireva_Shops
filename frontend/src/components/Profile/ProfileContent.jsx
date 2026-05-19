@@ -77,7 +77,7 @@ const ProfileContent = () => {
   };
 
   return (
-    <div className="h-full pb-10 lg:pb-5">
+    <div className="h-full pb-20 lg:pb-5">
       <>
         {(isLoading || userLoading) && (
           <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10 rounded-xl">
@@ -93,7 +93,7 @@ const ProfileContent = () => {
       </div>
 
       {/* Profile Page */}
-      <div className=" h-[calc(100%-38px)] overflow-y-scroll scrollbar-hide pt-3 pb-10">
+      <div className=" h-full overflow-y-scroll scrollbar-hide pt-3 pb-12">
         {/* Avatar */}
         <div className="flex justify-center mb-10 w-full">
           <div className="relative">

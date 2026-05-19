@@ -13,7 +13,7 @@ const initialState = {
 
 export const LoadUser = createAsyncThunk("user/LoadUser", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get("/user/me", {});
+    const response = await api.get("/user/me");
 
     return response.data.user;
   } catch (error) {

@@ -7,19 +7,17 @@ const api = axios.create({
 });
 
 export const setupInterceptors = (store) => {
-  // REQUEST INTERCEPTOR
   api.interceptors.request.use(
     (config) => {
       const state = store.getState();
 
-      // user token
-      const userToken = state.user?.token;
+      let token;
 
-      // seller token
-      const sellerToken = state.shop?.token;
-
-      // prefer seller token if exists
-      const token = sellerToken || userToken;
+      if (config.authType === "shop") {
+        token = state.shop?.token;
+      } else {
+        token = state.user?.token;
+      }
 
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -30,25 +28,35 @@ export const setupInterceptors = (store) => {
     (error) => Promise.reject(error),
   );
 
-  // RESPONSE INTERCEPTOR
   api.interceptors.response.use(
     (response) => response,
+
     (error) => {
       const status = error.response?.status;
-      const role = error.config?.headers?.role;
+      const authType = error.config?.authType;
       const nav = getNavigate();
 
       if (status === 401) {
-        if (role === "shop") {
-          store.dispatch({ type: "shop/logoutSeller" });
+        if (authType === "shop") {
+          store.dispatch({
+            type: "shop/logoutSeller",
+          });
+
           localStorage.removeItem("persist:shop");
 
-          if (nav) nav("/shop-login");
+          if (nav) {
+            nav("/shop-login");
+          }
         } else {
-          store.dispatch({ type: "user/setLogout" });
+          store.dispatch({
+            type: "user/setLogout",
+          });
+
           localStorage.removeItem("persist:user");
 
-          if (nav) nav("/login");
+          if (nav) {
+            nav("/login");
+          }
         }
       }
 

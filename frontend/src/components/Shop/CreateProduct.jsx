@@ -202,13 +202,21 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="h-full pb-10">
-      <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm border-b py-2 mb-3">
-        <h1 className="text-xl lg:text-2xl font-bold text-gray-900 text-center">Add New Product</h1>
+    <div className="h-full">
+      <div className="fixed top-[70px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
+              <h1 className=" flex items-center justify-center font-medium text-xl lg:text-2xl 800px:font-[600] text-black py-3">
+                Create Product
+              </h1>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="max-w-4xl mx-auto h-[calc(100%-63px)] lg:px-2 overflow-y-scroll scrollbar-hide pb-5">
-        <form onSubmit={handleSubmit} className="space-y-8 bg-white rounded-2xl shadow-lg p-6">
+      <div className="max-w-4xl mx-auto h-full pt-[70px] px-2 overflow-y-scroll scrollbar-hide ">
+        <form onSubmit={handleSubmit} className="space-y-8 bg-white">
           {/* Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">

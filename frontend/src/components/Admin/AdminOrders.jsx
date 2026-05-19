@@ -4,7 +4,7 @@ import { getAllAdminOrders, selectAdminOrders, selectAdminOrdersLoading } from "
 import { FiPackage } from "react-icons/fi";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineArrowRight, AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Loader from "../UI/Loader";
 import { numbersWithCommas } from "../../utils/priceDisplay";
@@ -98,7 +98,7 @@ const AdminOrders = () => {
               "&:hover": { bgcolor: "primary.50" },
             }}
           >
-            <AiOutlineArrowRight size={18} />
+            <AiOutlineEye size={18} />
           </Button>
         </Link>
       ),
@@ -120,7 +120,7 @@ const AdminOrders = () => {
   });
 
   return (
-    <div className="h-full pb-20 lg:pb-16">
+    <div className="h-full pb-16">
       <div className="w-full flex items-center justify-between sticky h-[35px] mb-3">
         <h1 className=" flex font-medium 800px:text-[22px] 800px:font-[600] text-white items-center py-3 gap-3">
           <FiPackage size={32} /> ORDERS
@@ -150,43 +150,45 @@ const AdminOrders = () => {
           <Loader />
         </div>
       ) : (
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          disableRowSelectionOnClick
-          autoPageSize
-          disableColumnMenu
-          sx={{
-            border: "none",
-            color: "white",
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#1f2937",
-              borderBottom: "1px solid #374151",
+        <div className=" h-full pb-16 lg:pb-6 overflow-x-auto scrollbar-hide ">
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            disableRowSelectionOnClick
+            autoPageSize
+            disableColumnMenu
+            sx={{
+              border: "none",
               color: "white",
-            },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "1px solid #374151",
-              color: "white",
-            },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#374151",
-            },
-            "& .MuiDataGrid-footerContainer": {
-              backgroundColor: "#1f2937",
-              borderTop: "1px solid #374151",
-              color: "white",
-            },
-            "& .MuiTablePagination-root": {
-              color: "white !important",
-            },
-            "& .MuiTablePagination-select": {
-              color: "white !important",
-            },
-            "& .MuiIconButton-root.Mui-disabled": {
-              color: "rgba(255, 255, 255, 0.3) !important",
-            },
-          }}
-        />
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: "#1f2937",
+                borderBottom: "1px solid #374151",
+                color: "white",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "1px solid #374151",
+                color: "white",
+              },
+              "& .MuiDataGrid-row:hover": {
+                backgroundColor: "#374151",
+              },
+              "& .MuiDataGrid-footerContainer": {
+                backgroundColor: "#1f2937",
+                borderTop: "1px solid #374151",
+                color: "white",
+              },
+              "& .MuiTablePagination-root": {
+                color: "white !important",
+              },
+              "& .MuiTablePagination-select": {
+                color: "white !important",
+              },
+              "& .MuiIconButton-root.Mui-disabled": {
+                color: "rgba(255, 255, 255, 0.3) !important",
+              },
+            }}
+          />
+        </div>
       )}
     </div>
   );

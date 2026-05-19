@@ -36,9 +36,7 @@ const ShopInfo = ({ isOwner = false, shop }) => {
   const handleShopLogout = async () => {
     try {
       const res = await api.get(`${server}/shop/logout`, {
-        headers: {
-          role: "shop",
-        },
+        authType: "shop",
       });
 
       dispatch(logoutSeller());
@@ -72,7 +70,7 @@ const ShopInfo = ({ isOwner = false, shop }) => {
     : "—";
 
   return (
-    <div className="space-y-6 text-gray-800 min-h-[calc(100vh-20px)]">
+    <div className="space-y-6 text-gray-800 h-full">
       {/* Avatar + Shop Name */}
       <div className="text-center">
         <div className="inline-block relative">

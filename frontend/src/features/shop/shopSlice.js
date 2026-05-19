@@ -20,9 +20,7 @@ const initialState = {
 export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/shop/getSeller`, {
-      headers: {
-        role: "shop",
-      },
+      authType: "shop",
     });
     return response.data.seller;
   } catch (error) {
@@ -35,9 +33,7 @@ export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { reject
 export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (id, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/product/get-all-products-shop/${id}`, {
-      headers: {
-        role: "shop",
-      },
+      authType: "shop",
     });
     return response.data.products;
   } catch (error) {
@@ -49,9 +45,7 @@ export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (i
 export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts", async (id, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/product/get-shop-promo-products/${id}`, {
-      headers: {
-        role: "shop",
-      },
+      authType: "shop",
     });
     return response.data.promoProducts;
   } catch (error) {
@@ -64,9 +58,7 @@ export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts"
 export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", async (id, { rejectWithValue }) => {
   try {
     const response = await api.delete(`${server}/product/delete-shop-product/${id}`, {
-      headers: {
-        role: "shop",
-      },
+      authType: "shop",
     });
     toast.success(response?.data?.message);
     return response.data.product;
@@ -80,9 +72,7 @@ export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", asyn
 export const getAllShopOrders = createAsyncThunk("shop/getAllShopOrders", async (id, { rejectWithValue }) => {
   try {
     const response = await api.get(`${server}/order/get-seller-all-orders/${id}`, {
-      headers: {
-        role: "shop",
-      },
+      authType: "shop",
     });
     return response.data.orders;
   } catch (error) {

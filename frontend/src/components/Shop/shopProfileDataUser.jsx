@@ -190,7 +190,7 @@ const ReviewsTab = ({ products, isLoading }) => {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 pb-6">
       {allReviews.map((review, idx) => (
         <div
           key={idx}

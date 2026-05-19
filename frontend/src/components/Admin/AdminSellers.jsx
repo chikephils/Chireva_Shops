@@ -113,7 +113,7 @@ const AdminSellers = ({ sellers, isLoading, showLoader, handleDeleteRequest }) =
     })) || [];
 
   return (
-    <div className="h-full pb-24 lg:pb-20">
+    <div className="h-full pb-16">
       <div className="flex items-center justify-center sticky h-[35px] mb-3">
         <h1 className=" flex font-medium 800px:text-[22px] 800px:font-[600] text-white py-3 gap-3">
           <GrWorkshop size={32} /> SELLERS
@@ -125,43 +125,45 @@ const AdminSellers = ({ sellers, isLoading, showLoader, handleDeleteRequest }) =
           <Loader />
         </div>
       ) : (
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          disableRowSelectionOnClick
-          autoPageSize
-          disableColumnMenu
-          sx={{
-            border: "none",
-            color: "white",
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#1f2937",
-              borderBottom: "1px solid #374151",
+        <div className=" h-full pb-16 lg:pb-6 overflow-x-auto scrollbar-hide ">
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            disableRowSelectionOnClick
+            autoPageSize
+            disableColumnMenu
+            sx={{
+              border: "none",
               color: "white",
-            },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "1px solid #374151",
-              color: "white",
-            },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#374151",
-            },
-            "& .MuiDataGrid-footerContainer": {
-              backgroundColor: "#1f2937",
-              borderTop: "1px solid #374151",
-              color: "white",
-            },
-            "& .MuiTablePagination-root": {
-              color: "white !important",
-            },
-            "& .MuiTablePagination-select": {
-              color: "white !important",
-            },
-            "& .MuiIconButton-root.Mui-disabled": {
-              color: "rgba(255, 255, 255, 0.3) !important", // disabled arrows
-            },
-          }}
-        />
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: "#1f2937",
+                borderBottom: "1px solid #374151",
+                color: "white",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "1px solid #374151",
+                color: "white",
+              },
+              "& .MuiDataGrid-row:hover": {
+                backgroundColor: "#374151",
+              },
+              "& .MuiDataGrid-footerContainer": {
+                backgroundColor: "#1f2937",
+                borderTop: "1px solid #374151",
+                color: "white",
+              },
+              "& .MuiTablePagination-root": {
+                color: "white !important",
+              },
+              "& .MuiTablePagination-select": {
+                color: "white !important",
+              },
+              "& .MuiIconButton-root.Mui-disabled": {
+                color: "rgba(255, 255, 255, 0.3) !important", // disabled arrows
+              },
+            }}
+          />
+        </div>
       )}
     </div>
   );

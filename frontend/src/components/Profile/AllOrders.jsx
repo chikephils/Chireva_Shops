@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -140,7 +140,7 @@ const AllOrders = () => {
               "&:hover": { bgcolor: "primary.100" },
             }}
           >
-            <AiOutlineArrowRight size={18} />
+            <AiOutlineEye size={18} />
           </Button>
         </Link>
       ),
@@ -164,7 +164,7 @@ const AllOrders = () => {
   });
 
   return (
-    <div className="h-full pb-10">
+    <div className="h-full pb-20">
       <div className="w-full flex items-center justify-between sticky h-[35px]">
         <h1 className="text-base md:text-2xl font-bold flex items-center justify-center gap-2 pb-2">
           <HiOutlineShoppingBag size={32} /> My Orders
@@ -194,7 +194,7 @@ const AllOrders = () => {
             <Loader />
           </div>
         ) : (
-          <div className=" h-[calc(100%-38px)] overflow-x-auto scrollbar-hide ">
+          <div className=" h-full pb-8 lg:pb-0 overflow-x-auto scrollbar-hide ">
             <DataGrid rows={rows} columns={columns} disableRowSelectionOnClick autoPageSize disableColumnMenu />
           </div>
         )}

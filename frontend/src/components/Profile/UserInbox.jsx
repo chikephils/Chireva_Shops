@@ -73,7 +73,7 @@ const UserInbox = () => {
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-2 py-4 md:px-3 max-w-screen-4xl">
         {loading ? (
-          <div className="flex items-center justify-center h-[63vh] md:h-[71vh]">
+          <div className="flex items-center justify-center bg-gray-50 h-[48vh] lg:h-[63vh] ">
             <Loader />
           </div>
         ) : conversations.length === 0 ? (

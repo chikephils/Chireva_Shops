@@ -71,7 +71,7 @@ const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
   const isCompleted = withdrawal.status === "Successful" || withdrawal.status === "Rejected";
 
   return (
-    <div className="h-full bg-gray-950 text-gray-100 pb-10">
+    <div className="h-full bg-gray-950 text-gray-100 pb-16">
       {/* Sticky Header */}
       <div className="sticky top-0 z-10 bg-gray-900 border-b border-gray-800 shadow-sm">
         <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
@@ -86,7 +86,7 @@ const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
       </div>
 
       {/* Scrollable Content */}
-      <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 pt-6 pb-10 h-[calc(100%-64px)] overflow-y-auto scrollbar-hide space-y-8">
+      <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 pt-6 pb-16 lg:pb-6 h-full overflow-y-auto scrollbar-hide space-y-8">
         {/* Transaction Info Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gray-900 p-4 rounded-lg border border-gray-800">
           <div className="text-sm text-gray-400">

@@ -51,7 +51,7 @@ const ShopHomePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50/50 pt-[68px]">
+    <div className=" bg-gray-50/50 pt-[68px]">
       <div className="bg-gradient-to-r from-indigo-600 to-blue-700 text-white">
         <div className="max-w-screen-4xl mx-auto px-2 lg:px-8 py-2 flex flex-row items-center justify-between">
           <div className="flex items-center gap-2">
@@ -74,19 +74,19 @@ const ShopHomePage = () => {
 
       {/* Main content */}
       <div className="max-w-screen-4xl mx-auto px-2 lg:px-6">
-        <div className="py-4 lg:flex lg:gap-8">
+        <div className="pt-2 lg:flex lg:gap-8 lg:pb-10">
           <aside
             className="
-              lg:w-80 lg:shrink-0 lg:h-full
+              lg:w-80 lg:shrink-0 h-full
               lg:sticky lg:top-6 lg:self-start
               bg-white rounded-xl shadow-md border border-indigo-100
-              p-3 mb-6 lg:mb-7
+              p-3 mb-6 lg:mb-0
             "
           >
             <ShopInfo isOwner={true} shop={shop} />
           </aside>
 
-          <main className="flex-1 min-w-0 mb-6 lg:mb-7">
+          <main className="flex-1 min-w-0">
             <ShopProfileData isOwner={true} />
           </main>
         </div>
