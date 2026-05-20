@@ -37,12 +37,20 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="h-full pb-10 pt-2">
-      <div className="flex items-center justify-center sticky h-[35px] py-6">
-        <h1 className=" flex font-semibold text-lg text-black py-6">Change Password</h1>
+    <div className=" h-full">
+      <div className="fixed top-[120px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
+              <h1 className=" flex items-center justify-center font-medium text-xl lg:text-2xl 800px:font-[600] text-black py-3">
+                Change Password
+              </h1>
+            </div>
+          </div>
+        </div>
       </div>
       <PageTransition>
-        <div className=" h-full overflow-y-scroll scrollbar-hide pt-3 pb-10">
+        <div className="max-w-4xl mx-auto min-h-0 pt-[70px] pb-8 px-2 lg:px-4 ">
           <form className="space-y-6 max-w-xl mx-auto px-2" onSubmit={passwordChangeHandler}>
             <div className="grid grid-cols-1 gap-6">
               <div>

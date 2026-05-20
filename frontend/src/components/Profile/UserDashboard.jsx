@@ -169,11 +169,18 @@ const UserDashboard = () => {
   const maskedBalance = "*****";
 
   return (
-    <div className="h-full pb-20">
-      <div className="sticky top-0 z-10 h-[60px] bg-white/95 backdrop-blur-sm border-b border-gray-200 py-3 px-4 lg:px-6">
-        <h1 className="text-xl lg:text-2xl font-semibold text-gray-900">Overview</h1>
+    <div className="flex flex-col h-full">
+      <div className="fixed top-[120px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="lg:ml-[284px]">
+            <div className="h-[60px] bg-white/95 backdrop-blur-sm border-b border-gray-200 py-3 px-4 lg:px-6 rounded-t-xl">
+              <h1 className="text-xl lg:text-2xl font-semibold text-gray-900">Overview</h1>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className=" h-full pb-16 lg:pb-8 pt-4 lg:px-2 overflow-y-scroll scrollbar-hide">
+
+      <div className="max-w-screen-4xl flex-1 min-h-0 pt-[70px] pb-4 px-2 lg:px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-8">
           {/* Balance Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
@@ -248,7 +255,7 @@ const UserDashboard = () => {
         ) : rows.length === 0 ? (
           <div className="text-center py-16 text-gray-500">No orders yet. Start buying!</div>
         ) : (
-          <div className="h-[50vh]">
+          <div className="h-[50vh] pb-8">
             <DataGrid rows={rows} columns={columns} disableRowSelectionOnClick autoPageSize disableColumnMenu />
           </div>
         )}

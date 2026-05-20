@@ -7,6 +7,7 @@ import api from "../../utils/axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import CreateLoader from "../UI/createLoader";
+import Loader from "../UI/Loader";
 
 const ProfileContent = () => {
   const { user, token } = useSelector((state) => state.user);
@@ -77,23 +78,28 @@ const ProfileContent = () => {
   };
 
   return (
-    <div className="h-full pb-20 lg:pb-5">
+    <div className="h-full">
       <>
         {(isLoading || userLoading) && (
           <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10 rounded-xl">
-            <CreateLoader />
+            <Loader />
           </div>
         )}
       </>
-      <div className="flex items-center justify-center sticky h-14">
-        <h1 className="text-xl md:text-2xl font-bold flex items-center justify-center gap-3 py-2 mt-3">
-          <FcPortraitMode size={32} />
-          My Profile
-        </h1>
+      <div className="fixed top-[120px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
+              <h1 className=" flex items-center justify-center font-medium text-xl lg:text-2xl 800px:font-[600] text-black py-3">
+                <FcPortraitMode size={32} />
+                My Profile
+              </h1>
+            </div>
+          </div>
+        </div>
       </div>
-
       {/* Profile Page */}
-      <div className=" h-full overflow-y-scroll scrollbar-hide pt-3 pb-12">
+      <div className="max-w-4xl mx-auto min-h-0 pt-[70px] pb-8 px-2 lg:px-4 ">
         {/* Avatar */}
         <div className="flex justify-center mb-10 w-full">
           <div className="relative">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FcOrganization, FcPaid, FcPackage, FcSms, FcMoneyTransfer, FcAutomatic } from "react-icons/fc";
 import { RiCalendarEventFill } from "react-icons/ri";
@@ -46,6 +46,19 @@ const DashBoardSideBar = ({ mobile = false }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const isActive = (path) => currentPath === path;
+  const itemRefs = useRef({});
+
+  useEffect(() => {
+    const activeEl = itemRefs.current[currentPath];
+
+    if (activeEl) {
+      activeEl.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [currentPath]);
 
   if (!mobile) {
     return (
@@ -80,7 +93,7 @@ const DashBoardSideBar = ({ mobile = false }) => {
 
   // Mobile Horizontal Scrollable Bottom Bar
   return (
-    <div className="w-full overflow-x-auto scrollbar-hide bg-white border-t border-gray-200">
+    <div className="w-full overflow-x-auto scrollbar-hide bg-white border-t border-gray-200 scroll-smooth">
       <div className="flex items-center justify-start gap-5 px-4 py-3 min-w-max">
         {menuItems.map((item) => {
           const Icon = item.icon;
@@ -88,7 +101,12 @@ const DashBoardSideBar = ({ mobile = false }) => {
           const label = mobileLabels[item.path] || item.label;
 
           return (
-            <Link key={item.path} to={item.path} className="flex flex-col items-center gap-1 min-w-[68px] py-1">
+            <Link
+              key={item.path}
+              to={item.path}
+              ref={(el) => (itemRefs.current[item.path] = el)}
+              className="flex flex-col items-center gap-1 min-w-[68px] py-1"
+            >
               <Icon size={28} color={activeItem ? "#ef4444" : item.color || "#6b7280"} />
               <span className={`text-xs font-medium whitespace-nowrap ${activeItem ? "text-red-600" : "text-gray-600"}`}>{label}</span>
             </Link>

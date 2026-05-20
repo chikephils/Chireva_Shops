@@ -201,9 +201,9 @@ const ShopInbox = () => {
   const isChatOnline = onlineUsers.includes(currentChat?.members?.find((id) => id !== me)?.toString());
 
   return (
-    <div className="h-screen flex flex-col justify-between">
+    <div className="min-h-[100dvh] flex flex-col bg-gray-50">
       {/* Header*/}
-      <div className="fixed top-0 left-0 right-0 h-14 bg-slate-500 z-50 flex items-center justify-between px-3 py-2">
+      <div className="sticky top-0 h-14 bg-slate-500 z-50 flex items-center justify-between px-3 py-2">
         <div className="flex items-center gap-3">
           {loadingUser ? (
             <div className="w-12 h-12 rounded-full bg-gray-200 animate-pulse" />
@@ -225,9 +225,9 @@ const ShopInbox = () => {
       </div>
 
       {/* Messages container */}
-      <div className="flex-1 pt-14 pb-20 px-3 md:px-5 overflow-y-auto bg-gray-50 scrollbar-hide">
+      <div className="flex-1 pt-4 pb-24 px-3 md:px-5 overflow-y-auto  bg-gray-50 scrollbar-hide">
         {isLoading ? (
-          <div className="h-full flex items-center justify-center">
+          <div className="h-[calc(100vh-56px)]  flex items-center justify-center">
             <Loader />
           </div>
         ) : (

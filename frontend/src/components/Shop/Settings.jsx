@@ -106,8 +106,8 @@ const Settings = () => {
   return (
     <div className="h-full">
       {/* Sticky Header */}
-      <div className="fixed top-[70px] left-0 right-0 z-10">
-        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+      <div className="fixed top-[60px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
           <div className="lg:ml-[284px]">
             <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
               <h1 className=" flex items-center justify-center font-medium text-xl lg:text-2xl 800px:font-[600] text-black py-3">
@@ -119,7 +119,7 @@ const Settings = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto h-full pt-[70px] px-2 overflow-y-scroll scrollbar-hide ">
+      <div className="max-w-4xl mx-auto min-h-0 pt-[70px] pb-8 px-2 lg:px-4 ">
         {/* Avatar Section */}
         <div className="flex flex-col items-center">
           <div className="relative group">

@@ -67,8 +67,8 @@ const DashboardMessages = () => {
 
   return (
     <div className="flex flex-col h-full bg-gray">
-      <div className="fixed top-[70px] left-0 right-0 z-10">
-        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+      <div className="fixed top-[60px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
           <div className="lg:ml-[284px]">
             <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
               <h1 className=" flex items-center justify-center font-medium 800px:text-[22px] 800px:font-[600] text-black py-3">
@@ -80,9 +80,9 @@ const DashboardMessages = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto scrollbar-hide max-w-screen-4xl mx-auto w-full pt-[60px]">
+      <div className="max-w-screen-4xl flex-1 min-h-0 pt-[50px] pb-4 px-2 lg:px-4">
         {loading ? (
-          <div className="flex items-center justify-center bg-gray-50 h-[55vh] lg:h-[63vh] ">
+          <div className="min-h-[calc(100vh-245px)] flex items-center justify-center">
             <Loader />
           </div>
         ) : conversations.length === 0 ? (

@@ -127,12 +127,11 @@ const AllOrders = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="fixed top-[70px] left-0 right-0 z-10">
-        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+      <div className="fixed top-[60px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
           <div className="lg:ml-[284px]">
             <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-sm">
               <div className="flex items-center justify-between gap-4 flex-wrap">
-                {/* TITLE */}
                 <h1 className="flex items-center gap-2 font-medium text-[20px] lg:text-[22px] text-black">
                   <FiPackage size={28} />
                   Your Orders
@@ -161,14 +160,27 @@ const AllOrders = () => {
         </div>
       </div>
 
-    
-      <div className="flex-1 min-h-0 pt-[70px]">
+      <div className="flex-1 min-h-0 pt-[50px] pb-8">
         {isLoading ? (
-          <div className="flex h-full items-center justify-center pb-16">
+          <div className="min-h-[calc(100vh-245px)] flex items-center justify-center">
             <Loader />
           </div>
         ) : (
-          <DataGrid rows={rows} columns={columns} autoPageSize disableRowSelectionOnClick disableColumnMenu />
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            autoHeight
+            pageSizeOptions={[5, 10, 20]}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            disableRowSelectionOnClick
+            disableColumnMenu
+          />
         )}
       </div>
     </div>

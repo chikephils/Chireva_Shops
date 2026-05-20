@@ -34,12 +34,11 @@ const ShopTransactions = () => {
   return (
     <div className=" flex flex-col h-full">
       {/* Sticky Header */}
-      <div className="fixed top-[70px] left-0 right-0 z-10">
-        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+      <div className="fixed top-[60px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
           <div className="lg:ml-[284px]">
-            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-sm">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-lg">
               <div className="flex items-center justify-between gap-4 flex-wrap">
-                {/* TITLE */}
                 <h1 className="flex items-center gap-2 font-medium text-[20px] lg:text-[22px] text-black">
                   <FcMoneyTransfer size={28} />
                   Transactions{" "}
@@ -69,10 +68,10 @@ const ShopTransactions = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-screen-4xl h-full pt-[70px]  overflow-y-auto scrollbar-hide px-2 lg:px-4">
+      <div className="max-w-screen-4xl flex-1 min-h-0 pt-[50px] pb-4 px-2 lg:px-4">
         {/* Transactions List */}
         {isLoading ? (
-          <div className="flex items-center justify-center bg-gray-50 h-[75vh] ">
+          <div className="min-h-[calc(100vh-245px)] flex items-center justify-center">
             <Loader />
           </div>
         ) : filteredTransactions.length > 0 ? (
