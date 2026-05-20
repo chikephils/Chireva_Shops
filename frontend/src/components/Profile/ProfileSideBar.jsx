@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcPortraitMode, FcPaid, FcAddressBook, FcPrivacy, FcOrganization, FcMoneyTransfer } from "react-icons/fc";
 import { RiMessageFill, RiLogoutCircleLine } from "react-icons/ri";
@@ -62,9 +62,22 @@ const ProfileSideBar = ({ mobile = false }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state?.user);
+  const itemRefs = useRef({});
 
   const currentPath = location.pathname;
   const isActive = (path) => currentPath === path;
+
+  useEffect(() => {
+    const activeEl = itemRefs.current[currentPath];
+
+    if (activeEl) {
+      activeEl.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [currentPath]);
 
   const handleLogout = async () => {
     try {
@@ -130,13 +143,18 @@ const ProfileSideBar = ({ mobile = false }) => {
 
   // Mobile Horizontal Scrollable Bar
   return (
-    <div className="w-full h-full overflow-x-auto scrollbar-hide">
+    <div className="w-full h-full overflow-x-auto scrollbar-hide scroll-smooth">
       <div className="flex justify-evenly gap-4 py-2">
         {mobileMenuItems.map((item, index) => {
           const Icon = item.icon;
           const active = isActive(item.path);
           return (
-            <Link key={index} to={item.path} className="flex flex-col items-center justify-center gap-1 min-w-[70px]">
+            <Link
+              key={index}
+              to={item.path}
+              ref={(el) => (itemRefs.current[item.path] = el)}
+              className="flex flex-col items-center justify-center gap-1 min-w-[70px]"
+            >
               <Icon size={26} color={active ? "#ef4444" : item.color || "#6b7280"} />
               <span className={`text-xs font-medium ${active ? "text-red-600" : "text-gray-600"}`}>{item.label}</span>
             </Link>

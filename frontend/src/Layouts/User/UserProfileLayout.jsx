@@ -9,26 +9,42 @@ const UserProfileLayout = () => {
   return (
     <>
       <Header />
-      <div className="max-w-screen-4xl mx-auto pt-[120px] px-4 lg:px-8 pb-24 lg:pb-10">
-        <div className="w-full flex flex-col lg:flex-row gap-8">
-          {/* Desktop Sidebar */}
-          <div className="hidden lg:block fixed w-[25%] xl:w-[20%] bg-white rounded-xl shadow-lg p-2 pt-2 h-[calc(100vh-130px)]">
-            <ProfileSideBar />
+      <div className="pt-[120px] max-h-screen">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="flex gap-6">
+            {/* Desktop Sidebar */}
+            <aside className="hidden lg:block w-[260px] shrink-0">
+              <div className="sticky top-[120px] h-[calc(100vh-150px)]">
+                <div className=" h-full overflow-y-auto bg-white rounded-xl shadow border p-3">
+                  <ProfileSideBar />
+                </div>
+              </div>
+            </aside>
+
+            <main className="flex-1 min-w-0">
+              <div className="bg-white rounded-xl shadow p-2 mb-4 min-h-[calc(100vh-150px)]">
+                <Suspense
+                  fallback={
+                    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center">
+                      <Loader />
+                    </div>
+                  }
+                >
+                  <Outlet />
+                </Suspense>
+              </div>
+            </main>
           </div>
-          <Suspense
-            fallback={
-              <main className="w-full fixed flex left-0 right-0 items-center justify-center lg:w-[70%] xl:w-[75%] mx-auto lg:left-auto lg:right-auto ml-0 lg:ml-[26%] xl:ml-[21%]  bg-white rounded-xl shadow-lg  p-2 pt-6 lg:pt-3 lg-p-4 h-[calc(100vh-130px)] pb-[calc(80px+env(safe-area-inset-bottom))] lg:pb-0">
-                {" "}
-                <Loader />
-              </main>
-            }
-          >
-            <Outlet />
-          </Suspense>
         </div>
 
         {/* Mobile Bottom Navigation */}
-        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 lg:hidden z-50 safe-bottom-nav">
+        <nav
+          className="
+            fixed bottom-0 left-0 right-0
+            bg-white border-t border-gray-200
+            lg:hidden z-50
+          "
+        >
           <ProfileSideBar mobile />
         </nav>
       </div>

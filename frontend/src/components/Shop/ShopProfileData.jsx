@@ -115,7 +115,7 @@ const ProductsTab = ({ products, loading }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-[20px] md:grid-cols-3 md:gap-[30px] lg:grid-col-3 xl:grid-cols-4 lg:gap-[30px] xl:gap-[30px] 4xl:grid-cols-5 py-1 pb-10 justify-items-center">
+    <div className="grid grid-cols-2 gap-[20px] md:grid-cols-3 md:gap-[30px] lg:grid-col-3 xl:grid-cols-4 lg:gap-[30px] xl:gap-[30px] 4xl:grid-cols-5 py-1 pb justify-items-center">
       {products.map((product) => (
         <SellerProductCard product={product} key={product._id} />
       ))}

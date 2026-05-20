@@ -64,16 +64,22 @@ const UserInbox = () => {
 
   return (
     <div className="flex flex-col h-full bg-gray-50">
-      <div className="sticky top-0 z-10 bg-white border-b px-4 py-3 shadow-sm">
-        <div className="flex items-center gap-3 max-w-screen-4xl mx-auto">
-          <FcSms className="text-blue-600" size={28} strokeWidth={2.2} />
-          <h1 className="text-xl md:text-2xl font-semibold text-gray-900">Messages</h1>
+      <div className="fixed top-[110px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-2">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
+              <h1 className=" flex items-center justify-center font-medium 800px:text-[22px] 800px:font-[600] text-black py-3">
+                {" "}
+                <FcSms className="text-blue-600" size={28} strokeWidth={2.2} />
+                Messages
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-2 py-4 md:px-3 max-w-screen-4xl">
+      <div className="max-w-screen-4xl flex-1 min-h-0 pt-[70px] pb-4 px-2 lg:px-4">
         {loading ? (
-          <div className="flex items-center justify-center bg-gray-50 h-[48vh] lg:h-[63vh] ">
+          <div className="min-h-[calc(100vh-275px)] flex items-center justify-center">
             <Loader />
           </div>
         ) : conversations.length === 0 ? (

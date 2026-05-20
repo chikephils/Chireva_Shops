@@ -30,21 +30,29 @@ const Address = ({ setOpen }) => {
   };
 
   return (
-    <div className="w-full h-full px-2 pb-10 pt-2 md:px-8">
+    <div className=" flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8 sticky h-[35px]">
-        <h1 className="text-xl md:text-2xl font-semibold text-gray-900">My Addresses</h1>
-        <button
-          onClick={() => setOpen(true)}
-          className="flex items-center gap-2 px-3 py-3 bg-blue-600 text-white rounded-3xl hover:bg-blue-700 transition-colors shadow-sm"
-        >
-          <AiOutlinePlus size={20} />
-          <span className="font-medium">Add New</span>
-        </button>
+      <div className="fixed top-[120px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-lg">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <h1 className="flex items-center gap-2 font-medium text-[20px] lg:text-[22px] text-black">My Addresses</h1>
+                <button
+                  onClick={() => setOpen(true)}
+                  className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-3xl hover:bg-blue-700 transition-colors shadow-sm"
+                >
+                  <AiOutlinePlus size={20} />
+                  <span className="font-medium">Add New</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Address List */}
-      <div className=" h-[calc(100%-37px)] overflow-y-scroll scrollbar-hide pb-10 ">
+      <div className="max-w-screen-4xl flex-1 min-h-0 pt-[80px] pb-4 px-2 lg:px-4">
         {user && user?.addresses?.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 pb-10">
             {user?.addresses.map((item) => (

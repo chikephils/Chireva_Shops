@@ -164,41 +164,62 @@ const AllOrders = () => {
   });
 
   return (
-    <div className="h-full pb-20">
-      <div className="w-full flex items-center justify-between sticky h-[35px]">
-        <h1 className="text-base md:text-2xl font-bold flex items-center justify-center gap-2 pb-2">
-          <HiOutlineShoppingBag size={32} /> My Orders
-        </h1>
+    <div className="flex flex-col h-full">
+      <div className="fixed top-[110px] left-0 right-0 z-10">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
+          <div className="lg:ml-[284px]">
+            <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-lg">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <h1 className="flex items-center gap-2 font-medium text-[20px] lg:text-[22px] text-black">
+                  <HiOutlineShoppingBag size={32} /> My Orders
+                </h1>
 
-        {/*Filter dropdown */}
-        <div className="w-full pb-2  max-w-[160px]">
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full px-2 py-1 text-base font-semibold border border-gray-600 rounded-xl bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-          >
-            <option value="All">All Orders</option>
-            <option value="Processing">Processing</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Refund Requested">Refund Request</option>
-            <option value="Refunded">Refunded</option>
-            <option value="Rejected">Refund Rejected</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
+                {/*Filter dropdown */}
+                <div className="sm:w-[160px]">
+                  <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    className="w-full px-2 py-1 text-base font-semibold border border-gray-600 rounded-xl bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                  >
+                    <option value="All">All Orders</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Refund Requested">Refund Request</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Rejected">Refund Rejected</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <>
+
+  <div className="flex-1 min-h-0 pt-[50px] pb-8">
         {isLoading ? (
-          <div className="flex items-center justify-center h-[68vh] md:h-[71vh]">
+          <div className="min-h-[calc(100vh-275px)] flex items-center justify-center">
             <Loader />
           </div>
         ) : (
-          <div className=" h-full pb-8 lg:pb-0 overflow-x-auto scrollbar-hide ">
-            <DataGrid rows={rows} columns={columns} disableRowSelectionOnClick autoPageSize disableColumnMenu />
-          </div>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            autoHeight
+            pageSizeOptions={[5, 10, 20]}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            disableRowSelectionOnClick
+            disableColumnMenu
+          />
         )}
-      </>
+      </div>
     </div>
   );
 };
