@@ -243,18 +243,22 @@ const Header = ({ activeHeading }) => {
       {/* Mobile Menu  */}
       {openMenu && (
         <div className="fixed inset-0 bg-black/50 z-50 mobile-menu-sidebar" onClick={() => setOpenMenu(false)}>
-          <div className="w-80 bg-white h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
-            {/* Top section */}
-            <div className="flex-1 overflow-y-auto">
-              <div className="flex justify-between items-center p-4 border-b">
+          <div className="w-80 bg-white h-[100dvh] flex flex-col overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
+            <div className="sticky top-0 z-10 bg-white border-b shrink-0">
+              <div className="flex justify-between items-center p-4">
                 <h3 className="font-semibold">Menu</h3>
+
                 <RxCross1
                   size={24}
-                  className="cursor-pointer  text-white bg-black/50 rounded-full p-1 hover:bg-black/70 transition"
+                  className="cursor-pointer text-white bg-black/50 rounded-full p-1 hover:bg-black/70 transition"
                   onClick={() => setOpenMenu(false)}
                 />
               </div>
+            </div>
 
+            {/*  Content */}
+            <div className="flex-1 min-h-0 overflow-y-auto">
               <div className="p-4">
                 <Navbar active={activeHeading} isMobile onNavigate={() => setOpenMenu(false)} />
 
@@ -275,6 +279,7 @@ const Header = ({ activeHeading }) => {
                   <button
                     onClick={() => {
                       setOpenMenu(false);
+
                       seller ? navigate(`/shop/${seller._id}`) : navigate("/create-shop");
                     }}
                     className="w-full bg-lime-600 text-white py-3 rounded-3xl"
@@ -297,8 +302,10 @@ const Header = ({ activeHeading }) => {
                 )}
               </div>
             </div>
-            <div className="mt-auto pb-2 pt-2 flex justify-center border-t bg-white">
-              <img src={Logo3} className=" w-28" alt="logo" />
+
+            {/* Fixed Footer */}
+            <div className="border-t bg-white shrink-0 flex justify-center py-2">
+              <img src={Logo3} className="w-28" alt="logo" />
             </div>
           </div>
         </div>

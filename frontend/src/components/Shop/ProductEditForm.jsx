@@ -99,7 +99,7 @@ const ProductEditForm = ({ setEdit, product }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[1000] flex items-center justify-center p-4">
+    <div className="fixed inset-0 isolate z-[999] bg-black/60 backdrop-blur-sm  flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="px-6 py-4 border-b flex items-center justify-between bg-gray-50">

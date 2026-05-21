@@ -184,7 +184,7 @@ const AllProducts = ({ handleProductClick, shopProducts, isLoading, handleDelete
         <div className="fixed top-[60px] left-0 right-0 z-10">
           <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
             <div className="lg:ml-[284px]">
-              <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm">
+              <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py- shadow-sm pt-2">
                 <h1 className=" flex items-center justify-center font-medium 800px:text-[22px] 800px:font-[600] text-black py-3">
                   <FiPackage size={26} className="text-indigo-600" />
                   Your Shop Products
