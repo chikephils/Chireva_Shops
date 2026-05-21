@@ -29,7 +29,7 @@ const UserTransactions = () => {
         <div className="max-w-screen-4xl mx-auto px-1 lg:px-6 py-1">
           <div className="lg:ml-[284px]">
             <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-t-xl px-4 lg:px-6 py-3 shadow-lg">
-              <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center justify-between gap-4 flex-wrap pt-2">
                 <h1 className="flex items-center gap-2 font-medium text-[20px] lg:text-[22px] text-black">
                   <FcMoneyTransfer className="text-indigo-600" size={22} />
                   Transactions

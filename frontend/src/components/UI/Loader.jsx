@@ -9,10 +9,10 @@ const Loader = () => {
         <div className="absolute inset-0 bg-blue-500 rounded-3xl blur-2xl opacity-30 animate-pulse" />
         <div className="absolute inset-1 bg-indigo-500 rounded-3xl blur-xl opacity-40 animate-pulse" />
 
-        {/* Gentle rotating subtle ring */}
+        {/* rotating ring */}
         <div className="absolute inset-0 border border-blue-400/40 rounded-3xl animate-spin" style={{ animationDuration: "4s" }} />
 
-        {/* Logo with breathing effect */}
+       
         <div
           className="relative flex items-center p-1.5 justify-center w-full h-full 
                       transition-transform duration-700 hover:scale-110"

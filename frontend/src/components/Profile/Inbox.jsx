@@ -191,7 +191,7 @@ const Inbox = () => {
   };
 
   const handleClose = () => {
-    navigate("/profile/inbox");
+    navigate(-1);
   };
 
   const isChatOnline = onlineUsers.includes(currentChat?.members?.find((id) => id !== me)?.toString());

@@ -76,7 +76,7 @@ input[type="number"] {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 30;
 
   padding-bottom: env(safe-area-inset-bottom);
   min-height: calc(70px + env(safe-area-inset-bottom));
@@ -86,14 +86,10 @@ input[type="number"] {
 @media (min-width: 768px) {
   .bottom-nav {
     position: relative;
-    height: auto;
-    min-height: auto;
-    padding-bottom: 0;
-    border-top: none;
   }
 }
 
-/* Main content padding so it doesn't get hidden behind the nav */
+
 main {
   padding-bottom: calc(90px + env(safe-area-inset-bottom));
 }
