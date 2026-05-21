@@ -61,7 +61,7 @@ const CreateAddress = ({ setOpen }) => {
   const countries = Country.getAllCountries();
 
   return (
-    <div className="fixed s flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
       <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[75vh] flex flex-col pb-5">
         <div className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200">
           <h5 className=" text-base md:text-lg 800px:text-xl font-semibold text-center">Add new address</h5>
