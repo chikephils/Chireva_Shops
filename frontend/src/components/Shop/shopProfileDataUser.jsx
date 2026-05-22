@@ -46,8 +46,8 @@ const ShopProfileDataUser = ({ isOwner }) => {
       {/* Sticky Tab Bar */}
       <div
         className="
-          sticky top-[127px] md:top-[118px] z-10 bg-gray-200 border-b border-gray-200
-          shadow-lg px-2 sm:px-6 lg:px-8 rounded-lg
+          sticky top-[124px] md:top-[118px] z-10 bg-gray-200 border-b border-gray-200
+          shadow-lg px-2 pt-1 sm:px-6 lg:px-8 rounded-lg
         "
       >
         <div className="max-w-screen-4xl mx-auto flex items-center justify-between h-14">

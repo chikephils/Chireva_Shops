@@ -86,7 +86,7 @@ const AdminOrderDetails = () => {
 
   return (
     <div className="min-h-screen max-w-screen-4xl mx-auto mt-[68px] px-4 lg:px-8  bg-gray-950 text-gray-100">
-      {/* Header / Navbar */}
+      {/* Header  */}
       <div className="w-full fixed left-0 right-0  rounded-xl shadow-lg h-[calc(100%-120px)] ">
         <div className="sticky z-10 bg-gray-900 border-b border-gray-800 shadow-sm">
           <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
