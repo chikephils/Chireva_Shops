@@ -55,7 +55,7 @@ const ShopPreviewPage = () => {
           <aside
             className={`
               lg:w-80 lg:shrink-0 lg:h-full
-              lg:sticky lg:top-6 lg:self-start
+              lg:sticky lg:top-[122px] lg:self-start
               bg-white rounded-xl shadow-sm border border-gray-200
               p-2 lg:p-3 mb-6 lg:mb-0
             `}

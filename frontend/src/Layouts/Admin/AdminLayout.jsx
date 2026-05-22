@@ -8,29 +8,38 @@ const AdminLayout = () => {
   return (
     <>
       <AdminHeader />
-      <div className="max-w-screen-4xl min-h-screen mx-auto pt-[70px] px-4 lg:px-8 pb-24 lg:pb-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100">
-        <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-6">
-          {/* Desktop Sidebar  fixed left */}
-          <div
-            className="
-                hidden lg:block 
-                fixed w-[25%] xl:w-[20%] 
-                h-[calc(100vh-80px)] 
-                bg-gray-900 text-white rounded-xl shadow-2xl border-r border-gray-800 p-2 pt-2
+      <div className=" min-h-screen pt-[70px] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100">
+        <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
+          <div className="flex gap-6">
+            {/* Desktop Sidebar  fixed left */}
+            <aside className="hidden lg:block w-[260px] shrink-0">
+              <div className="sticky top-[70px] h-[calc(100vh-100px)]">
+                <div
+                  className="
+                h-full overflow-y-auto
+                bg-gray-900 text-white rounded-xl shadow-2xl border-r border-gray-800 p-3
               "
-          >
-            <AdminSideBar />
+                >
+                  <AdminSideBar />
+                </div>
+              </div>
+            </aside>
+
+            <main className="flex-1 min-w-0">
+              <div className="  bg-gray-900 text-white rounded-xl shadow-2xl border-r border-gray-800 mb-4 p-2 min-h-[calc(100vh-100px)]">
+                <Suspense
+                  fallback={
+                    <div className="min-h-[calc(100vh-110px)] flex items-center justify-center">
+                      {" "}
+                      <Loader />
+                    </div>
+                  }
+                >
+                  <Outlet />
+                </Suspense>
+              </div>
+            </main>
           </div>
-          <Suspense
-            fallback={
-              <main className="w-full fixed flex left-0 right-0 items-center justify-center lg:w-[70%] xl:w-[75%] mx-auto lg:left-auto lg:right-auto ml-0 lg:ml-[26%] xl:ml-[21%]  bg-white rounded-xl shadow-lg  p-2 pt-6 lg:pt-3 lg-p-4 h-[calc(100vh-130px)] pb-[calc(80px+env(safe-area-inset-bottom))] lg:pb-0">
-                {" "}
-                <Loader />
-              </main>
-            }
-          >
-            <Outlet />
-          </Suspense>
         </div>
 
         {/* Mobile Bottom Navigation*/}
@@ -38,7 +47,7 @@ const AdminLayout = () => {
           className="
             fixed bottom-0 left-0 right-0 
             bg-gray-900 border-t border-gray-800 
-            lg:hidden z-50 safe-bottom-nav px-2 shadow-[0_-4px_16px_rgba(0,0,0,0.4)]
+            lg:hidden z-50 
           "
         >
           <AdminSideBar mobile />
