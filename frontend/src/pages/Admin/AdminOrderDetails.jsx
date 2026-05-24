@@ -85,11 +85,11 @@ const AdminOrderDetails = () => {
   const totalPrice = order?.totalPrice;
 
   return (
-    <div className="min-h-screen max-w-screen-4xl mx-auto mt-[68px] px-4 lg:px-8  bg-gray-950 text-gray-100">
+    <div className="min-h-screen max-w-screen-4xl mx-auto pt-[65px] px-2  bg-gray-950 text-gray-100">
       <div className=" flex flex-col h-full">
         {/* Header  */}
-        <div className="sticky z-20 bg-gray-900 border-b border-gray-800 shadow-sm">
-          <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
+        <div className="fixed w-full left-0 right-0 z-20 bg-gray-900 border-b border-gray-800 shadow-sm">
+          <div className="max-w-screen-4xl mx-auto px-4 lg:px-8  h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <BsFillBagFill className="text-red-500" size={24} />
               <h1 className="text-lg font-semibold text-white">Order Details</h1>
@@ -100,7 +100,7 @@ const AdminOrderDetails = () => {
           </div>
         </div>
         {loading ? (
-          <div className="mx-auto max-w-screen-4xl flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 h-[73vh] md:h-[75vh]">
+          <div className="mx-auto max-w-screen-4xl flex items-center justify-center h-[calc(100vh-73px)]">
             {" "}
             <Loader />
           </div>
