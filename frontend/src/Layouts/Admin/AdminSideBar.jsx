@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { HiMiniShoppingBag } from "react-icons/hi2";
@@ -49,6 +49,19 @@ const AdminSideBar = ({ mobile = false }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const isActive = (path) => currentPath === path;
+  const itemRefs = useRer({});
+
+  useEffect(() => {
+    const activeEl = itemRefs.current[currentPath];
+
+    if (activeEl) {
+      activeEl.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [currentPath]);
 
   // Desktop vertical bottom nav
   if (!mobile) {
@@ -62,15 +75,11 @@ const AdminSideBar = ({ mobile = false }) => {
                 key={item.id}
                 to={item.path}
                 className={` flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200l ${
-                  active
-                    ? "bg-teal-600/20 text-teal-400"
-                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                  active ? "bg-teal-600/20 text-teal-400" : "text-gray-400 hover:bg-gray-800 hover:text-white"
                 }`}
               >
                 <item.icon size={26} />
-                <span className="text-base font-medium">
-                  {item.label}
-                </span>
+                <span className="text-base font-medium">{item.label}</span>
               </Link>
             );
           })}
@@ -90,10 +99,9 @@ const AdminSideBar = ({ mobile = false }) => {
             <Link
               key={item.id}
               to={item.path}
+              ref={(el) => (itemRefs.current[item.path] = el)}
               className={`flex flex-col  items-center gap-1 min-w-[68px] py-1 ${
-                active
-                  ? "bg-teal-600/30 text-teal-400 font-medium"
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                active ? "bg-teal-600/30 text-teal-400 font-medium" : "text-gray-300 hover:bg-gray-800 hover:text-white"
               }`}
             >
               <item.icon size={26} className="flex-shrink-0" />

@@ -27,10 +27,8 @@ const AdminWithdrawalDetailsPage = () => {
   }, [id]);
   return (
     <>
-      <div className="max-w-screen-4xl mx-auto mt-[68px] px-4 lg:px-8">
-        <div className="w-full fixed  left-0 right-0 mx-auto rounded-xl shadow-lg h-[calc(100%-70px)]">
-          <AdminWithdrawalDetails withdrawal={withdrawal} isLoading={isLoading} />
-        </div>
+      <div className="max-w-screen-4xl mx-auto mt-[68px]">
+        <AdminWithdrawalDetails withdrawal={withdrawal} isLoading={isLoading} />
       </div>
     </>
   );

@@ -86,9 +86,9 @@ const AdminOrderDetails = () => {
 
   return (
     <div className="min-h-screen max-w-screen-4xl mx-auto mt-[68px] px-4 lg:px-8  bg-gray-950 text-gray-100">
-      {/* Header  */}
-      <div className="w-full fixed left-0 right-0  rounded-xl shadow-lg h-[calc(100%-120px)] ">
-        <div className="sticky z-10 bg-gray-900 border-b border-gray-800 shadow-sm">
+      <div className=" flex flex-col h-full">
+        {/* Header  */}
+        <div className="sticky z-20 bg-gray-900 border-b border-gray-800 shadow-sm">
           <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <BsFillBagFill className="text-red-500" size={24} />
@@ -107,7 +107,7 @@ const AdminOrderDetails = () => {
         ) : (
           <>
             {/* Main Content */}
-            <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 pt-6 space-y-6 h- h-[calc(100%-52px)] overflow-y-scroll scrollbar-hide  pb-10">
+            <div className="max-w-screen-4xl px-2 lg:px-6 pt-20 space-y-6 pb-16">
               {/* Order Summary Card */}
               <div className="bg-gray-900 rounded-lg shadow border border-gray-800 p-2 md:p-5">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
@@ -189,7 +189,7 @@ const AdminOrderDetails = () => {
                 </div>
               </div>
 
-              {/* Grid of Info Cards */}
+              {/* Info Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Buyer / Shipping Info */}
                 <div className="bg-gray-900 rounded-lg shadow border border-gray-800 p-5">

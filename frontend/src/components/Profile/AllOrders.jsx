@@ -187,7 +187,7 @@ const AllOrders = () => {
                     <option value="Delivered">Delivered</option>
                     <option value="Refund Requested">Refund Request</option>
                     <option value="Refunded">Refunded</option>
-                    <option value="Rejected">Refund Rejected</option>
+                    <option value="Refund Rejected">Refund Rejected</option>
                     <option value="Cancelled">Cancelled</option>
                   </select>
                 </div>
@@ -197,7 +197,7 @@ const AllOrders = () => {
         </div>
       </div>
 
-  <div className="flex-1 min-h-0 pt-[70px] pb-8">
+      <div className="flex-1 min-h-0 pt-[70px] pb-8">
         {isLoading ? (
           <div className="min-h-[calc(100vh-275px)] flex items-center justify-center">
             <Loader />
@@ -207,11 +207,11 @@ const AllOrders = () => {
             rows={rows}
             columns={columns}
             autoHeight
-            pageSizeOptions={[5, 10, 20]}
+            pageSizeOptions={[5, 7, 8, 10, 20]}
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 10,
+                  pageSize: 7,
                 },
               },
             }}

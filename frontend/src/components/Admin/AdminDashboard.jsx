@@ -192,7 +192,7 @@ const AdminDashboard = () => {
               autoPageSize
               disableColumnMenu
               sx={{
-                border: "none",
+                border: "1px solid #374151",
                 color: "white",
                 "& .MuiDataGrid-columnHeaders": {
                   backgroundColor: "#1f2937",
