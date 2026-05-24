@@ -62,7 +62,7 @@ const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+      <div className="h-[calc(100vh-73px)] w-full bg-gray-950 flex items-center justify-center">
         <Loader />
       </div>
     );
@@ -71,10 +71,10 @@ const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
   const isCompleted = withdrawal.status === "Successful" || withdrawal.status === "Rejected";
 
   return (
-    <div className="min-h-screen max-w-screen-4xl mx-auto mt-[68px] px-4 lg:px-8  bg-gray-950 text-gray-100">
+    <div className="min-h-screen max-w-screen-4xl mx-auto lg:px-2  bg-gray-950 text-gray-100">
       <div className=" flex flex-col h-full">
         {/* Sticky Header */}
-        <div className="sticky top-0 z-10 bg-gray-900 border-b border-gray-800 shadow-sm">
+        <div className="fixed w-full left-0 right-0 z-10 bg-gray-900 border-b border-gray-800 shadow-sm">
           <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <CiMoneyBill className="text-red-500" size={24} />
@@ -87,7 +87,7 @@ const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
         </div>
 
         {/* Scrollable Content */}
-        <div className="max-w-screen-4xl px-2 lg:px-6 pt-20 space-y-6 pb-16">
+        <div className="max-w-screen-4xl px-2 lg:px-6 pt-24 space-y-6 pb-16">
           {/* Transaction Info Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gray-900 p-4 rounded-lg border border-gray-800">
             <div className="text-sm text-gray-400">
