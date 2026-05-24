@@ -150,7 +150,7 @@ const AllOrders = () => {
                     <option value="Delivered">Delivered</option>
                     <option value="Refund Requested">Refund Request</option>
                     <option value="Refunded">Refunded</option>
-                    <option value="Rejected">Refund Rejected</option>
+                    <option value="Refund Rejected">Refund Rejected</option>
                     <option value="Cancelled">Cancelled</option>
                   </select>
                 </div>
@@ -174,7 +174,7 @@ const AllOrders = () => {
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 8,
+                  pageSize: 7,
                 },
               },
             }}

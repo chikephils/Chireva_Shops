@@ -203,11 +203,11 @@ const AllProducts = ({ handleProductClick, shopProducts, isLoading, handleDelete
               rows={rows}
               columns={columns}
               autoHeight
-              pageSizeOptions={[5, 10, 20]}
+              pageSizeOptions={[5,7,8, 10, 20]}
               initialState={{
                 pagination: {
                   paginationModel: {
-                    pageSize: 5,
+                    pageSize: 7,
                   },
                 },
               }}

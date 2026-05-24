@@ -249,14 +249,14 @@ const AdminPromoSales = () => {
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 8,
+                  pageSize: 7,
                 },
               },
             }}
             disableRowSelectionOnClick
             disableColumnMenu
             sx={{
-              border: "none",
+              border: "1px solid #374151",
               color: "white",
               "& .MuiDataGrid-columnHeaders": {
                 backgroundColor: "#1f2937",
