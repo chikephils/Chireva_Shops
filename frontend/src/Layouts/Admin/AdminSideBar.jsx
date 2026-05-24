@@ -49,7 +49,7 @@ const AdminSideBar = ({ mobile = false }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const isActive = (path) => currentPath === path;
-  const itemRefs = useRer({});
+  const itemRefs = useRef({});
 
   useEffect(() => {
     const activeEl = itemRefs.current[currentPath];
