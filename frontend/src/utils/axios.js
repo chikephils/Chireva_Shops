@@ -1,7 +1,6 @@
 import axios from "axios";
 import { server } from "../server";
 import { getNavigate } from "./navigation";
-import { persistor } from "../redux/store";
 
 const api = axios.create({
   baseURL: server,
