@@ -33,7 +33,7 @@ const sendMail = async (options) => {
       subject: options.subject,
       html: options.html,
     });
-
+    console.log("FULL MAIL INFO:", info);
     console.log("MAIL SENT:", info.messageId);
 
     return info;
