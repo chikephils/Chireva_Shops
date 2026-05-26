@@ -6,7 +6,10 @@ import { store, persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import { setNavigate } from "./utils/navigation";
+import { setupInterceptors } from "./utils/api";
 import "./index.css";
+
+setupInterceptors(store);
 
 const AppWrapper = () => {
   const navigate = useNavigate();

@@ -30,6 +30,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(avatarPreview === null) {
+      toast.error("Upload Avatar")
+      return
+    }
     setIsLoading(true);
 
     const payload = {
