@@ -32,6 +32,10 @@ const CreateShop = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(avatarPreview === null) {
+      toast.error("Upload Avatar")
+    }
     setIsSubmitting(true);
 
     const payload = {
