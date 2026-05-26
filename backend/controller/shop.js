@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
-const fs = require("fs");
+const fs = require("fs/promises");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const {
@@ -51,7 +51,7 @@ router.post("/create-shop", async (req, res, next) => {
       __dirname,
       "../html/shopActivaitionMail.html",
     );
-    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
+    const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
 
     //Replace place holders with dynamic values
     const htmlMail = htmlTemplate
@@ -64,13 +64,13 @@ router.post("/create-shop", async (req, res, next) => {
         subject: "Activate your Shop",
         html: htmlMail,
       });
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         message: `Please check your email: ${email} to activate your account`,
       });
     } catch (err) {
       console.log(err);
-      return next(new ErrorHandler(err.message, 500));
+      return next(new ErrorHandler("Failed to send activation email", 500));
     }
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
@@ -157,7 +157,7 @@ router.post(
         __dirname,
         "../html/shopCreatedSuccess.html",
       );
-      const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
+      const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
 
       //Replace place holders with dynamic values
       const htmlMail = htmlTemplate
@@ -217,7 +217,7 @@ router.post(
         __dirname,
         "../html/userPasswordReset.html",
       );
-      const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
+      const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
 
       const htmlMail = htmlTemplate
         .replace("%NAME%", shop.shopName)
@@ -372,14 +372,13 @@ router.get(
       res.status(200).json({
         success: true,
         seller,
-        role: "seller"
+        role: "seller",
       });
     } catch (error) {
       return next(new ErrorHandler(err.message, 500));
     }
   }),
 );
-
 
 //logout Seller
 router.get(
