@@ -3,7 +3,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/CatchAsyncError");
 const express = require("express");
 const Withdraw = require("../model/withdraw");
-const sendMail = require("../utils/sendMail");
+const {sendMail} = require("../utils/sendMail");
 const {
   isAuthenticated,
   authorizeRoles,
@@ -133,7 +133,7 @@ router.post(
         .replace("%ACCOUNTNUMBER%", accountNumber);
 
       sendMail({
-        email: req.seller.email,
+        to: req.seller.email,
         subject: "Withdrawal Request",
         html: htmlMail,
       }).catch((emailErr) => {
@@ -263,7 +263,7 @@ router.post(
         .replace("%ACCOUNTNUMBER%", accountNumber);
 
       sendMail({
-        email: req.user.email,
+        to: req.user.email,
         subject: "Withdrawal Request",
         html: htmlMail,
       }).catch((emailErr) => {
@@ -473,7 +473,7 @@ router.put(
         const email = account.email;
 
         sendMail({
-          email,
+          to: email,
           subject: "Withdrawal Successful",
           html: htmlMail,
         }).catch(console.error);
@@ -507,7 +507,7 @@ router.put(
         const email = account.email;
 
         sendMail({
-          email,
+          to: email,
           subject: "Withdrawal Rejected",
           html: htmlMail,
         }).catch(console.error);

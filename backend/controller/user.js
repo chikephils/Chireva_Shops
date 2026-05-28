@@ -155,7 +155,7 @@ router.post(
       .replace("%LOGIN%", `https://chireva.vercel.app/login`);
 
     sendMail({
-      email: user.email,
+      to: user.email,
       subject: "Welcome to CHIREVA",
       html: htmlMail,
     }).catch((err) => console.log("Email error:", err));
@@ -204,7 +204,7 @@ router.post(
 
       try {
         await sendMail({
-          email: user.email,
+          to: user.email,
           subject: "Password Reset",
           html: htmlMail,
         });
