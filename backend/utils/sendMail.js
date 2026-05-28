@@ -1,49 +1,20 @@
-const nodemailer = require("nodemailer");
+import { SendLayer } from "sendlayer";
 
-const sendMail = async (options) => {
+const sendlayer = new SendLayer(process.env.SENDLAYER_API_KEY);
+
+export async function sendMail({ to, subject, html, text }) {
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.sendlayer.net",
-      port: 587,
-      secure: false,
-
-      auth: {
-        user: process.env.SMTP_USERNAME,
-        pass: process.env.SMTP_PASSWORD,
-      },
-
-      requireTLS: true,
-
-      tls: {
-        rejectUnauthorized: false,
-      },
-
-      family: 4,
-
-      connectionTimeout: 20000,
-      greetingTimeout: 20000,
-      socketTimeout: 20000,
-    });
-
-    await transporter.verify();
-
-    console.log("SMTP CONNECTED");
-
-    const info = await transporter.sendMail({
+    const response = await sendlayer.Emails.send({
       from: process.env.SMTP_MAIL,
-      to: options.email,
-      subject: options.subject,
-      html: options.html,
+      to,
+      subject,
+      html,
+      text,
     });
 
-    console.log("MAIL SENT:", info);
-
-    return info;
+    return response; // { messageId: '...' }
   } catch (error) {
-    console.log("MAIL ERROR:", error);
-
+    console.error("SendLayer Error:", error);
     throw error;
   }
-};
-
-module.exports = sendMail;
+}
