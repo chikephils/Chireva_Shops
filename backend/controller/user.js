@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/CatchAsyncError");
 const fs = require("fs/promises");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../utils/sendMail");
+const {sendMail} = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
 const {
   isAuthenticated,
@@ -56,7 +56,7 @@ router.post("/create-user", async (req, res, next) => {
 
     try {
       await sendMail({
-        email,
+        to: email,
         subject: "Activate your Account",
         html: htmlMail,
       });
