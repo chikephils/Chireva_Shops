@@ -3,10 +3,8 @@ const nodemailer = require("nodemailer");
 const sendMail = async (options) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-
-      port: Number(process.env.SMTP_PORT),
-
+      host: "smtp.sendlayer.net",
+      port: 587,
       secure: false,
 
       auth: {
@@ -14,13 +12,17 @@ const sendMail = async (options) => {
         pass: process.env.SMTP_PASSWORD,
       },
 
+      requireTLS: true,
+
       tls: {
         rejectUnauthorized: false,
       },
 
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
+      family: 4,
+
+      connectionTimeout: 20000,
+      greetingTimeout: 20000,
+      socketTimeout: 20000,
     });
 
     await transporter.verify();
@@ -33,8 +35,8 @@ const sendMail = async (options) => {
       subject: options.subject,
       html: options.html,
     });
-    console.log("FULL MAIL INFO:", info);
-    console.log("MAIL SENT:", info.messageId);
+
+    console.log("MAIL SENT:", info);
 
     return info;
   } catch (error) {
