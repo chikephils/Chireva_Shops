@@ -3,7 +3,7 @@ const path = require("path");
 const router = express.Router();
 const fs = require("fs/promises");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../utils/sendMail");
+const {sendMail} = require("../utils/sendMail");
 const {
   isAuthenticated,
   authorizeRoles,
@@ -60,7 +60,7 @@ router.post("/create-shop", async (req, res, next) => {
 
     try {
       await sendMail({
-        email: email,
+        to: email,
         subject: "Activate your Shop",
         html: htmlMail,
       });
@@ -166,7 +166,7 @@ router.post(
 
       try {
         await sendMail({
-          email: seller.email,
+          to: seller.email,
           subject: "Welcome to CHIREVA Vendors",
           html: htmlMail,
         });
@@ -225,7 +225,7 @@ router.post(
 
       try {
         await sendMail({
-          email: shop.email,
+          to: shop.email,
           subject: "Password Reset",
           html: htmlMail,
         });

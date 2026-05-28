@@ -26,7 +26,6 @@
     "node-cron": "^4.2.1",
     "nodemailer": "^6.9.7",
     "request": "^2.88.2",
-    "resend": "^6.12.4",
     "sendlayer": "^1.0.3",
     "socket.io": "^4.8.3"
   },
