@@ -4,9 +4,9 @@ const path = require("path");
 const router = express.Router();
 const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/CatchAsyncError");
-const fs = require("fs/promises");
+const fs = require("fs");
 const jwt = require("jsonwebtoken");
-const { sendMail } = require("../utils/sendMail");
+const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
 const {
   isAuthenticated,
@@ -46,7 +46,7 @@ router.post("/create-user", async (req, res, next) => {
       __dirname,
       "../html/userActivationMail.html",
     );
-    const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
+    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
 
     //Replace place holders with dynamic values
     const htmlMail = htmlTemplate
@@ -60,14 +60,12 @@ router.post("/create-user", async (req, res, next) => {
         subject: "Activate your Account",
         html: htmlMail,
       });
-      return res.status(201).json({
+      res.status(201).json({
         success: true,
         message: `Please check your email: ${email} to activate your account`,
       });
     } catch (emailErr) {
       console.log(emailErr);
-
-      return next(new ErrorHandler("Failed to send activation email", 500));
     }
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
@@ -147,7 +145,7 @@ router.post(
       "../html/userCreatedSuccess.html",
     );
 
-    const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
+    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
 
     const htmlMail = htmlTemplate
       .replace("%FIRST_NAME%", user.firstName)
@@ -196,7 +194,7 @@ router.post(
         __dirname,
         "../html/userPasswordReset.html",
       );
-      const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
+      const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
 
       const htmlMail = htmlTemplate
         .replace("%NAME%", user.firstName)
