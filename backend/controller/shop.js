@@ -51,7 +51,7 @@ router.post("/create-shop", async (req, res, next) => {
       __dirname,
       "../html/shopActivaitionMail.html",
     );
-    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
+    const htmlTemplate = await fs.readFileSync(htmlTemplatePath, "utf-8");
 
     //Replace place holders with dynamic values
     const htmlMail = htmlTemplate
@@ -64,7 +64,7 @@ router.post("/create-shop", async (req, res, next) => {
         subject: "Activate your Shop",
         html: htmlMail,
       });
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         message: `Please check your email: ${email} to activate your account`,
       });
@@ -157,7 +157,7 @@ router.post(
         __dirname,
         "../html/shopCreatedSuccess.html",
       );
-      const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
+      const htmlTemplate = await fs.readFileSync(htmlTemplatePath, "utf-8");
 
       //Replace place holders with dynamic values
       const htmlMail = htmlTemplate
