@@ -60,7 +60,7 @@ router.post("/create-user", async (req, res, next) => {
         subject: "Activate your Account",
         html: htmlMail,
       });
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         message: `Please check your email: ${email} to activate your account`,
       });
@@ -145,7 +145,7 @@ router.post(
       "../html/userCreatedSuccess.html",
     );
 
-    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
+    const htmlTemplate = await fs.readFileSync(htmlTemplatePath, "utf-8");
 
     const htmlMail = htmlTemplate
       .replace("%FIRST_NAME%", user.firstName)
