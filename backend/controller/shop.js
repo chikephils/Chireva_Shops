@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
-const fs = require("fs/promises");
+const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/sendMail");
 const {
@@ -51,7 +51,7 @@ router.post("/create-shop", async (req, res, next) => {
       __dirname,
       "../html/shopActivaitionMail.html",
     );
-    const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
+    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
 
     //Replace place holders with dynamic values
     const htmlMail = htmlTemplate
@@ -64,7 +64,7 @@ router.post("/create-shop", async (req, res, next) => {
         subject: "Activate your Shop",
         html: htmlMail,
       });
-      return res.status(201).json({
+      res.status(201).json({
         success: true,
         message: `Please check your email: ${email} to activate your account`,
       });
@@ -157,7 +157,7 @@ router.post(
         __dirname,
         "../html/shopCreatedSuccess.html",
       );
-      const htmlTemplate = await fs.readFile(htmlTemplatePath, "utf-8");
+      const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
 
       //Replace place holders with dynamic values
       const htmlMail = htmlTemplate
