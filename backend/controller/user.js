@@ -54,19 +54,17 @@ router.post("/create-user", async (req, res, next) => {
       .replace("%LAST_NAME%", lastName)
       .replace("%ACTIVATION_URL%", activationURL);
 
-    try {
-      await sendMail({
-        to: email,
-        subject: "Activate your Account",
-        html: htmlMail,
-      });
-      return res.status(201).json({
-        success: true,
-        message: `Please check your email: ${email} to activate your account`,
-      });
-    } catch (emailErr) {
-      console.log(emailErr);
-    }
+    sendMail({
+      to: email,
+      subject: "Activate your Account",
+      html: htmlMail,
+    }).catch((emailErr) => {
+      console.error("Email send failed:", emailErr);
+    });
+    return res.status(201).json({
+      success: true,
+      message: `Please check your email: ${email} to activate your account`,
+    });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
@@ -200,21 +198,19 @@ router.post(
         .replace("%NAME%", user.firstName)
         .replace("%RESET_URL%", passwordResetURL);
 
-      try {
-        await sendMail({
-          to: user.email,
-          subject: "Password Reset",
-          html: htmlMail,
-        });
-        res.status(201).json({
-          success: true,
-          message: `Please check your email: ${user.email} to reset your account password`,
-        });
-      } catch (emailErr) {
-        console.log(emailErr);
-      }
+      sendMail({
+        to: user.email,
+        subject: "Password Reset",
+        html: htmlMail,
+      }).catch((emailErr) => {
+        console.error("Email send failed:", emailErr);
+      });
+      return res.status(201).json({
+        success: true,
+        message: `Please check your email: ${user.email} to reset your account password`,
+      });
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      return next(new ErrorHandler(error.message, 400));
     }
   }),
 );
