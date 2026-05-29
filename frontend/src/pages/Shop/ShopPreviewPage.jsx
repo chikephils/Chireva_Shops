@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 import Loader from "../../components/UI/Loader";
 import ShopInfo from "../../components/Shop/ShopInfo";
@@ -47,11 +47,11 @@ const ShopPreviewPage = () => {
   }
 
   return (
-    <div className="pt-[120px] bg-gray-50">
+    <div className="pt-[120px] md:pt-[105px] bg-gray-50">
       <div className="h-1 bg-gradient-to-r from-rose-500 via-purple-500 to-indigo-600" />
 
       <div className="mx-auto max-w-screen-4xl px-2 lg:px-6">
-        <div className="py-2 lg:flex lg:gap-8">
+        <div className="py-2 lg:flex lg:gap-8 lg:pb-12">
           <aside
             className={`
               lg:w-80 lg:shrink-0 lg:h-full

@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import SmallLoader from "../UI/SmallLoader";
 import { server } from "../../server";
 import { toast } from "react-toastify";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { useSelector } from "react-redux";
 import PageTransition from "../UI/PageTransition";
 
@@ -13,6 +13,7 @@ const ChangePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [loader, setLoader] = useState(false);
+  const token = useSelector((state) => state?.user?.token);
 
   const passwordChangeHandler = async (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const ChangePassword = () => {
       const response = await api.put(
         `${server}/user/update-user-password`,
         { oldPassword, newPassword, confirmPassword },
-        { headers: { "Content-Type": "application/json" } },
+        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } },
       );
       return toast.success(response.data.message);
     } catch (error) {

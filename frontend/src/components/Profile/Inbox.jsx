@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { server } from "../../server";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { AiOutlineSend } from "react-icons/ai";
 import TimeAgo from "timeago-react";
 import { TfiGallery } from "react-icons/tfi";
@@ -56,7 +56,11 @@ const Inbox = () => {
 
     const fetchConversation = async () => {
       try {
-        const res = await api.get(`${server}/conversation/get-conversation/${id}`);
+        const res = await api.get(`${server}/conversation/get-conversation/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setCurrentChat(res.data.conversation);
       } catch (err) {
         console.error("Failed to load conversation:", err);
@@ -92,7 +96,11 @@ const Inbox = () => {
 
     const fetchMessages = async () => {
       try {
-        const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`);
+        const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setMessages(res.data.messages || []);
       } catch (err) {
         console.error("Failed to load messages:", err);
@@ -131,7 +139,15 @@ const Inbox = () => {
     setNewMessage("");
 
     try {
-      const res = await api.post(`${server}/messages/create-new-message`, messageData);
+      const res = await api.post(
+        `${server}/messages/create-new-message`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        messageData,
+      );
       setMessages((prev) => prev.map((msg) => (msg._id.startsWith("temp-") ? res.data.message : msg)));
     } catch (error) {
       console.error("Failed to send message:", error);

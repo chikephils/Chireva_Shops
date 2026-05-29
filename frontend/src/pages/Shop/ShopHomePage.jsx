@@ -1,45 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 import Loader from "../../components/UI/Loader";
 import ShopInfo from "../../components/Shop/ShopInfo";
 import ShopProfileData from "../../components/Shop/ShopProfileData";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoadSeller } from "../../features/shop/shopSlice";
 
 const ShopHomePage = () => {
-  const [loading, setLoading] = useState(true);
-  const [shop, setShop] = useState(null);
+  const { seller, loading } = useSelector((state) => state.shop);
   const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!id) return;
-    setLoading(true);
-    dispatch(LoadSeller(id));
+    if (id) {
+      dispatch(LoadSeller(id));
+    }
+  }, [id, dispatch]);
 
-    api
-      .get(`${server}/shop/get-shop-info/${id}`)
-      .then((res) => {
-        setShop(res.data.shop);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Failed to load shop:", error);
-        setLoading(false);
-      });
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="max-w-screen-4xl mx-auto min-h-screen mt-9 flex items-center justify-center bg-gray-50">
-        <Loader />
-      </div>
-    );
-  }
-
-  if (!shop) {
+  if (!seller) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6 text-center">
         <div>
@@ -83,7 +63,7 @@ const ShopHomePage = () => {
               p-3 mb-6 lg:mb-0
             "
           >
-            <ShopInfo isOwner={true} shop={shop} />
+            <ShopInfo isOwner={true} shop={seller} />
           </aside>
 
           <main className="flex-1 min-w-0">

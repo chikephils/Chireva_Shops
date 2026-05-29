@@ -9,7 +9,7 @@ const UserProfileLayout = () => {
   return (
     <>
       <Header />
-      <div className="pt-[120px] max-h-screen">
+      <div className="pt-[120px] min-h-screen">
         <div className="max-w-screen-4xl mx-auto px-1 lg:px-6">
           <div className="flex gap-6">
             {/* Desktop Sidebar */}

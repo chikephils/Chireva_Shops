@@ -52,6 +52,3 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-import { setupInterceptors } from "../utils/axios";
-
-setupInterceptors(store);

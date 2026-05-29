@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ProductCard from "../Route/ProductCard/ProductCard";
 import Ratings from "../ProductDetails/Ratings";
 import Loader from "../UI/Loader";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { server } from "../../server";
 
 const ShopProfileDataUser = ({ isOwner }) => {
@@ -46,7 +46,7 @@ const ShopProfileDataUser = ({ isOwner }) => {
       {/* Sticky Tab Bar */}
       <div
         className="
-          sticky top-[124px] md:top-[118px] z-10 bg-gray-200 border-b border-gray-200
+          sticky top-[124px] md:top-[117px] z-10 bg-gray-200 border-b border-gray-200
           shadow-lg px-2 pt-1 sm:px-6 lg:px-8 rounded-lg
         "
       >
@@ -185,7 +185,9 @@ const ReviewsTab = ({ products, isLoading }) => {
 
   if (!allReviews.length) {
     return (
-      <div className="flex items-center justify-center text-center py-16 text-gray-500 text-base md:text-lg font-medium h-[70vh]">No reviews yet.</div>
+      <div className="flex items-center justify-center text-center py-16 text-gray-500 text-base md:text-lg font-medium h-[70vh]">
+        No reviews yet.
+      </div>
     );
   }
 

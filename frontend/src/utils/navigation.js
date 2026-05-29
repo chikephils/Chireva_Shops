@@ -1,7 +1,11 @@
-let navigate;
+let navigate = null;
 
 export const setNavigate = (nav) => {
-  navigate = nav;
+  if (nav) {
+    navigate = nav;
+  }
 };
 
-export const getNavigate = () => navigate;
+export const getNavigate = () => {
+  return navigate;
+};

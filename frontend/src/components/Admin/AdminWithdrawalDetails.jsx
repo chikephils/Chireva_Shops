@@ -1,4 +1,4 @@
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { CiMoneyBill } from "react-icons/ci";
 import { RxCross1, RxAvatar } from "react-icons/rx";
 import { server } from "../../server";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../UI/Loader";
 import { numbersWithCommas } from "../../utils/priceDisplay";
+import { useSelector } from "react-redux";
 
 const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
   const [failureReason, setFailureReason] = useState("");
   const isSeller = withdrawal?.withdrawalType === "seller";
   const isUser = withdrawal?.withdrawalType === "user";
+  const token = useSelector((state) => state.user?.token);
 
   useEffect(() => {
     if (withdrawal?.status) {
@@ -42,6 +44,7 @@ const AdminWithdrawalDetails = ({ withdrawal, isLoading }) => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         },
       );

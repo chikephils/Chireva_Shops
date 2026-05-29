@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../../styles/styles";
 import ProductCard from "../Route/ProductCard/ProductCard";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 
 const SuggestedProducts = ({ product }) => {

@@ -15,7 +15,7 @@ import WishList from "../../components/WishList/WishList";
 import { useSelector } from "react-redux";
 import { itemsInCart } from "../../features/cart/cartSlice";
 import { selectWishListItems } from "../../features/wishlist/wishlistSlice";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { server } from "../../server";
 
 const Header = ({ activeHeading }) => {

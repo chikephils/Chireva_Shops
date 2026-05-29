@@ -7,7 +7,7 @@ import { FcMoneyTransfer } from "react-icons/fc";
 import { numbersWithCommas } from "../../utils/priceDisplay";
 import { MdDeleteForever } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -86,6 +86,7 @@ const UserWithdrawMoney = () => {
       await api.post(`${server}/withdraw/user-create-withdraw-request`, payload, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -97,6 +98,7 @@ const UserWithdrawMoney = () => {
           {
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           },
         );
@@ -129,9 +131,17 @@ const UserWithdrawMoney = () => {
     }
 
     try {
-      await api.delete(`${server}/user/delete-user-withdraw-method`, {
-        data: { bankName: method.bankName },
-      });
+      await api.delete(
+        `${server}/user/delete-user-withdraw-method`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          data: { bankName: method.bankName },
+        },
+      );
 
       toast.success("Bank account removed");
       dispatch(LoadSeller());

@@ -6,7 +6,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Loader from "../UI/Loader";
 import { toast } from "react-toastify";
 import { server } from "../../server";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import Logo from "../../Assests/img/logo.png";
 
 const ShopPasswordReset = () => {

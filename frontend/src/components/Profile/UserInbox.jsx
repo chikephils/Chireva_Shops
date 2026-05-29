@@ -1,17 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { server } from "../../server";
 import { FcSms } from "react-icons/fc";
 import Loader from "../UI/Loader";
 import { socket } from "../../utils/socket";
 
 const UserInbox = () => {
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user);
   const onlineUsers = useSelector((state) => state.socket.onlineUsers);
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const token = useSelector((state) => state?.user?.token);
 
   // Socket listens for new Message
   useEffect(() => {
@@ -41,7 +42,11 @@ const UserInbox = () => {
     const fetchConversations = async () => {
       setLoading(true);
       try {
-        const { data } = await api.get(`${server}/conversation/get-all-conversation-user/${user._id}`);
+        const { data } = await api.get(`${server}/conversation/get-all-conversation-user/${user._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const sorted = (data.conversations || []).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         setConversations(sorted);

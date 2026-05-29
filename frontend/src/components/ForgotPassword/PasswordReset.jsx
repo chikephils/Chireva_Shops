@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import Logo from "../../Assests/img/logo.png";
@@ -9,9 +9,9 @@ import SmallLoader from "../UI/SmallLoader";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const PasswordReset = () => {
-  const location = useLocation()
-  const queryParams = new URLSearchParams(location.search)
-  const reset_token = queryParams.get("reset_token")
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const reset_token = queryParams.get("reset_token");
   const { id } = useParams();
 
   const [password, setPassword] = useState("");
@@ -30,7 +30,7 @@ const PasswordReset = () => {
     const validateToken = async () => {
       try {
         const res = await api.post(`${server}/user/verify-token`, {
-         reset_token,
+          reset_token,
         });
 
         if (res.data.success) {

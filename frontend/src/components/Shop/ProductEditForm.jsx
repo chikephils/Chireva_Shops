@@ -11,7 +11,7 @@ import { categoriesData } from "../../static/data";
 const ProductEditForm = ({ setEdit, product }) => {
   const dispatch = useDispatch();
   const seller = useSelector(selectSeller);
-  const sellerToken = useSelector((state) => state.shop.sellerToken);
+  const sellerToken = useSelector((state) => state.shop.token);
 
   // Form statets
   const [formData, setFormData] = useState({

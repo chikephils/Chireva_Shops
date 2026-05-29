@@ -7,7 +7,7 @@ import { getShopProducts, selectSeller } from "../../features/shop/shopSlice";
 import Ratings from "../ProductDetails/Ratings";
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { server } from "../../server";
 import { getAllProducts } from "../../features/product/productSlice";
 import DatePicker from "react-datepicker";
@@ -16,6 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const EditProduct = ({ product, averageRating, totalReviewsLength }) => {
   const dispatch = useDispatch();
   const seller = useSelector(selectSeller);
+  const token = useSelector((state) => state?.shop?.token);
   const navigate = useNavigate();
   const [selectedImg, setSelectedImg] = useState(0);
 
@@ -145,18 +146,12 @@ const EditProduct = ({ product, averageRating, totalReviewsLength }) => {
     };
 
     try {
-      await api.put(
-        `${server}/product/edit-product/${product._id}`,
-        payload,
-        {
-          authType: "shop",
+      await api.put(`${server}/product/edit-product/${product._id}`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
+      });
       toast.success("Product updated successfully!");
       await Promise.all([dispatch(getShopProducts(seller._id)).unwrap(), dispatch(getAllProducts({ page: 1, limit: 8 })).unwrap()]);
       navigate(-1);

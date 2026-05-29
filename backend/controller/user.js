@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/CatchAsyncError");
 const fs = require("fs/promises");
 const jwt = require("jsonwebtoken");
-const {sendMail} = require("../utils/sendMail");
+const { sendMail } = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
 const {
   isAuthenticated,
@@ -372,7 +372,6 @@ router.get(
 //log out User
 router.get(
   "/logout",
-  isUserAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
       success: true,

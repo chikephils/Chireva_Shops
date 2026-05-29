@@ -1,4 +1,4 @@
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { server } from "../../server";

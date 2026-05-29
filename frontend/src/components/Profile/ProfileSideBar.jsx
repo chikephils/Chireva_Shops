@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcPortraitMode, FcPaid, FcAddressBook, FcPrivacy, FcOrganization, FcMoneyTransfer } from "react-icons/fc";
 import { RiMessageFill, RiLogoutCircleLine } from "react-icons/ri";
 import { MdAdminPanelSettings } from "react-icons/md";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,8 +61,9 @@ const ProfileSideBar = ({ mobile = false }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state?.user);
+  const user = useSelector((state) => state?.user?.user);
   const itemRefs = useRef({});
+  const token = useSelector((state) => state?.user?.token);
 
   const currentPath = location.pathname;
   const isActive = (path) => currentPath === path;

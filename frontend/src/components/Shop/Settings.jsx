@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoadSeller, selectSeller, selectSellerLoading } from "../../features/shop/shopSlice";
 import { server } from "../../server";
 import { AiOutlineCamera } from "react-icons/ai";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { toast } from "react-toastify";
 import CreateLoader from "../UI/createLoader";
 import Loader from "../UI/Loader";
@@ -12,7 +12,7 @@ const Settings = () => {
   const dispatch = useDispatch();
   const seller = useSelector(selectSeller);
   const sellerLoading = useSelector(selectSellerLoading);
-  const sellerToken = useSelector((state) => state.shop.sellerToken);
+  const token = useSelector((state) => state.shop.token);
 
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [isAvatarLoading, setIsAvatarLoading] = useState(false);
@@ -85,11 +85,9 @@ const Settings = () => {
           description,
         },
         {
-          authType: "shop",
-        },
-        {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         },
       );

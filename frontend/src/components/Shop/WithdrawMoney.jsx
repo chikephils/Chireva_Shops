@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { server } from "../../server";
 import { LoadSeller, selectSeller } from "../../features/shop/shopSlice";
 import { numbersWithCommas } from "../../utils/priceDisplay";
@@ -16,7 +16,7 @@ const WithdrawMoney = () => {
   const dispatch = useDispatch();
 
   const seller = useSelector(selectSeller);
-  const sellerToken = useSelector((state) => state.shop.sellerToken);
+  const token = useSelector((state) => state.shop.token);
 
   const [banks, setBanks] = useState([]);
   const [filteredBanks, setFilteredBanks] = useState([]);
@@ -85,18 +85,12 @@ const WithdrawMoney = () => {
 
     try {
       // Submit withdrawal request
-      await api.post(
-        `${server}/withdraw/create-withdraw-request`,
-        payload,
-        {
-          authType: "shop",
+      await api.post(`${server}/withdraw/create-withdraw-request`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
+      });
 
       //  Save only if truly new
       if (isNewMethod) {
@@ -104,11 +98,9 @@ const WithdrawMoney = () => {
           `${server}/shop/update-payment-methods`,
           { withdrawMethod: { bankName, accountNumber } },
           {
-            authType: "shop",
-          },
-          {
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           },
         );
@@ -144,7 +136,9 @@ const WithdrawMoney = () => {
       await api.delete(
         `${server}/shop/delete-withdraw-method`,
         {
-          authType: "shop",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
         {
           data: { bankName: method.bankName },

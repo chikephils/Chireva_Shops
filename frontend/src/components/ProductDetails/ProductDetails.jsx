@@ -6,7 +6,7 @@ import { addToCart, itemsInCart, increaseItemQuantity, reduceItemQuantity, remov
 import { addToWishList, removeFromWishList, selectWishListItems } from "../../features/wishlist/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Ratings from "./Ratings";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { toast } from "react-toastify";
 import { selectAllProducts } from "../../features/product/productSlice";
 import { numbersWithCommas } from "../../utils/priceDisplay";
@@ -24,6 +24,8 @@ const ProductDetails = ({ product }) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const token = useSelector((state) => state?.user?.token);
 
   const isEventActive =
     product?.isEvent &&
@@ -63,7 +65,15 @@ const ProductDetails = ({ product }) => {
     const groupTitle = userId + sellerId;
 
     try {
-      const response = await api.post(`${server}/conversation/create-new-conversation`, { groupTitle, userId, sellerId });
+      const response = await api.post(
+        `${server}/conversation/create-new-conversation`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        { groupTitle, userId, sellerId },
+      );
 
       navigate(`/profile/inbox/${response.data.conversation._id}`, {
         state: {
