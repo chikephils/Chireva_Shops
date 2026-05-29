@@ -20,6 +20,13 @@ const Products = require("../model/product");
 const Withdraw = require("../model/withdraw");
 const Order = require("../model/order");
 
+//Create Activation token
+const createActivationToken = (seller) => {
+  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
+    expiresIn: "5m",
+  });
+};
+
 //create Shop
 router.post("/create-shop", async (req, res, next) => {
   try {
@@ -51,38 +58,29 @@ router.post("/create-shop", async (req, res, next) => {
       __dirname,
       "../html/shopActivaitionMail.html",
     );
-    const htmlTemplate = await fs.readFileSync(htmlTemplatePath, "utf-8");
+    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
 
     //Replace place holders with dynamic values
     const htmlMail = htmlTemplate
       .replace("%SHOPNAME%", shopName)
       .replace("%ACTIVATION_URL%", activationURL);
 
-    try {
-      await sendMail({
-        to: email,
-        subject: "Activate your Shop",
-        html: htmlMail,
-      });
-      return res.status(201).json({
-        success: true,
-        message: `Please check your email: ${email} to activate your account`,
-      });
-    } catch (err) {
-      console.log(err);
-      return next(new ErrorHandler("Failed to send activation email", 500));
-    }
+    sendMail({
+      to: email,
+      subject: "Activate your Shop",
+      html: htmlMail,
+    }).catch((emailErr) => {
+      console.error("Email send failed:", emailErr);
+    });
+    return res.status(201).json({
+      success: true,
+      message: `Please check your email: ${email} to activate your account`,
+    });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
 });
 
-//Create Activation token
-const createActivationToken = (seller) => {
-  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
-  });
-};
 
 //activate Seller
 router.post(
@@ -164,22 +162,19 @@ router.post(
         .replace("%SHOPNAME%", seller.shopName)
         .replace("%LOGIN%", `${process.env.CLIENT_URL}/shop-login`);
 
-      try {
-        await sendMail({
-          to: seller.email,
-          subject: "Welcome to CHIREVA Vendors",
-          html: htmlMail,
-        });
-        res.status(201).json({
-          success: true,
-          message: `Shop Created successfully`,
-        });
-      } catch (err) {
-        console.log(err);
-        return next(new ErrorHandler(err.message, 500));
-      }
+      sendMail({
+        to: seller.email,
+        subject: "Welcome to CHIREVA Vendors",
+        html: htmlMail,
+      }).catch((emailErr) => {
+        console.error("Email send failed:", emailErr);
+      });
+      res.status(201).json({
+        success: true,
+        message: `Shop Created successfully`,
+      });
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      return next(new ErrorHandler(error.message, 400));
     }
   }),
 );
