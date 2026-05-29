@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoadUser, selectUserLoading, updateUserInformation } from "../../features/user/userSlice";
 import { AiOutlineCamera } from "react-icons/ai";
 import { FcPortraitMode } from "react-icons/fc";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import CreateLoader from "../UI/createLoader";

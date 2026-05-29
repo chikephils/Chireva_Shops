@@ -5,7 +5,7 @@ import { BsFillBagFill } from "react-icons/bs";
 import { RxAvatar, RxCross1 } from "react-icons/rx";
 import { numbersWithCommas } from "../../utils/priceDisplay";
 import StatusBadge from "../../components/UI/StatusBadge";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { server } from "../../server";
 import Loader from "../../components/UI/Loader";
 import { FaFire } from "react-icons/fa";
@@ -20,12 +20,17 @@ const AdminOrderDetails = () => {
 
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const token = useSelector((state) => state?.user?.token);
 
   const fetchOrder = async () => {
     if (!id) return;
     setLoading(true);
     try {
-      const response = await api.get(`${server}/order/admin-order-details/${id}`, {});
+      const response = await api.get(`${server}/order/admin-order-details/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setOrder(response.data.order);
     } catch (error) {
       console.error(error.response?.data.message);
@@ -41,7 +46,15 @@ const AdminOrderDetails = () => {
   const handleUpdateStatus = async (id, status) => {
     setIsUpdating(true);
     try {
-      await api.put(`${server}/order/update-order-status/${id}`, { status });
+      await api.put(
+        `${server}/order/update-order-status/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        { status },
+      );
 
       toast.success("Order updated");
       fetchOrder();
@@ -55,7 +68,15 @@ const AdminOrderDetails = () => {
   const acceptRefund = async (id) => {
     setAccepting(true);
     try {
-      await api.put(`${server}/order/order-refund-action/${id}`, { status: "Approve" });
+      await api.put(
+        `${server}/order/order-refund-action/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        { status: "Approve" },
+      );
 
       toast.success("Refund processed");
       fetchOrder();
@@ -69,7 +90,15 @@ const AdminOrderDetails = () => {
   const rejectRefund = async (id) => {
     setCancelLoading(true);
     try {
-      await api.put(`${server}/order/order-refund-action/${id}`, { status: "Reject" });
+      await api.put(
+        `${server}/order/order-refund-action/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        { status: "Reject" },
+      );
 
       toast.success("Refund rejected");
       fetchOrder();

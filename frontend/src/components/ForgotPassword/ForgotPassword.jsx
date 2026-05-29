@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../Assests/img/logo.png";
 import SmallLoader from "../UI/SmallLoader";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 

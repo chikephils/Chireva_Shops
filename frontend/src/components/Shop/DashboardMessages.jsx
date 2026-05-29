@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { server } from "../../server";
 import { FcSms } from "react-icons/fc";
 import Loader from "../UI/Loader";
@@ -10,7 +10,7 @@ import { socket } from "../../utils/socket";
 
 const DashboardMessages = () => {
   const seller = useSelector((state) => state.shop.seller);
-  const sellerToken = useSelector((state) => state.shop.sellerToken);
+  const token = useSelector((state) => state.shop.token);
   const onlineUsers = useSelector((state) => state.socket.onlineUsers);
 
   const [conversations, setConversations] = useState([]);
@@ -44,7 +44,9 @@ const DashboardMessages = () => {
       setLoading(true);
       try {
         const { data } = await api.get(`${server}/conversation/get-all-conversation-seller/${seller._id}`, {
-          authType: "shop",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         const sorted = (data.conversations || []).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));

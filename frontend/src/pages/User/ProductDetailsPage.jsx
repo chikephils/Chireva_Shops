@@ -4,7 +4,7 @@ import ProductDetails from "../../components/ProductDetails/ProductDetails";
 import { useParams, useSearchParams } from "react-router-dom";
 import SuggestedProducts from "../../components/ProductDetails/SuggestedProducts";
 import Loader from "../../components/UI/Loader";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 import PageTransition from "../../components/UI/PageTransition";
 

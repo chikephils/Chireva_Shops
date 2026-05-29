@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 
@@ -11,9 +11,14 @@ const initialState = {
   error: null,
 };
 
-export const LoadUser = createAsyncThunk("user/LoadUser", async (_, { rejectWithValue }) => {
+export const LoadUser = createAsyncThunk("user/LoadUser", async (_, { rejectWithValue, getState }) => {
+  const token = getState().user?.token;
   try {
-    const response = await api.get("/user/me");
+    const response = await api.get("/user/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data.user;
   } catch (error) {
@@ -23,15 +28,24 @@ export const LoadUser = createAsyncThunk("user/LoadUser", async (_, { rejectWith
 
 export const updateUserInformation = createAsyncThunk(
   "user/updateUserInformation",
-  async ({ firstName, lastName, email, phoneNumber, password }, { rejectWithValue }) => {
+  async ({ firstName, lastName, email, phoneNumber, password }, { rejectWithValue, getState }) => {
+    const token = getState().user?.token;
     try {
-      const response = await api.put("/user/update-user-info", {
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        password,
-      });
+      const response = await api.put(
+        "/user/update-user-info",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          password,
+        },
+      );
 
       toast.success("User information updated successfully");
       return response.data.user;
@@ -44,16 +58,25 @@ export const updateUserInformation = createAsyncThunk(
 
 export const updateUserAddress = createAsyncThunk(
   "user/updateUserAddress",
-  async ({ country, state, city, address1, zipCode, addressType }, { rejectWithValue }) => {
+  async ({ country, state, city, address1, zipCode, addressType }, { rejectWithValue, getState }) => {
+    const token = getState().user?.token;
     try {
-      const response = await api.put("/user/update-user-addresses", {
-        country,
-        state,
-        city,
-        address1,
-        zipCode,
-        addressType,
-      });
+      const response = await api.put(
+        "/user/update-user-addresses",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          country,
+          state,
+          city,
+          address1,
+          zipCode,
+          addressType,
+        },
+      );
       toast.success("Address Updated Successfully");
       return response.data.user;
     } catch (error) {
@@ -65,7 +88,11 @@ export const updateUserAddress = createAsyncThunk(
 
 export const deleteUserAddress = createAsyncThunk("user/deleteUserAddress", async (id, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`/user/delete-user-address/${id}`);
+    const response = await api.delete(`/user/delete-user-address/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     toast.success("Address Deleted Successfully");
     return response.data.user;
   } catch (error) {
@@ -74,9 +101,14 @@ export const deleteUserAddress = createAsyncThunk("user/deleteUserAddress", asyn
   }
 });
 
-export const getAllOrders = createAsyncThunk("orders/getAllOrders", async (id, { rejectWithValue }) => {
+export const getAllOrders = createAsyncThunk("orders/getAllOrders", async (id, { rejectWithValue, getState }) => {
+  const token = getState().user?.token;
   try {
-    const response = await api.get(`/order/get-all-orders/${id}`);
+    const response = await api.get(`/order/get-all-orders/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data.orders;
   } catch (error) {
     console.log(error);

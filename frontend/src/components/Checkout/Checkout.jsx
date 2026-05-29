@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { selectUser } from "../../features/user/userSlice";
 import { itemsInCart } from "../../features/cart/cartSlice";
 import { useSelector } from "react-redux";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import PaymentPage from "../../pages/User/PaymentPage";
 import { numbersWithCommas } from "../../utils/priceDisplay";
 import { PRICING } from "../../utils/pricing";
@@ -27,6 +27,8 @@ const Checkout = () => {
   const [orderData, setOrderData] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [subTotalPrice, setSubTotalPrice] = useState(0);
+
+  const token = useSelector((state) => state?.user?.token);
 
   // paymentSubmit function
   const paymentSubmit = async () => {
@@ -67,7 +69,15 @@ const Checkout = () => {
         user,
       };
 
-      const response = await api.post(`${server}/order/create-order`, tempOrderData);
+      const response = await api.post(
+        `${server}/order/create-order`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        tempOrderData,
+      );
 
       if (!response?.data.success) {
         throw new Error("Failed to Create Order");

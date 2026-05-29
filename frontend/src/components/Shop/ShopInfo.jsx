@@ -4,13 +4,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getShopProducts } from "../../features/shop/shopSlice";
 import SmallLoader from "../UI/SmallLoader";
 import { logoutSeller } from "../../features/shop/shopSlice";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 
 const ShopInfo = ({ isOwner = false, shop }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const token = useSelector((state) => state?.shop?.token);
 
   const [products, setProducts] = useState(null);
   const [loadingProducts, setLoadingProducts] = useState(true);
@@ -35,9 +36,7 @@ const ShopInfo = ({ isOwner = false, shop }) => {
 
   const handleShopLogout = async () => {
     try {
-      const res = await api.get(`${server}/shop/logout`, {
-        authType: "shop",
-      });
+      const res = await api.get(`${server}/shop/logout`);
 
       dispatch(logoutSeller());
       localStorage.removeItem("persist:shop");

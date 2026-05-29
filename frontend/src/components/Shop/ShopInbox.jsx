@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { server } from "../../server";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { AiOutlineSend } from "react-icons/ai";
 import { TfiGallery } from "react-icons/tfi";
 import CreateLoader from "../UI/createLoader";
@@ -14,7 +14,8 @@ import { socket } from "../../utils/socket";
 const ShopInbox = () => {
   const { id } = useParams();
 
-  const seller = useSelector((state) => state.shop.seller);
+  const seller = useSelector((state) => state?.shop?.seller);
+  const token = useSelector((state) => state?.shop?.token);
   const me = seller?._id;
   const [user, setUser] = useState(null);
 
@@ -53,7 +54,11 @@ const ShopInbox = () => {
     if (!id) return;
     const fetchConversation = async () => {
       try {
-        const res = await api.get(`${server}/conversation/get-conversation/${id}`);
+        const res = await api.get(`${server}/conversation/get-conversation/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setCurrentChat(res.data.conversation);
       } catch (err) {
         console.error("Failed to load conversation:", err);
@@ -90,7 +95,9 @@ const ShopInbox = () => {
     const fetchMessages = async () => {
       try {
         const res = await api.get(`${server}/messages/get-all-messages/${currentChat._id}`, {
-          authType: "shop",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         setMessages(res.data.messages || []);
       } catch (err) {
@@ -131,7 +138,9 @@ const ShopInbox = () => {
 
     try {
       const res = await api.post(`${server}/messages/create-new-message`, messageData, {
-        authType: "shop",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       setMessages((prev) => prev.map((msg) => (msg._id.startsWith("temp-") ? res.data.message : msg)));
@@ -175,7 +184,9 @@ const ShopInbox = () => {
       const res = await api.post(
         `${server}/messages/create-new-message`,
         {
-          authType: "shop",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
         {
           sender: me,

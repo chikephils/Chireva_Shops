@@ -1,4 +1,3 @@
-import api from "../../utils/axios";
 import React, { useEffect, useState } from "react";
 
 const CountDown = ({ product }) => {

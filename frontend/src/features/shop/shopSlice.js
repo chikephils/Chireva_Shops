@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 
@@ -17,10 +17,13 @@ const initialState = {
   shopPromoProductsError: null,
 };
 
-export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { rejectWithValue }) => {
+export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { getState, rejectWithValue }) => {
+  const token = getState().shop?.token;
   try {
     const response = await api.get(`${server}/shop/getSeller`, {
-      authType: "shop",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data.seller;
   } catch (error) {
@@ -30,10 +33,13 @@ export const LoadSeller = createAsyncThunk("shop/LoadSeller", async (_, { reject
 });
 
 //get All Products from a shop
-export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (id, { rejectWithValue }) => {
+export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (id, { getState, rejectWithValue }) => {
+  const token = getState().shop?.token;
   try {
     const response = await api.get(`${server}/product/get-all-products-shop/${id}`, {
-      authType: "shop",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data.products;
   } catch (error) {
@@ -42,10 +48,13 @@ export const getShopProducts = createAsyncThunk("shop/getShopProducts", async (i
   }
 });
 
-export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts", async (id, { rejectWithValue }) => {
+export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts", async (id, { rejectWithValue, getState }) => {
+  const token = getState().shop?.token;
   try {
     const response = await api.get(`${server}/product/get-shop-promo-products/${id}`, {
-      authType: "shop",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data.promoProducts;
   } catch (error) {
@@ -55,10 +64,13 @@ export const getShopPromoProducts = createAsyncThunk("shop/getShopPromoProducts"
 });
 
 //delete product of shop
-export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", async (id, { rejectWithValue }) => {
+export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", async (id, { rejectWithValue, getState }) => {
+  const token = getState().shop?.token;
   try {
     const response = await api.delete(`${server}/product/delete-shop-product/${id}`, {
-      authType: "shop",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     toast.success(response?.data?.message);
     return response.data.product;
@@ -69,10 +81,13 @@ export const deleteShopProduct = createAsyncThunk("shop/deleteShopProduct", asyn
   }
 });
 
-export const getAllShopOrders = createAsyncThunk("shop/getAllShopOrders", async (id, { rejectWithValue }) => {
+export const getAllShopOrders = createAsyncThunk("shop/getAllShopOrders", async (id, { rejectWithValue, getState }) => {
+  const token = getState().shop?.token;
   try {
     const response = await api.get(`${server}/order/get-seller-all-orders/${id}`, {
-      authType: "shop",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data.orders;
   } catch (error) {

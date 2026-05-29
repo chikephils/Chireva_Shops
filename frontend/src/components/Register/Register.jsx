@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineCamera, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 
@@ -30,9 +30,9 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(avatarPreview === null) {
-      toast.error("Upload Avatar")
-      return
+    if (avatarPreview === null) {
+      toast.error("Upload Avatar");
+      return;
     }
     setIsLoading(true);
 

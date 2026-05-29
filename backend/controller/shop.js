@@ -3,7 +3,7 @@ const path = require("path");
 const router = express.Router();
 const fs = require("fs/promises");
 const jwt = require("jsonwebtoken");
-const {sendMail} = require("../utils/sendMail");
+const { sendMail } = require("../utils/sendMail");
 const {
   isAuthenticated,
   authorizeRoles,
@@ -383,7 +383,6 @@ router.get(
 //logout Seller
 router.get(
   "/logout",
-  isSellerAuthenticated,
   catchAsyncError(async (req, res, next) => {
     res.status(201).json({
       success: true,

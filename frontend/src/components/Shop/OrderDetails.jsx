@@ -4,7 +4,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { server } from "../../server";
-import api from "../../utils/axios";
+import api from "../../utils/shopApi";
 import { toast } from "react-toastify";
 import { numbersWithCommas } from "../../utils/priceDisplay";
 import StatusBadge from "../UI/StatusBadge";
@@ -16,7 +16,7 @@ const OrderDetails = () => {
   const [orderLoading, setOrderLoading] = useState(true);
   const [order, setOrder] = useState(null);
 
-  const sellerToken = useSelector((state) => state.shop.sellerToken);
+  const sellerToken = useSelector((state) => state.shop.token);
 
   const [loading, setLoading] = useState(false);
   const [cancelLoading, setCancelLoading] = useState(false);

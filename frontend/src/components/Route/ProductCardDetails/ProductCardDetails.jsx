@@ -6,7 +6,7 @@ import { selectWishListItems, addToWishList, removeFromWishList } from "../../..
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllProducts } from "../../../features/product/productSlice";
 import { numbersWithCommas } from "../../../utils/priceDisplay";
-import api from "../../../utils/axios"
+import api from "../../../utils/api";
 import { server } from "../../../server";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ import { FaFire } from "react-icons/fa6";
 
 const ProductCardDetails = ({ setDetailsOpen, product, addToCart, remove, inCart, setInCart }) => {
   const user = useSelector((state) => state.user?.user);
+  const token = useSelector((state) => state?.user?.token);
   const [click, setClick] = useState(false);
   const cartItems = useSelector(itemsInCart);
   const wishlist = useSelector(selectWishListItems);
@@ -71,7 +72,15 @@ const ProductCardDetails = ({ setDetailsOpen, product, addToCart, remove, inCart
     const groupTitle = userId + sellerId;
 
     try {
-      const response = await api.post(`${server}/conversation/create-new-conversation`, { groupTitle, userId, sellerId });
+      const response = await api.post(
+        `${server}/conversation/create-new-conversation`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        { groupTitle, userId, sellerId },
+      );
 
       navigate(`/profile/inbox/${response.data.conversation._id}`, {
         state: {

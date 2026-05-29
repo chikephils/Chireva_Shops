@@ -1,11 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../../Assests/img/logo.png"
-import {
-  AiOutlineShopping,
-  AiOutlineMessage,
-} from "react-icons/ai";
+import Logo from "../../Assests/img/logo.png";
+import { AiOutlineShopping, AiOutlineMessage } from "react-icons/ai";
 import { FiPackage } from "react-icons/fi";
 import { FaFire } from "react-icons/fa6";
 
@@ -37,11 +34,7 @@ const DashBoardHeader = ({}) => {
   const currentPath = location.pathname;
   const isActive = (path) => currentPath === path;
 
-  const shopDisplay = seller?.shopName
-    ? seller.shopName.length > 22
-      ? seller.shopName.slice(0, 19) + "..."
-      : seller.shopName
-    : "My Shop";
+  const shopDisplay = seller?.shopName ? (seller.shopName.length > 22 ? seller.shopName.slice(0, 19) + "..." : seller.shopName) : "My Shop";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-50 border-b border-gray-200 shadow-sm">
@@ -49,12 +42,14 @@ const DashBoardHeader = ({}) => {
         <div className="h-16 flex items-center justify-between">
           {/* Logo + Shop Name */}
           <div className="flex items-center gap-4">
-            <Link to="/dashboard" className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-3 group">
               <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow transition-shadow">
                 <img src={Logo} alt="Logo" className="w-10 h-10 rounded-full object-contain" />
               </div>
+            </Link>
+            <Link to="/dashboard">
               <div className="flex">
-                <span className="text-lg font-semibold text-gray-900 group-hover:text-indigo-700 transition-colorstruncate max-w-[180px]">
+                <span className="text-lg font-semibold text-gray-900 hover:text-indigo-700 transition-colorstruncate max-w-[180px]">
                   {shopDisplay}
                 </span>
               </div>
@@ -75,18 +70,12 @@ const DashBoardHeader = ({}) => {
                     className={`
                       relative flex items-center justify-center w-10 h-10 rounded-lg
                       transition-all duration-200
-                      ${
-                        activeItem
-                          ? "text-indigo-600 bg-indigo-50"
-                          : "text-gray-600 hover:text-indigo-600 hover:bg-indigo-50/70"
-                      }
+                      ${activeItem ? "text-indigo-600 bg-indigo-50" : "text-gray-600 hover:text-indigo-600 hover:bg-indigo-50/70"}
                     `}
                     title={item.label}
                   >
                     <Icon size={22} />
-                    {activeItem && (
-                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-indigo-600 rounded-full" />
-                    )}
+                    {activeItem && <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-indigo-600 rounded-full" />}
                   </Link>
                 );
               })}
@@ -99,11 +88,7 @@ const DashBoardHeader = ({}) => {
               title="View your shop as a customer"
             >
               <div className="relative">
-                <img
-                  src={seller?.avatar?.url}
-                  alt=""
-                  className="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm"
-                />
+                <img src={seller?.avatar?.url} alt="" className="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm" />
                 <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full" />
               </div>
 

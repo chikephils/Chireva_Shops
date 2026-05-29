@@ -4,7 +4,7 @@ import ProductCard from "../../components/Route/ProductCard/ProductCard";
 import NoProduct from "../../Assests/img/NotFound.svg";
 import Loader from "../../components/UI/Loader";
 import PageTransition from "../../components/UI/PageTransition";
-import api from "../../utils/axios";
+import api from "../../utils/api";
 import { server } from "../../server";
 
 const BestSellingPage = () => {

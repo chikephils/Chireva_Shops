@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsFillBagFill } from "react-icons/bs";
 import { RxAvatar, RxCross1 } from "react-icons/rx";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import api from "../../utils/axios";
+import api from "../../utils/userApi";
 import { server } from "../../server";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
@@ -31,11 +31,17 @@ const OrderDetails = () => {
   const [updatingMap, setUpdatingMap] = useState({});
   const [requestingMap, setRequestingMap] = useState({});
 
+  const token = useSelector((state) => state?.user?.token);
+
   const fetchOrder = async () => {
     if (!id) return;
     setLoading(true);
     try {
-      const response = await api.get(`${server}/order/get-order/${id}`);
+      const response = await api.get(`${server}/order/get-order/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setOrderData(response?.data);
     } catch (error) {
       console.error(error.response?.data.message);
@@ -64,7 +70,15 @@ const OrderDetails = () => {
   const handleUpdateStatus = async (orderId, status) => {
     setUpdatingMap((prev) => ({ ...prev, [orderId]: true }));
     try {
-      await api.put(`${server}/order/update-order-status/${orderId}`, { status });
+      await api.put(
+        `${server}/order/update-order-status/${orderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        { status },
+      );
 
       toast.success("Order updated");
       fetchOrder();
@@ -92,7 +106,7 @@ const OrderDetails = () => {
           productId: selectedProduct?._id,
           orderId: selectedProduct?.orderId,
         },
-        { headers: { "Content-Type": "application/json" }, },
+        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } },
       );
       toast.success("Review submitted successfully");
       setIsReviewOpen(false);
@@ -110,7 +124,11 @@ const OrderDetails = () => {
   const handleRequestRefund = async (childOrderId) => {
     setRequestingMap((prev) => ({ ...prev, [childOrderId]: true }));
     try {
-      const res = await api.put(`${server}/order/order-refund/${childOrderId}`, null);
+      const res = await api.put(`${server}/order/order-refund/${childOrderId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(res.data.message || "Refund request submitted");
       fetchOrder();
     } catch (err) {
