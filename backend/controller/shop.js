@@ -20,6 +20,13 @@ const Products = require("../model/product");
 const Withdraw = require("../model/withdraw");
 const Order = require("../model/order");
 
+//Create Activation token
+const createActivationToken = (seller) => {
+  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
+    expiresIn: "5m",
+  });
+};
+
 //create Shop
 router.post("/create-shop", async (req, res, next) => {
   try {
@@ -74,12 +81,6 @@ router.post("/create-shop", async (req, res, next) => {
   }
 });
 
-//Create Activation token
-const createActivationToken = (seller) => {
-  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
-  });
-};
 
 //activate Seller
 router.post(

@@ -19,6 +19,13 @@ const Products = require("../model/product");
 const Order = require("../model/order");
 const AdminBalance = require("../model/admin");
 
+//create Activation Token
+const createActivationToken = (user) => {
+  return jwt.sign(user, process.env.ACTIVATION_SECRET, {
+    expiresIn: "5m",
+  });
+};
+
 //Create User
 router.post("/create-user", async (req, res, next) => {
   try {
@@ -69,13 +76,6 @@ router.post("/create-user", async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
-
-//create Activation Token
-const createActivationToken = (user) => {
-  return jwt.sign(user, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
-  });
-};
 
 //activate User
 router.post(
