@@ -47,6 +47,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
     const activationURL = `https://chireva.vercel.app/activation?token=${activationToken}`;
+    console.log(activationURL)
 
     //Read HTML template file
     const htmlTemplatePath = path.join(
