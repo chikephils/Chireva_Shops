@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/CatchAsyncError");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../utils/sendMail");
+const {sendMail} = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
 const {
   isAuthenticated,
