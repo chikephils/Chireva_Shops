@@ -39,14 +39,23 @@ router.post("/create-shop", async (req, res, next) => {
       return next(new ErrorHandler("User already exists", 400));
     }
 
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+      folder: "avatars",
+    });
+
     const seller = {
       email,
       shopName,
       phoneNumber,
       address,
       zipCode,
-      avatar,
-      password,
+      password: hashedPassword,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
     };
 
     const activationToken = createActivationToken(seller);
@@ -80,7 +89,6 @@ router.post("/create-shop", async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
-
 
 //activate Seller
 router.post(
@@ -118,33 +126,14 @@ router.post(
         return next(new ErrorHandler("Seller already exists", 400));
       }
 
-      //  Upload avatar
-      let uploadedAvatar = {
-        public_id: "",
-        url: "",
-      };
-
-      if (avatar) {
-        const myCloud = await cloudinary.v2.uploader.upload(avatar, {
-          folder: "avatars",
-        });
-
-        uploadedAvatar = {
-          public_id: myCloud.public_id,
-          url: myCloud.secure_url,
-        };
-      }
-
-      const hashedPassword = await bcrypt.hash(password, 12);
-
       const seller = await Shop.create({
         shopName,
         email,
         phoneNumber,
         address,
         zipCode,
-        avatar: uploadedAvatar,
-        password: hashedPassword,
+        avatar,
+        password,
         role: "seller",
       });
 

@@ -4,7 +4,7 @@ import api from "../../utils/api";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import { FiCheckCircle, FiXCircle, FiLoader } from "react-icons/fi";
-import Logo from "../../Assests/img/logo.png";
+import Logo from "../../Assests/img/logoRounded.png";
 
 const ActivationPage = () => {
   const location = useLocation();
@@ -14,6 +14,8 @@ const ActivationPage = () => {
 
   const [status, setStatus] = useState("loading");
   const [message, setMessage] = useState("");
+
+  console.log("TOKEN:", activation_token);
 
   useEffect(() => {
     if (!activation_token) {
@@ -27,6 +29,8 @@ const ActivationPage = () => {
         const res = await api.post(`${server}/user/activation`, {
           activation_token,
         });
+        console.log("TOKEN:", activation_token);
+        console.log("SERVER:", server);
 
         setMessage(res.data.message || "Account activated successfully!");
         setStatus("success");
@@ -47,7 +51,7 @@ const ActivationPage = () => {
       {/* Logo */}
       <div className="mb-10">
         <Link to="/">
-          <img src={Logo} alt="Your Shop Logo" className="h-12 w-auto object-contain mx-auto" />
+          <img src={Logo} alt="Your Shop Logo" className="h-[60px] w-[144px] object-contain mx-auto" />
         </Link>
       </div>
 
