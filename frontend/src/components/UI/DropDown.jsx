@@ -12,8 +12,8 @@ const DropDown = ({ categoriesData, setDropDown, onNavigate }) => {
   };
 
   return (
-    <div className="mt-2.5 py-3  w-[300px] bg-gradient-to-r from-gray-100 to-lime-100 ...  absolute z-50 rounded-xl shadow-2xl border">
-      <div className="max-h-[40vh] md:max-h-[70vh] w-full overflow-y-auto scrollbar-hide py-1 ">
+    <div className=" md:mt-2.5 w-full  md:w-[300px] bg-gradient-to-r from-gray-100 to-lime-100 ...  absolute z-50 border px-0.5 pb-2 rounded-b-2xl">
+      <div className="max-h-[70vh] w-full overflow-y-auto scrollbar-hide py-3">
         {categoriesData &&
           categoriesData.map((category, index) => (
             <div
