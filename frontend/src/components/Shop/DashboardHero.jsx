@@ -18,7 +18,6 @@ import { server } from "../../server";
 const DashboardHero = () => {
   const dispatch = useDispatch();
   const seller = useSelector(selectSeller);
-  const token = useSelector((state) => state?.shop?.token);
 
   const [products, setProducts] = useState(null);
   const [shopOrders, setShopOrders] = useState(null);
@@ -40,11 +39,7 @@ const DashboardHero = () => {
       const ordersRes = await dispatch(getAllShopOrders(seller._id)).unwrap();
       setShopOrders(ordersRes);
 
-      const shopRes = await api.get(`${server}/shop/get-shop-info/${seller._id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const shopRes = await api.get(`${server}/shop/get-shop-info/${seller._id}`);
       setAvailableBalance(shopRes.data.shop?.availableBalance?.toFixed(2));
     } catch (error) {
       console.error("Dashboard data fetch error:", error);
