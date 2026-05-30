@@ -12,7 +12,7 @@ import { FiPackage } from "react-icons/fi";
 import Loader from "../UI/Loader";
 import { numbersWithCommas } from "../../utils/priceDisplay";
 import StatusBadge from "../UI/StatusBadge";
-import api from "../../utils/shopApi";
+import api from "../../utils/api";
 import { server } from "../../server";
 
 const DashboardHero = () => {

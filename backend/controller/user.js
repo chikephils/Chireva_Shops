@@ -61,7 +61,6 @@ router.post("/create-user", async (req, res, next) => {
       { expiresIn: "5m" },
     );
     const activationURL = `https://chireva.vercel.app/activation?token=${activationToken}`;
-    console.log(activationURL);
 
     //Read HTML template file
     const htmlTemplatePath = path.join(
@@ -96,20 +95,15 @@ router.post("/create-user", async (req, res, next) => {
 router.post(
   "/activation",
   catchAsyncErrors(async (req, res, next) => {
-    console.log(req.body)
     const { activation_token } = req.body;
-    
 
     if (!activation_token) {
       return next(new ErrorHandler("Activation token missing", 400));
     }
 
-    console.log("BODY:", req.body);
     const decoded = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
 
-    console.log("DECODED:", decoded);
     const tempUser = await TempUser.findById(decoded.id);
-    console.log("TEMP USER:", tempUser);
 
     if (!tempUser) {
       return next(new ErrorHandler("Invalid activation request", 400));
