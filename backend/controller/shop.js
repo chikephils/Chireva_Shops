@@ -11,6 +11,7 @@ const {
   isUserAuthenticated,
 } = require("../middleware/auth");
 const Shop = require("../model/shop");
+const TempSeller = require("../model/tempSeller");
 const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncError = require("../middleware/CatchAsyncError");
 const sendShopToken = require("../utils/shopToken");
@@ -45,7 +46,7 @@ router.post("/create-shop", async (req, res, next) => {
       folder: "avatars",
     });
 
-    const seller = {
+    const tempSeller = await TempSeller.create({
       email,
       shopName,
       phoneNumber,
@@ -56,9 +57,13 @@ router.post("/create-shop", async (req, res, next) => {
         public_id: myCloud.public_id,
         url: myCloud.secure_url,
       },
-    };
+    });
 
-    const activationToken = createActivationToken(seller);
+    const activationToken = jwt.sign(
+      { id: tempSeller._id },
+      process.env.ACTIVATION_SECRET,
+      { expiresIn: "5m" },
+    );
 
     const activationURL = `https://chireva.vercel.app/seller/activation?token=${activationToken}`;
 
@@ -100,42 +105,28 @@ router.post(
       if (!activation_token) {
         return next(new ErrorHandler("Activation token missing", 400));
       }
+      const decoded = jwt.verify(
+        activation_token,
+        process.env.ACTIVATION_SECRET,
+      );
+      const tempSeller = await TempUser.findById(decoded.id);
 
-      let decoded;
-
-      try {
-        decoded = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
-      } catch (error) {
-        return next(
-          new ErrorHandler("Invalid or expired activation token", 400),
-        );
-      }
-
-      const {
-        shopName,
-        email,
-        phoneNumber,
-        address,
-        zipCode,
-        avatar,
-        password,
-      } = decoded;
-
-      const existingSeller = await Shop.findOne({ email });
-      if (existingSeller) {
-        return next(new ErrorHandler("Seller already exists", 400));
+      if (!tempSeller) {
+        return next(new ErrorHandler("Invalid activation request", 400));
       }
 
       const seller = await Shop.create({
-        shopName,
-        email,
-        phoneNumber,
-        address,
-        zipCode,
-        avatar,
-        password,
+        shopName: tempSeller.shopName,
+        email: tempSeller.email,
+        phoneNumber: tempSeller.phoneNumber,
+        address: tempSeller.address,
+        zipCode: tempSeller.zipCode,
+        avatar: tempSeller.avatar,
+        password: tempSeller.password,
         role: "seller",
       });
+
+      await TempSeller.findByIdAndDelete(tempSeller._id);
 
       sendShopToken(seller, 201, res, "Shop Activated successfully");
 

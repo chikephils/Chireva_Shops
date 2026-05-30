@@ -37,9 +37,9 @@ const Cart = ({ setOpenCart }) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm flex justify-end" onClick={() => setOpenCart(false)}>
-      <div className="w-full max-w-lg h-full bg-white shadow-2xl flex flex-col" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-lg h-[100dvh] bg-white shadow-2xl flex flex-col overflow-hidden" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-gray-200">
+        <div className="sticky top-0 z-10 flex items-center justify-between p-3 border-b border-gray-200 bg-white">
           <div className="flex items-center gap-3">
             <button onClick={() => setOpenCart(false)} className="p-2 rounded-full hover:bg-gray-100 transition ">
               <RxCross1 size={24} className="cursor-pointer bg-black/50 hover:bg-black/70 rounded-full p-1 text-gray-100" />
@@ -72,7 +72,7 @@ const Cart = ({ setOpenCart }) => {
             </div>
 
             {/* Checkout Footer */}
-            <div className="border-t border-gray-200 bg-gray-50 p-5">
+            <div className="sticky bottom-0 border-t border-gray-200 bg-gray-50 p-2 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-base font-medium">Total</span>
                 <span className="text-xl font-bold text-red-600">₦ {editedTotal}</span>
