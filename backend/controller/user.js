@@ -1,12 +1,13 @@
 const express = require("express");
 const User = require("../model/user");
+const TempUser = require("../model/tempUser");
 const path = require("path");
 const router = express.Router();
 const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/CatchAsyncError");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
-const {sendMail} = require("../utils/sendMail");
+const { sendMail } = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
 const {
   isAuthenticated,
@@ -37,17 +38,30 @@ router.post("/create-user", async (req, res, next) => {
       return next(new ErrorHandler("User already exists", 400));
     }
 
-    const user = {
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+      folder: "avatars",
+    });
+
+    const tempUser = await TempUser.create({
       firstName,
       lastName,
       email,
-      password,
-      avatar,
-    };
+      password: hashedPassword,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
+    });
 
-    const activationToken = createActivationToken(user);
+    const activationToken = jwt.sign(
+      { id: tempUser._id },
+      process.env.ACTIVATION_SECRET,
+      { expiresIn: "5m" },
+    );
     const activationURL = `https://chireva.vercel.app/activation?token=${activationToken}`;
-    console.log(activationURL)
+    console.log(activationURL);
 
     //Read HTML template file
     const htmlTemplatePath = path.join(
@@ -82,59 +96,36 @@ router.post("/create-user", async (req, res, next) => {
 router.post(
   "/activation",
   catchAsyncErrors(async (req, res, next) => {
+    console.log(req.body)
     const { activation_token } = req.body;
+    
 
     if (!activation_token) {
       return next(new ErrorHandler("Activation token missing", 400));
     }
 
-    let decoded;
+    console.log("BODY:", req.body);
+    const decoded = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
 
-    try {
-      decoded = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
-    } catch (error) {
-      return next(new ErrorHandler("Invalid or expired activation token", 400));
+    console.log("DECODED:", decoded);
+    const tempUser = await TempUser.findById(decoded.id);
+    console.log("TEMP USER:", tempUser);
+
+    if (!tempUser) {
+      return next(new ErrorHandler("Invalid activation request", 400));
     }
-
-    const { firstName, lastName, email, password, avatar } = decoded;
-
-    // Prevent duplicate accounts
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      return next(new ErrorHandler("User already exists", 400));
-    }
-
-    //  Upload avatar
-    let uploadedAvatar = {
-      public_id: "",
-      url: "",
-    };
-
-    if (avatar) {
-      const myCloud = await cloudinary.v2.uploader.upload(avatar, {
-        folder: "avatars",
-      });
-
-      uploadedAvatar = {
-        public_id: myCloud.public_id,
-        url: myCloud.secure_url,
-      };
-    }
-
-    //: Hash password
-    const hashedPassword = await bcrypt.hash(password, 12);
 
     //  Create user
     const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      avatar: uploadedAvatar,
+      firstName: tempUser.firstName,
+      lastName: tempUser.lastName,
+      email: tempUser.email,
+      password: tempUser.password,
+      avatar: tempUser.avatar,
       role: "user",
     });
 
+    await TempUser.findByIdAndDelete(tempUser._id);
     //  Login user (cookie)
     sendToken(user, 201, res, "Account activated successfully");
 
