@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const http = require("http");
 const socketIO = require("socket.io");
 const path = require("path");
+const fs = require("fs");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({
@@ -90,6 +91,25 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
   res.send("Hello world... Chireva Shops Server is Running!");
 });
+
+// Email preview route
+if (process.env.NODE_ENV !== "production") {
+  app.get("/preview-email", (req, res) => {
+    const htmlTemplatePath = path.join(
+      __dirname,
+      "./html/userActivationMail.html",
+    );
+
+    const htmlTemplate = fs.readFileSync(htmlTemplatePath, "utf-8");
+
+    const htmlMail = htmlTemplate
+      .replace("%FIRST_NAME%", "Jonathan")
+      .replace("%LAST_NAME%", "Doe")
+      .replace("%ACTIVATION_URL%", "http://localhost:5173/activation/123456");
+
+    res.send(htmlMail);
+  });
+}
 
 // Import routes
 const user = require("./controller/user");

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { AiOutlineCamera, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ const CreateShop = () => {
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [visible, setVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -59,6 +60,9 @@ const CreateShop = () => {
       setAddress("");
       setZipCode("");
       setAvatarPreview(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to create shop");
     } finally {
@@ -93,6 +97,7 @@ const CreateShop = () => {
               >
                 <AiOutlineCamera size={20} />
                 <input
+                  ref={fileInputRef}
                   id="avatar-upload"
                   type="file"
                   accept="image/*"
