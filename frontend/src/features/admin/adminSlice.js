@@ -147,7 +147,7 @@ export const getAllAdminProducts = createAsyncThunk("admin/getAllAdminProducts",
 });
 
 //get all Transactions
-export const getAllAdminTransactions = createAsyncThunk("admin/getAllAdminTransactions", async (_, { rejectWithValu, getStatee }) => {
+export const getAllAdminTransactions = createAsyncThunk("admin/getAllAdminTransactions", async (_, { rejectWithValu, getState }) => {
   const token = getState().user?.token;
   try {
     const response = await api.get(`${server}/withdraw/admin-withdrawal-requests`, {
@@ -155,7 +155,6 @@ export const getAllAdminTransactions = createAsyncThunk("admin/getAllAdminTransa
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response?.data);
     return response.data.withdrawals;
   } catch (error) {
     console.log(error);

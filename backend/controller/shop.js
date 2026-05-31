@@ -5,7 +5,6 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/sendMail");
 const {
-  isAuthenticated,
   authorizeRoles,
   isSellerAuthenticated,
   isUserAuthenticated,
@@ -113,6 +112,12 @@ router.post(
 
       if (!tempSeller) {
         return next(new ErrorHandler("Invalid activation request", 400));
+      }
+      const existingUser = await Shop.findOne({ email: tempSeller.email });
+
+      if (existingUser) {
+        await TempSeller.findByIdAndDelete(tempSeller._id);
+        return next(new ErrorHandler("User already exists", 400));
       }
 
       const seller = await Shop.create({
@@ -521,16 +526,36 @@ router.delete(
       if (!seller) {
         return next(new ErrorHandler("Seller not found with this Id", 400));
       }
-      seller.avatar((imageUrls) => {
-        const fileName = imageUrls;
-        const filePath = `uploads/${fileName}`;
 
-        fs.unlink(filePath, (error) => {
-          if (error) {
-            return next(new ErrorHandler("Error trying to delete shop Avatar"));
-          }
-        });
+      // Delete seller avatar
+      if (seller.avatar?.public_id) {
+        await cloudinary.v2.uploader.destroy(seller.avatar.public_id);
+      }
+
+      // Find products
+      const products = await Products.find({
+        shopId: sellerId,
       });
+
+      // Delete all product images
+      const imageDeletes = [];
+
+      for (const product of products) {
+        for (const image of product.images) {
+          if (image.public_id) {
+            imageDeletes.push(cloudinary.v2.uploader.destroy(image.public_id));
+          }
+        }
+      }
+
+      await Promise.allSettled(imageDeletes);
+
+      // Delete products
+      await Products.deleteMany({
+        shopId: sellerId,
+      });
+
+      // Delete seller
       await Shop.findByIdAndDelete(sellerId);
 
       res.status(201).json({

@@ -5,7 +5,6 @@ const express = require("express");
 const {
   isUserAuthenticated,
   isSellerAuthenticated,
-  isAuthenticated,
 } = require("../middleware/auth");
 
 const router = express.Router();

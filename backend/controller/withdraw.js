@@ -5,7 +5,6 @@ const express = require("express");
 const Withdraw = require("../model/withdraw");
 const {sendMail} = require("../utils/sendMail");
 const {
-  isAuthenticated,
   authorizeRoles,
   isSellerAuthenticated,
   isUserAuthenticated,

@@ -9,11 +9,7 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
-const {
-  isAuthenticated,
-  authorizeRoles,
-  isUserAuthenticated,
-} = require("../middleware/auth");
+const { authorizeRoles, isUserAuthenticated } = require("../middleware/auth");
 const cloudinary = require("cloudinary");
 const bcrypt = require("bcryptjs");
 const Products = require("../model/product");
@@ -107,6 +103,13 @@ router.post(
 
     if (!tempUser) {
       return next(new ErrorHandler("Invalid activation request", 400));
+    }
+
+    const existingUser = await User.findOne({ email: tempUser.email });
+
+    if (existingUser) {
+      await TempUser.findByIdAndDelete(tempUser._id);
+      return next(new ErrorHandler("User already exists", 400));
     }
 
     //  Create user
@@ -608,7 +611,7 @@ router.put(
   }),
 );
 
-//Update user withdrawal methord
+//Delete user withdrawal methord
 router.delete(
   "/delete-user-withdraw-method",
   isUserAuthenticated,
@@ -739,7 +742,7 @@ router.delete(
           await cloudinary.v2.uploader.destroy(user.avatar.public_id);
         } catch (cloudErr) {
           console.error("Cloudinary delete failed (non-critical):", cloudErr);
-          // Continue — don't fail logout over avatar delete
+         
         }
       }
 

@@ -139,15 +139,7 @@ const Inbox = () => {
     setNewMessage("");
 
     try {
-      const res = await api.post(
-        `${server}/messages/create-new-message`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        messageData,
-      );
+      const res = await api.post(`${server}/messages/create-new-message`, messageData);
       setMessages((prev) => prev.map((msg) => (msg._id.startsWith("temp-") ? res.data.message : msg)));
     } catch (error) {
       console.error("Failed to send message:", error);

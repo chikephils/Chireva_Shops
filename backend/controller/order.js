@@ -8,7 +8,6 @@ const User = require("../model/user");
 const Product = require("../model/product");
 const AdminBalance = require("../model/admin");
 const {
-  isAuthenticated,
   authorizeRoles,
   isUserAuthenticated,
   isSellerAuthenticated,
@@ -528,7 +527,7 @@ router.put(
 // Request for a refund user
 router.put(
   "/order-refund/:id",
-  isAuthenticated,
+  isUserAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
 

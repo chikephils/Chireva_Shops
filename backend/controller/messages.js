@@ -5,12 +5,10 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/CatchAsyncError");
 const router = express.Router();
 const cloudinary = require("cloudinary");
-const { isAuthenticated } = require("../middleware/auth");
 
 // create new message
 router.post(
   "/create-new-message",
-  isAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { conversationId, sender, text, images } = req.body;
@@ -85,7 +83,6 @@ router.post(
 
 router.get(
   "/get-all-messages/:id",
-  isAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const messages = await Messages.find({
