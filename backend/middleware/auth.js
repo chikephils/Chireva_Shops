@@ -42,12 +42,12 @@ exports.isSellerAuthenticated = catchAsyncErrors(async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
-    if (!token) {
-      return next(new ErrorHandler("Please login to continue", 401));
-    }
-
     if (authHeader && authHeader.startsWith("Bearer ")) {
       token = authHeader.split(" ")[1];
+    }
+
+    if (!token) {
+      return next(new ErrorHandler("Please login to continue", 401));
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);

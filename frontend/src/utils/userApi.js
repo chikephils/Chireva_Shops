@@ -25,7 +25,7 @@ api.interceptors.response.use(
   (error) => {
     const status = error.response.status;
 
-    if (status === 403) {
+    if (status === 401) {
       store.dispatch(setLogout());
       localStorage.removeItem("persist:user");
       window.location.href = "/login";
