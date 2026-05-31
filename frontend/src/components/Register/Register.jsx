@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { AiOutlineCamera, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
@@ -14,6 +14,7 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -54,6 +55,9 @@ const Register = () => {
       setEmail("");
       setPassword("");
       setAvatarPreview(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       toast.error(error.response?.data?.message);
     } finally {
@@ -90,6 +94,7 @@ const Register = () => {
             >
               <AiOutlineCamera size={20} />
               <input
+                ref={fileInputRef}
                 id="avatar-upload"
                 type="file"
                 accept="image/*"
