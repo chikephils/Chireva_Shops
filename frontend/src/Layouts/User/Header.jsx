@@ -246,10 +246,10 @@ const Header = ({ activeHeading }) => {
           <div className="w-80 bg-white h-[100dvh] flex flex-col overflow-hidden" onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div className="sticky top-0 z-10 bg-white border-b shrink-0">
-              <div className="relative">
+              <div ref={categoryRef} className="relative ">
                 <div className="flex justify-between items-center p-4">
                   <h3 className="font-semibold">Menu</h3>
-                  <div ref={categoryRef} className="relative md:hidden block">
+                  <div className="relative md:hidden block">
                     <button
                       onClick={() => setDropDown((prev) => !prev)}
                       className="flex items-center gap-2 px-5 py-1.5 text-gray-800 text-[15px] 800px:text-base font-medium bg-white rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.12)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.18)] hover:bg-gray-50 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-200 focus:ring-offset-2"
@@ -264,9 +264,7 @@ const Header = ({ activeHeading }) => {
                   />
                 </div>
 
-                {dropDown && (
-                  <DropDown categoriesData={categoriesData} setDropDown={setDropDown} isMobile onNavigate={() => setOpenMenu(false)} />
-                )}
+                {dropDown && <DropDown categoriesData={categoriesData} setDropDown={setDropDown} onNavigate={() => setOpenMenu(false)} />}
               </div>
             </div>
 
