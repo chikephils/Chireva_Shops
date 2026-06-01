@@ -60,7 +60,7 @@ const ShopPromoSales = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full ">
+      <div>
         <AllPromoProducts
           handleProductClick={handleProductClick}
           shopPromoProducts={shopPromoProducts}

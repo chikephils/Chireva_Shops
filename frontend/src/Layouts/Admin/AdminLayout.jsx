@@ -13,20 +13,16 @@ const AdminLayout = () => {
           <div className="flex gap-6">
             {/* Desktop Sidebar  fixed left */}
             <aside className="hidden lg:block w-[260px] shrink-0">
-              <div className="sticky top-[70px] h-[calc(100vh-100px)]">
-                <div
-                  className="
-                h-full overflow-y-auto
-                bg-gray-900 text-white rounded-xl shadow-2xl border-r border-gray-800 p-3
-              "
-                >
-                  <AdminSideBar />
-                </div>
+              <div
+                className="sticky top-[70px] h-[calc(100vh-100px)] overflow-y-auto
+                bg-gray-900 text-white rounded-xl shadow-2xl border-r border-gray-800 p-3"
+              >
+                <AdminSideBar />
               </div>
             </aside>
 
             <main className="flex-1 min-w-0">
-              <div className="  bg-gray-900 text-white rounded-xl shadow-2xl border-r border-gray-800 mb-4 p-2 min-h-[calc(100vh-100px)]">
+              <div className="  bg-gray-900 text-white rounded-xl  border-r border-gray-800 mb-4 p-2 min-h-[calc(100vh-100px)]">
                 <Suspense
                   fallback={
                     <div className="min-h-[calc(100vh-110px)] flex items-center justify-center">

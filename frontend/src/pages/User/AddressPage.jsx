@@ -6,7 +6,7 @@ const AddressPage = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div>
         <Address setOpen={setOpen} />
       </div>
 

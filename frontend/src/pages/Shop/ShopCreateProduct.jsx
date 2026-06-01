@@ -4,9 +4,7 @@ import CreateProduct from "../../components/Shop/CreateProduct";
 const ShopCreateProduct = () => {
   return (
     <>
-      <div className="flex flex-col h-full ">
-        <CreateProduct />
-      </div>
+      <CreateProduct />
     </>
   );
 };

@@ -144,7 +144,7 @@ const OrderDetails = () => {
   return (
     <div className=" bg-gray-50 pb-10">
       {/* Header Bar */}
-      <div className="fixed w-full left-0 right-0 z-10 bg-white shadow-sm border-b border-gray-200">
+      <div className="fixed w-full left-0 right-0 z-10 bg-white  border-b border-gray-200">
         <div className="max-w-screen-4xl mx-auto px-4 lg:px-8">
           <div className="flex justify-between h-14 lg:h-12 items-center">
             <div className="flex items-center gap-3">

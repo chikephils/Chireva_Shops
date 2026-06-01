@@ -4,9 +4,7 @@ import Settings from "../../components/Shop/Settings";
 const ShopCreateProduct = () => {
   return (
     <>
-      <div className="flex flex-col h-full ">
-        <Settings />
-      </div>
+      <Settings />
     </>
   );
 };

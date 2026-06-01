@@ -92,7 +92,7 @@ const Header = ({ activeHeading }) => {
   return (
     <>
       {/* Sticky Header */}
-      <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all">
+      <header className="fixed top-0 left-0 w-full bg-white shadow z-50 transition-all">
         <div className="max-w-screen-4xl mx-auto px-2 md:px-6 h-16 md:h-18 flex items-center justify-between">
           {/* Left: Hamburger (mobile) + Categories */}
           <div className="flex items-center gap-4 mx-2 md:mx-8 ">

@@ -66,8 +66,8 @@ const AdminSideBar = ({ mobile = false }) => {
   // Desktop vertical bottom nav
   if (!mobile) {
     return (
-      <div className="w-full overflow-y-auto scrollbar-hide h-full px-2 py-4 bg-gray-900">
-        <div className="space-y-1.5">
+      <div className="w-full overflow-y-auto scrollbar-hide h-full px-2 py-5 bg-gray-900">
+        <div className="space-y-1.5 pt-3">
           {navItems.map((item) => {
             const active = isActive(item.path);
             return (
