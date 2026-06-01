@@ -62,8 +62,8 @@ const DashBoardSideBar = ({ mobile = false }) => {
 
   if (!mobile) {
     return (
-      <div className="w-full h-full overflow-y-auto scrollbar-hide py-4 px-2">
-        <div className="space-y-1.5">
+      <div className="w-full h-full overflow-y-auto scrollbar-hide py-5 px-2">
+        <div className="space-y-1.5 pt-3">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const activeItem = isActive(item.path);

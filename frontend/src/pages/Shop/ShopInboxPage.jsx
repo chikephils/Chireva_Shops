@@ -4,9 +4,7 @@ import DashBoardMessages from "../../components/Shop/DashboardMessages";
 const ShopInboxPage = () => {
   return (
     <>
-      <div className="flex flex-col h-full">
-        <DashBoardMessages />
-      </div>
+      <DashBoardMessages />
     </>
   );
 };

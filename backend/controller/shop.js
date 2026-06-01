@@ -145,7 +145,7 @@ router.post(
       //Replace place holders with dynamic values
       const htmlMail = htmlTemplate
         .replace("%SHOPNAME%", seller.shopName)
-        .replace("%LOGIN%", `${process.env.CLIENT_URL}/shop-login`);
+        .replace("%LOGIN%", `https://chireva.vercel.app/shop-login`);
 
       sendMail({
         to: seller.email,

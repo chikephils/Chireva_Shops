@@ -4,10 +4,7 @@ import DashboardHero from "../../components/Shop/DashboardHero.jsx";
 const ShopDashboardPage = () => {
   return (
     <>
-      {/* Main Content  */}
-      <div className="flex flex-col h-full ">
-        <DashboardHero />{" "}
-      </div>
+      <DashboardHero />{" "}
     </>
   );
 };

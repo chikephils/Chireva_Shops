@@ -101,8 +101,8 @@ const ProfileSideBar = ({ mobile = false }) => {
   // Desktop Vertical Sidebar
   if (!mobile) {
     return (
-      <div className="w-full h-full overflow-y-auto scrollbar-hide pb-10">
-        <div className="space-y-1">
+      <div className="w-full  overflow-y-auto scrollbar-hide py-5">
+        <div className="space-y-1.5 pt-3">
           {menuItems.map((item, index) => {
             const Icon = item.icon;
             const active = isActive(item.path);

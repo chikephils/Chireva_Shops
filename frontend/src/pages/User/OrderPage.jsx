@@ -4,9 +4,7 @@ import AllOrders from "../../components/Profile/AllOrders";
 const OrderPage = () => {
   return (
     <>
-      <div className="flex flex-col h-full ">
-        <AllOrders />
-      </div>
+      <AllOrders />
     </>
   );
 };

@@ -20,7 +20,8 @@ const Checkout = () => {
   const [state, setState] = useState("");
   const [stateName, setStateName] = useState("");
   const [city, setCity] = useState("");
-  const [userInfo, setUserInfo] = useState(false);
+  const [showSavedAddresses, setShowSavedAddresses] = useState(false);
+  const [selectedAddressType, setSelectedAddressType] = useState("manual");
   const [address1, setAddress1] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [showPayment, setShowPayment] = useState(false);
@@ -33,19 +34,35 @@ const Checkout = () => {
   // paymentSubmit function
   const paymentSubmit = async () => {
     if (cart.length < 1) return toast.error("Please add some Items to Cart");
-    if (!address1 || !zipCode || !country || !state) {
-      return toast.error("Please Provide a delivery address !");
+
+    const isManualValid = address1 && zipCode && country && state;
+
+    const isSavedValid = selectedAddressType === "saved";
+
+    if (cart.length < 1) return toast.error("Please add items");
+
+    if (!isManualValid && !isSavedValid) {
+      return toast.error("Please provide a valid delivery address");
     }
     setIsSubmitting(true);
 
     try {
-      const shippingAddress = {
-        address1,
-        zipCode,
-        country: countryName,
-        state: stateName,
-        city,
-      };
+      const shippingAddress =
+        selectedAddressType === "saved"
+          ? {
+              address1,
+              zipCode,
+              country: countryName,
+              state: stateName,
+              city,
+            }
+          : {
+              address1,
+              zipCode,
+              country: countryName,
+              state: stateName,
+              city,
+            };
 
       // map cart items to include appliedPrice and event flag
       const cartWithAppliedPrice = cart.map((item) => {
@@ -69,15 +86,11 @@ const Checkout = () => {
         user,
       };
 
-      const response = await api.post(
-        `${server}/order/create-order`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await api.post(`${server}/order/create-order`, tempOrderData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        tempOrderData,
-      );
+      });
 
       if (!response?.data.success) {
         throw new Error("Failed to Create Order");
@@ -197,7 +210,10 @@ const Checkout = () => {
               <input
                 type="text"
                 value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
+                onChange={(e) => {
+                  setSelectedAddressType("manual");
+                  setZipCode(e.target.value);
+                }}
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
                 placeholder="Enter zip code"
@@ -212,6 +228,7 @@ const Checkout = () => {
               <select
                 value={country}
                 onChange={(e) => {
+                  setSelectedAddressType("manual");
                   const code = e.target.value;
                   const selectedCountry = countries.find((c) => c.isoCode === code);
                   setCountry(code);
@@ -235,6 +252,7 @@ const Checkout = () => {
               <select
                 value={state}
                 onChange={(e) => {
+                  setSelectedAddressType("manual");
                   const code = e.target.value;
                   const selectedState = State.getStatesOfCountry(country).find((s) => s.isoCode === code);
                   setState(code);
@@ -260,7 +278,10 @@ const Checkout = () => {
               <input
                 type="text"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {
+                  setSelectedAddressType("manual");
+                  setCity(e.target.value);
+                }}
                 placeholder="Village, Community, Town, City, L.G.A,"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
               />
@@ -274,7 +295,10 @@ const Checkout = () => {
               <input
                 type="text"
                 value={address1}
-                onChange={(e) => setAddress1(e.target.value)}
+                onChange={(e) => {
+                  setSelectedAddressType("manual");
+                  setAddress1(e.target.value);
+                }}
                 required
                 placeholder="House No, Street Name, Estate, Landmark"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
@@ -286,13 +310,13 @@ const Checkout = () => {
         {/* Saved addresses */}
         <button
           type="button"
-          onClick={() => setUserInfo(!userInfo)}
+          onClick={() => setShowSavedAddresses((prev) => !prev)}
           className="mt-6 w-full py-3 px-4 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg transition border border-red-200"
         >
-          {userInfo ? "Hide" : "Choose from"} saved addresses
+          {showSavedAddresses ? "Hide" : "Choose from"} saved addresses
         </button>
 
-        {userInfo && user?.addresses?.length > 0 && (
+        {showSavedAddresses && user?.addresses?.length > 0 && (
           <div className="mt-4 space-y-3">
             {user.addresses.map((addr, idx) => (
               <label key={idx} className="flex items-start p-4 border rounded-lg hover:bg-gray-50 transition cursor-pointer">
@@ -300,15 +324,34 @@ const Checkout = () => {
                   type="radio"
                   name="savedAddress"
                   className="mt-1 mr-3"
+                  checked={selectedAddressType === "saved" && address1 === addr.address1}
                   onChange={() => {
+                    setSelectedAddressType("saved");
+
                     setAddress1(addr.address1 || "");
                     setZipCode(addr.zipCode || "");
                     setCity(addr.city || "");
-                    setState(addr.state || "");
-                    setCountry(addr.country || "");
-                    setStateName(addr.state || "");
-                    setCountryName(addr.country || "");
-                    setUserInfo(false);
+
+                    const allCountries = Country.getAllCountries();
+
+                    const matchedCountry = allCountries.find((c) => c.name.toLowerCase() === addr.country?.toLowerCase());
+
+                    const countryIso = matchedCountry?.isoCode || "";
+
+                    setCountry(countryIso);
+                    setCountryName(matchedCountry?.name || addr.country);
+
+                    const states = State.getStatesOfCountry(countryIso);
+
+                    const matchedState = states.find((s) => s.name.toLowerCase() === addr.state?.toLowerCase());
+
+                    setState(matchedState?.isoCode || "");
+                    setStateName(matchedState?.name || addr.state);
+
+                    setCountryName(matchedCountry?.name || addr.country);
+                    setStateName(matchedState?.name || addr.state);
+
+                    setShowSavedAddresses(false);
                   }}
                 />
                 <div>

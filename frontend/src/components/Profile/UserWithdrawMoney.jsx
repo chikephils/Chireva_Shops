@@ -153,7 +153,7 @@ const UserWithdrawMoney = () => {
   return (
     <div className="h-full bg-gray-50 pb-16">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-20 bg-white border-b shadow-sm">
+      <div className="fixed w-full left-0 right-0  z-20 bg-white border-b shadow-sm">
         <div className="max-w-screen-4xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <FcMoneyTransfer className="text-indigo-600" size={28} />
@@ -166,7 +166,7 @@ const UserWithdrawMoney = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-3 lg:px-8 pt-6 space-y-6 h-full overflow-y-scroll scrollbar-hide pb-16 lg-pb-8">
+      <div className="max-w-screen-4xl px-2 lg:px-6 pt-20 space-y-6">
         {/* Balance Display */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-8">
           <h3 className="text-base lg:text-lg font-medium text-gray-600 mb-2">Available Balance</h3>
