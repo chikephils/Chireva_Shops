@@ -48,12 +48,12 @@ const AdminOrderDetails = () => {
     try {
       await api.put(
         `${server}/order/update-order-status/${id}`,
+        { status },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
-        { status },
       );
 
       toast.success("Order updated");
@@ -70,12 +70,12 @@ const AdminOrderDetails = () => {
     try {
       await api.put(
         `${server}/order/order-refund-action/${id}`,
+        { status: "Approve" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
-        { status: "Approve" },
       );
 
       toast.success("Refund processed");
@@ -92,12 +92,12 @@ const AdminOrderDetails = () => {
     try {
       await api.put(
         `${server}/order/order-refund-action/${id}`,
+        { status: "Reject" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
-        { status: "Reject" },
       );
 
       toast.success("Refund rejected");

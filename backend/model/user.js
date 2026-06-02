@@ -27,22 +27,10 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    withdrawMethods: [
-      {
-        bankName: {
-          type: String,
-          required: true,
-        },
-        accountNumber: {
-          type: String,
-          required: true,
-        },
-        addedAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
+    withdrawMethods: {
+      type: Array,
+      default: [],
+    },
     transactions: [
       {
         amount: {

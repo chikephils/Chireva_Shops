@@ -34,16 +34,16 @@ export const updateUserInformation = createAsyncThunk(
       const response = await api.put(
         "/user/update-user-info",
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           firstName,
           lastName,
           email,
           phoneNumber,
           password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
 
@@ -64,17 +64,17 @@ export const updateUserAddress = createAsyncThunk(
       const response = await api.put(
         "/user/update-user-addresses",
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           country,
           state,
           city,
           address1,
           zipCode,
           addressType,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
       toast.success("Address Updated Successfully");

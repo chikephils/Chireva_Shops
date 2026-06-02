@@ -108,7 +108,7 @@ router.post(
         activation_token,
         process.env.ACTIVATION_SECRET,
       );
-      const tempSeller = await TempUser.findById(decoded.id);
+      const tempSeller = await TempSeller.findById(decoded.id);
 
       if (!tempSeller) {
         return next(new ErrorHandler("Invalid activation request", 400));
@@ -584,17 +584,16 @@ router.put(
 
       const shop = await Shop.findById(req.seller._id);
 
-      // Check if this exact method already exists (avoid duplicates)
-      const exists = shop.withdrawMethods.some(
-        (m) =>
-          m.bankName === withdrawMethod.bankName &&
-          m.accountNumber === withdrawMethod.accountNumber,
-      );
+      //  single method rule
+      shop.withdrawMethods = [
+        {
+          bankName: withdrawMethod.bankName,
+          accountNumber: withdrawMethod.accountNumber,
+          addedAt: new Date(),
+        },
+      ];
 
-      if (!exists) {
-        shop.withdrawMethods.push(withdrawMethod);
-        await shop.save();
-      }
+      await shop.save();
 
       res.status(200).json({
         success: true,
@@ -612,22 +611,15 @@ router.delete(
   isSellerAuthenticated,
   catchAsyncError(async (req, res, next) => {
     try {
-      const { bankName } = req.body;
-
-      if (!bankName) {
-        return next(new ErrorHandler("Account number required", 400));
-      }
-
       const shop = await Shop.findById(req.seller._id);
 
-      shop.withdrawMethods = shop.withdrawMethods.filter(
-        (m) => m.bankName !== bankName,
-      );
+      shop.withdrawMethods = [];
 
       await shop.save();
 
       res.status(200).json({
         success: true,
+        message: "Withdrawal method deleted successfully",
         seller: shop,
       });
     } catch (error) {
