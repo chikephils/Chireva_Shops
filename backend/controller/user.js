@@ -589,17 +589,16 @@ router.put(
 
       const user = await User.findById(req.user._id);
 
-      // Check if this exact method already exists to avoid duplicates
-      const exists = user.withdrawMethods.some(
-        (m) =>
-          m.bankName === withdrawMethod.bankName &&
-          m.accountNumber === withdrawMethod.accountNumber,
-      );
+      //  single method rule
+      user.withdrawMethods = [
+        {
+          bankName: withdrawMethod.bankName,
+          accountNumber: withdrawMethod.accountNumber,
+          addedAt: new Date(),
+        },
+      ];
 
-      if (!exists) {
-        user.withdrawMethods.push(withdrawMethod);
-        await user.save();
-      }
+      await user.save();
 
       res.status(200).json({
         success: true,
@@ -617,22 +616,15 @@ router.delete(
   isUserAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const { bankName } = req.body;
+      const user = await Shop.findById(req.user._id);
 
-      if (!bankName) {
-        return next(new ErrorHandler("Account number required", 400));
-      }
-
-      const user = await User.findById(req.user._id);
-
-      user.withdrawMethods = user.withdrawMethods.filter(
-        (m) => m.bankName !== bankName,
-      );
+      user.withdrawMethods = [];
 
       await user.save();
 
       res.status(200).json({
         success: true,
+        message: "Withdrawal method deleted successfully",
         user: user,
       });
     } catch (error) {
@@ -742,7 +734,6 @@ router.delete(
           await cloudinary.v2.uploader.destroy(user.avatar.public_id);
         } catch (cloudErr) {
           console.error("Cloudinary delete failed (non-critical):", cloudErr);
-         
         }
       }
 

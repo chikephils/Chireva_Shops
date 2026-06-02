@@ -72,12 +72,12 @@ const OrderDetails = () => {
     try {
       await api.put(
         `${server}/order/update-order-status/${orderId}`,
+        { status },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
-        { status },
       );
 
       toast.success("Order updated");

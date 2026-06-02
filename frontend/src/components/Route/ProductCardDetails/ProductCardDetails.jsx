@@ -74,12 +74,12 @@ const ProductCardDetails = ({ setDetailsOpen, product, addToCart, remove, inCart
     try {
       const response = await api.post(
         `${server}/conversation/create-new-conversation`,
+        { groupTitle, userId, sellerId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
-        { groupTitle, userId, sellerId },
       );
 
       navigate(`/profile/inbox/${response.data.conversation._id}`, {

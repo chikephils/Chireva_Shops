@@ -184,7 +184,7 @@ const ReviewsTab = ({ products, isLoading }) => {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 pb-6">
       {allReviews.map((review, idx) => (
         <div
           key={idx}
@@ -207,9 +207,9 @@ const ReviewsTab = ({ products, isLoading }) => {
               <Ratings rating={review.rating} />
             </div>
 
-            <p className="text-gray-700 leading-relaxed">{review.comment}</p>
+            <p className="text-gray-700 text-sm leading-relaxed">{review.comment}</p>
 
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-xs text-gray-500">
               <span className="font-medium">
                 {new Date(review.createdAt).toLocaleDateString("en-GB", {
                   day: "numeric",

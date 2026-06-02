@@ -125,25 +125,19 @@ const UserWithdrawMoney = () => {
   };
 
   // Delete saved bank method
-  const deleteWithdrawMethod = async (method) => {
-    if (!window.confirm(`Remove ${method.bankName} - ${method.accountNumber}?`)) {
-      return;
-    }
-
+  const deleteWithdrawMethod = async () => {
+    if (!window.confirm("Remove this withdrawal method?")) return;
     try {
-      await api.delete(
-        `${server}/user/delete-user-withdraw-method`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await api.delete(`${server}/user/delete-user-withdraw-method`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          data: { bankName: method.bankName },
-        },
-      );
+      });
 
       toast.success("Bank account removed");
+      setBankName("");
+      setAccountNumber("");
+      setFormMode("select");
       dispatch(LoadSeller());
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to remove bank");
@@ -208,7 +202,7 @@ const UserWithdrawMoney = () => {
                             Select
                           </button>
 
-                          <button onClick={() => deleteWithdrawMethod(method)} className="text-red-600 hover:text-red-800">
+                          <button onClick={deleteWithdrawMethod} className="text-red-600 hover:text-red-800">
                             <MdDeleteForever size={22} />
                           </button>
                         </div>
@@ -298,7 +292,7 @@ const UserWithdrawMoney = () => {
                   placeholder="0.00"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   min="1000"
-                  max={user?.availableBalance || 0}
+                  max={user?.availableBalance}
                 />
                 <p className="mt-1 text-sm text-gray-600">Max available: ₦{numbersWithCommas(user?.availableBalance || 0)}</p>
               </div>

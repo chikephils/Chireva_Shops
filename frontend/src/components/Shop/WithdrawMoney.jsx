@@ -113,7 +113,7 @@ const WithdrawMoney = () => {
       // Reset form
       setBankName("");
       setAccountNumber("");
-      setWithdrawAmount(0);
+      setWithdrawAmount(" ");
       setFormMode("select");
     } catch (error) {
       console.error("Withdrawal failed:", error);
@@ -127,25 +127,21 @@ const WithdrawMoney = () => {
   };
 
   // Delete saved bank method
-  const deleteWithdrawMethod = async (method) => {
-    if (!window.confirm(`Remove ${method.bankName} - ${method.accountNumber}?`)) {
-      return;
-    }
+  const deleteWithdrawMethod = async () => {
+    if (!window.confirm("Remove this withdrawal method?")) return;
 
     try {
-      await api.delete(
-        `${server}/shop/delete-withdraw-method`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await api.delete(`${server}/shop/delete-withdraw-method`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          data: { bankName: method.bankName },
-        },
-      );
+      });
 
       toast.success("Bank account removed");
+      setBankName("");
+      setAccountNumber("");
+      setFormMode("select");
+
       dispatch(LoadSeller());
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to remove bank");
@@ -210,7 +206,7 @@ const WithdrawMoney = () => {
                             Select
                           </button>
 
-                          <button onClick={() => deleteWithdrawMethod(method)} className="text-red-600 hover:text-red-800">
+                          <button onClick={deleteWithdrawMethod} className="text-red-600 hover:text-red-800">
                             <MdDeleteForever size={22} />
                           </button>
                         </div>
@@ -300,7 +296,7 @@ const WithdrawMoney = () => {
                   placeholder="0.00"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   min="1000"
-                  max={seller?.availableBalance || 0}
+                  max={seller?.availableBalance}
                 />
                 <p className="mt-1 text-sm text-gray-600">Max available: ₦{numbersWithCommas(seller?.availableBalance || 0)}</p>
               </div>
