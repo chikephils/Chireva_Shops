@@ -125,7 +125,9 @@ router.get(
   "/get-shop-products/:id",
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const products = await Product.find({ shopId: req.params.id });
+      const products = await Product.find({ shopId: req.params.id }).sort({
+        createdAt: -1,
+      });
 
       res.status(201).json({
         success: true,
@@ -468,11 +470,14 @@ router.get(
       }
 
       const [products, totalProducts] = await Promise.all([
-        Product.find(query).skip(skip).limit(limit).lean(),
+        Product.find(query)
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limit)
+          .lean(),
 
         Product.countDocuments(query),
       ]);
-
       const totalPages = Math.ceil(totalProducts / limit);
       const hasNextPage = page < totalPages;
       const hasPrevPage = page > 1;
@@ -547,9 +552,9 @@ router.get(
 
       const [promoProducts, totalPromoProducts] = await Promise.all([
         Product.find(query)
+          .sort({ createdAt: -1 })
           .skip(skip)
           .limit(limit)
-          .sort({ createdAt: -1 })
           .lean(),
 
         Product.countDocuments(query),
