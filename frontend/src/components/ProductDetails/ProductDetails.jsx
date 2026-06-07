@@ -198,11 +198,13 @@ const ProductDetails = ({ product }) => {
         {/* Shop Info */}
         <div className="mt-10 pt-8 border-t">
           <div className="flex flex-col gap-5">
-            <div className="flex items-center text-center ">
-              <img src={product.shop.avatar?.url} alt="" className="w-20 rounded-full  " />
+            <div className="flex items-center gap-3">
+              <div className="relative border-2 border-lime-600 rounded-full" style={{ flexShrink: 0 }}>
+                <img src={product.shop.avatar?.url} alt="" className="w-[50px] h-[50px] rounded-full " />
+              </div>
               <div>
-                <h3 className="flex text-base lg:text-xl font-semibold">{product.shop.shopName}</h3>
-                <p className="text-sm  md:text-base text-gray-600">{averageRating} ★ rating</p>
+                <h3 className="text-lg font-semibold">{product.shop.shopName}</h3>
+                <p className="text-gray-600">{averageRating} ★ Rating</p>
               </div>
             </div>
             <button
@@ -306,7 +308,7 @@ const ProductDetails = ({ product }) => {
           </div>
           <div className="mt-10 flex items-center justify-between px-3">
             <div className="flex items-center gap-4">
-              <div className="relative border-2 border-lime-600" style={{ flexShrink: 0 }}>
+              <div className="relative border-2 border-lime-600 rounded-full" style={{ flexShrink: 0 }}>
                 <img src={product.shop.avatar?.url} alt="" className="w-[50px] h-[50px] rounded-full " />
               </div>
               <div>
