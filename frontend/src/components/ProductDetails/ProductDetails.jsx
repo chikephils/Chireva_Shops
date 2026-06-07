@@ -181,7 +181,7 @@ const ProductDetails = ({ product }) => {
             </div>
           </div>
 
-          <div className="w-full p-2 lg:p-4 flex flex-row items-center justify-between gap-6">
+          <div className="w-full  lg:p-4 flex flex-row items-center justify-between gap-6">
             <button
               onClick={inCart ? removeFromCartHandler : addToCartHandler}
               disabled={product.stock < 1}
@@ -387,11 +387,13 @@ const ProductDetailsInfo = ({ product, shopProducts, totalReviewsLength, average
         <div className="flex flex-col md:flex-row md:justify-between px-4 min-h-[20vh]">
           {/* Left column - Shop info */}
           <div className="w-full md:w-[50%]">
-            <div className="flex items-center">
-              <img src={product.shop.avatar?.url} alt="" className="w-20 rounded-full  " />
+            <div className="flex items-center gap-3">
+              <div className="relative border-2 border-lime-600 rounded-full" style={{ flexShrink: 0 }}>
+                <img src={product.shop.avatar?.url} alt="" className="w-[50px] h-[50px] rounded-full " />
+              </div>
               <div>
-                <h3 className="text-base lg:text-xl font-semibold">{product.shop.shopName}</h3>
-                <p className="text-gray-600 text-sm">{averageRating} ★ Ratings</p>
+                <h3 className="text-md font-semibold">{product.shop.shopName}</h3>
+                <p className="text-gray-600 text-sm">{averageRating} ★ Rating</p>
               </div>
             </div>
             <p className="mt-4 text-gray-700 text-sm md:text-base">{product.shop.description || "No description available."}</p>

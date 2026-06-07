@@ -180,7 +180,7 @@ const ProductCardDetails = ({ setDetailsOpen, product, addToCart, remove, inCart
             )}
           </div>
 
-          <div className="mt-4 lg:mt-6 flex items-center justify-between px-2">
+          <div className="mt-4 lg:mt-6 flex items-center justify-between">
             <div className="flex items-center">
               <button
                 onClick={decrementCount}
