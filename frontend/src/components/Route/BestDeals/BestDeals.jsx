@@ -15,12 +15,16 @@ const BestDeals = () => {
 
   useEffect(() => {
     const fetchBestSelling = async () => {
+      setLoading(true);
+
       try {
         const response = await api.get(`${server}/product/get-best-selling?limit=4`);
 
         setProducts(response?.data?.products || []);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
